@@ -1,0 +1,89 @@
+﻿@page "/wishlists/edit"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Wishlist</h2>
+<hr />
+@if (Wishlist is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Wishlist" OnValidSubmit="UpdateWishlist" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Wishlist.UserId" value="@Wishlist.UserId" />
+                <div class="mb-3">
+                    <label for="wishlistid" class="form-label">WishlistId:</label>
+                    <InputNumber id="wishlistid" @bind-Value="Wishlist.WishlistId" class="form-control" />
+                    <ValidationMessage For="() => Wishlist.WishlistId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/wishlists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private string UserId { get; set; }
+
+    [SupplyParameterFromForm]
+    private Wishlist? Wishlist { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Wishlist ??= await context.Wishlists.FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        if (Wishlist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateWishlist()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Wishlist!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!WishlistExists(Wishlist!.UserId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/wishlists");
+    }
+
+    private bool WishlistExists(string userid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Wishlists.Any(e => e.UserId == userid);
+    }
+}

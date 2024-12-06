@@ -1,0 +1,36 @@
+﻿@page "/publishers"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BookShop.Data
+@using BookShop.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="publishers/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Publisher">
+    <PropertyColumn Property="publisher => publisher.PublisherName" />
+
+    <TemplateColumn Context="publisher">
+        <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")">Edit</a> |
+        <a href="@($"publishers/details?publisherid={publisher.PublisherId}")">Details</a> |
+        <a href="@($"publishers/delete?publisherid={publisher.PublisherId}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

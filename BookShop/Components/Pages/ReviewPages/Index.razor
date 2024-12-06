@@ -1,0 +1,40 @@
+﻿@page "/reviews"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BookShop.Data
+@using BookShop.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="reviews/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Reviews">
+    <PropertyColumn Property="review => review.UserId" />
+    <PropertyColumn Property="review => review.BookId" />
+    <PropertyColumn Property="review => review.Rating" />
+    <PropertyColumn Property="review => review.ReviewText" />
+    <PropertyColumn Property="review => review.DatePosted" />
+
+    <TemplateColumn Context="review">
+        <a href="@($"reviews/edit?reviewid={review.ReviewId}")">Edit</a> |
+        <a href="@($"reviews/details?reviewid={review.ReviewId}")">Details</a> |
+        <a href="@($"reviews/delete?reviewid={review.ReviewId}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

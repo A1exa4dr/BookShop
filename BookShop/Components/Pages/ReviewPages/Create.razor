@@ -1,0 +1,64 @@
+﻿@page "/reviews/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Review</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Review" OnValidSubmit="AddReview" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputText id="userid" @bind-Value="Review.UserId" class="form-control" /> 
+                <ValidationMessage For="() => Review.UserId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="bookid" class="form-label">BookId:</label> 
+                <InputNumber id="bookid" @bind-Value="Review.BookId" class="form-control" /> 
+                <ValidationMessage For="() => Review.BookId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating:</label> 
+                <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" /> 
+                <ValidationMessage For="() => Review.Rating" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="reviewtext" class="form-label">ReviewText:</label> 
+                <InputText id="reviewtext" @bind-Value="Review.ReviewText" class="form-control" /> 
+                <ValidationMessage For="() => Review.ReviewText" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateposted" class="form-label">DatePosted:</label> 
+                <InputDate id="dateposted" @bind-Value="Review.DatePosted" class="form-control" /> 
+                <ValidationMessage For="() => Review.DatePosted" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/reviews">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Review Review { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddReview()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Reviews.Add(Review);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/reviews");
+    }
+}

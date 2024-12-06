@@ -1,0 +1,89 @@
+﻿@page "/authors/edit"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Author</h2>
+<hr />
+@if (Author is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Author" OnValidSubmit="UpdateAuthor" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Author.AuthorId" value="@Author.AuthorId" />
+                <div class="mb-3">
+                    <label for="authorname" class="form-label">AuthorName:</label>
+                    <InputText id="authorname" @bind-Value="Author.AuthorName" class="form-control" />
+                    <ValidationMessage For="() => Author.AuthorName" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/authors">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int AuthorId { get; set; }
+
+    [SupplyParameterFromForm]
+    private Author? Author { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Author ??= await context.Author.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
+
+        if (Author is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateAuthor()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Author!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AuthorExists(Author!.AuthorId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/authors");
+    }
+
+    private bool AuthorExists(int authorid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Author.Any(e => e.AuthorId == authorid);
+    }
+}

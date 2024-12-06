@@ -1,0 +1,46 @@
+﻿@page "/wishlists/details"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Wishlist</h2>
+    <hr />
+    @if (wishlist is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">WishlistId</dt>
+            <dd class="col-sm-10">@wishlist.WishlistId</dd>
+        </dl>
+        <div>
+            <a href="@($"/wishlists/edit?userid={wishlist.UserId}")">Edit</a> |
+            <a href="@($"/wishlists")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Wishlist? wishlist;
+
+    [SupplyParameterFromQuery]
+    private string UserId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        wishlist = await context.Wishlists.FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        if (wishlist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

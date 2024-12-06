@@ -1,0 +1,59 @@
+﻿@page "/suppliers/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Supplier</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Supplier" OnValidSubmit="AddSupplier" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="Supplier.Name" class="form-control" /> 
+                <ValidationMessage For="() => Supplier.Name" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label> 
+                <InputText id="address" @bind-Value="Supplier.Address" class="form-control" /> 
+                <ValidationMessage For="() => Supplier.Address" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="phonenumber" class="form-label">PhoneNumber:</label> 
+                <InputText id="phonenumber" @bind-Value="Supplier.PhoneNumber" class="form-control" /> 
+                <ValidationMessage For="() => Supplier.PhoneNumber" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="Supplier.Email" class="form-control" /> 
+                <ValidationMessage For="() => Supplier.Email" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/suppliers">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Supplier Supplier { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddSupplier()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Suppliers.Add(Supplier);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/suppliers");
+    }
+}

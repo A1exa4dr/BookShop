@@ -1,0 +1,46 @@
+﻿@page "/publishers/details"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Publisher</h2>
+    <hr />
+    @if (publisher is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">PublisherName</dt>
+            <dd class="col-sm-10">@publisher.PublisherName</dd>
+        </dl>
+        <div>
+            <a href="@($"/publishers/edit?publisherid={publisher.PublisherId}")">Edit</a> |
+            <a href="@($"/publishers")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Publisher? publisher;
+
+    [SupplyParameterFromQuery]
+    private int PublisherId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        publisher = await context.Publisher.FirstOrDefaultAsync(m => m.PublisherId == PublisherId);
+
+        if (publisher is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

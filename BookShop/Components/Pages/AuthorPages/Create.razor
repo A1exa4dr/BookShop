@@ -1,0 +1,44 @@
+﻿@page "/authors/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Author</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Author" OnValidSubmit="AddAuthor" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="authorname" class="form-label">AuthorName:</label> 
+                <InputText id="authorname" @bind-Value="Author.AuthorName" class="form-control" /> 
+                <ValidationMessage For="() => Author.AuthorName" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/authors">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Author Author { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddAuthor()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Author.Add(Author);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/authors");
+    }
+}

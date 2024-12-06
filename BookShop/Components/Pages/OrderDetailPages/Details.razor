@@ -1,0 +1,48 @@
+﻿@page "/orderdetails/details"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>OrderDetail</h2>
+    <hr />
+    @if (orderdetail is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Quantity</dt>
+            <dd class="col-sm-10">@orderdetail.Quantity</dd>
+            <dt class="col-sm-2">Price</dt>
+            <dd class="col-sm-10">@orderdetail.Price</dd>
+        </dl>
+        <div>
+            <a href="@($"/orderdetails/edit?orderid={orderdetail.OrderId}")">Edit</a> |
+            <a href="@($"/orderdetails")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private OrderDetail? orderdetail;
+
+    [SupplyParameterFromQuery]
+    private int OrderId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        orderdetail = await context.OrderDetails.FirstOrDefaultAsync(m => m.OrderId == OrderId);
+
+        if (orderdetail is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

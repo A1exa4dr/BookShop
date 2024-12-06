@@ -1,0 +1,44 @@
+﻿@page "/wishlists/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Wishlist</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Wishlist" OnValidSubmit="AddWishlist" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="wishlistid" class="form-label">WishlistId:</label> 
+                <InputNumber id="wishlistid" @bind-Value="Wishlist.WishlistId" class="form-control" /> 
+                <ValidationMessage For="() => Wishlist.WishlistId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/wishlists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Wishlist Wishlist { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddWishlist()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Wishlists.Add(Wishlist);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/wishlists");
+    }
+}

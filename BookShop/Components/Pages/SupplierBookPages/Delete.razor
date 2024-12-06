@@ -1,0 +1,55 @@
+﻿@page "/supplierbooks/delete"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>SupplierBook</h2>
+    <hr />
+    @if (supplierbook is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">BookQnty</dt>
+            <dd class="col-sm-10">@supplierbook.BookQnty</dd>
+        </dl>
+        <EditForm method="post" Model="supplierbook" OnValidSubmit="DeleteSupplierBook" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(supplierbook is null)">Delete</button> |
+            <a href="/supplierbooks">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private SupplierBook? supplierbook;
+
+    [SupplyParameterFromQuery]
+    private int SupplierId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        supplierbook = await context.SupplierBooks.FirstOrDefaultAsync(m => m.SupplierId == SupplierId);
+
+        if (supplierbook is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteSupplierBook()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.SupplierBooks.Remove(supplierbook!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/supplierbooks");
+    }
+}
