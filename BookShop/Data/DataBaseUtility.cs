@@ -17,8 +17,10 @@ public class DatabaseUtility
             .UseLoggerFactory(factory);
 
         using var context = new ApplicationDbContext(builder.Options);
+
+        await context.Database.EnsureCreatedAsync();
         // result is true if the database had to be created
-        if (await context.Database.EnsureCreatedAsync())
+        if (!await context.Users.AnyAsync())
         {
             var seed = new SeedData();
             await seed.InitializeAsync(context);

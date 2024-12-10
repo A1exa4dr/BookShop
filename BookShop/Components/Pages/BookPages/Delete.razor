@@ -34,6 +34,10 @@
             <dd class="col-sm-10">@book.PublisherId</dd>
         </dl>
         <dl class="row">
+            <dt class="col-sm-2">GenreId</dt>
+            <dd class="col-sm-10">@book.GenreId</dd>
+        </dl>
+        <dl class="row">
             <dt class="col-sm-2">Price</dt>
             <dd class="col-sm-10">@book.Price</dd>
         </dl>
@@ -44,6 +48,10 @@
         <dl class="row">
             <dt class="col-sm-2">StockQuantity</dt>
             <dd class="col-sm-10">@book.StockQuantity</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">SupplierId</dt>
+            <dd class="col-sm-10">@book.SupplierId</dd>
         </dl>
         <EditForm method="post" Model="book" OnValidSubmit="DeleteBook" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(book is null)">Delete</button> |

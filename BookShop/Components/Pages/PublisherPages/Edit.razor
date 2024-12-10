@@ -24,8 +24,13 @@ else
                 <input type="hidden" name="Publisher.PublisherId" value="@Publisher.PublisherId" />
                 <div class="mb-3">
                     <label for="publishername" class="form-label">PublisherName:</label>
-                    <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" />
+                    <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Publisher.PublisherName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="contactemail" class="form-label">ContactEmail:</label>
+                    <InputText id="contactemail" @bind-Value="Publisher.ContactEmail" class="form-control" />
+                    <ValidationMessage For="() => Publisher.ContactEmail" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
@@ -47,7 +52,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Publisher ??= await context.Publisher.FirstOrDefaultAsync(m => m.PublisherId == PublisherId);
+        Publisher ??= await context.Publishers.FirstOrDefaultAsync(m => m.PublisherId == PublisherId);
 
         if (Publisher is null)
         {
@@ -84,6 +89,6 @@ else
     private bool PublisherExists(int publisherid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Publisher.Any(e => e.PublisherId == publisherid);
+        return context.Publishers.Any(e => e.PublisherId == publisherid);
     }
 }

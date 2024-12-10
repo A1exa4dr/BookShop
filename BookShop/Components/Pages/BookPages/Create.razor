@@ -22,7 +22,7 @@
             </div>        
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label> 
-                <InputText id="title" @bind-Value="Book.Title" class="form-control" /> 
+                <InputText id="title" @bind-Value="Book.Title" class="form-control" aria-required="true"/> 
                 <ValidationMessage For="() => Book.Title" class="text-danger" /> 
             </div>        
             <div class="mb-3">
@@ -34,6 +34,11 @@
                 <label for="publisherid" class="form-label">PublisherId:</label> 
                 <InputNumber id="publisherid" @bind-Value="Book.PublisherId" class="form-control" /> 
                 <ValidationMessage For="() => Book.PublisherId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="genreid" class="form-label">GenreId:</label> 
+                <InputNumber id="genreid" @bind-Value="Book.GenreId" class="form-control" /> 
+                <ValidationMessage For="() => Book.GenreId" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="price" class="form-label">Price:</label> 
@@ -49,6 +54,11 @@
                 <label for="stockquantity" class="form-label">StockQuantity:</label> 
                 <InputNumber id="stockquantity" @bind-Value="Book.StockQuantity" class="form-control" /> 
                 <ValidationMessage For="() => Book.StockQuantity" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="supplierid" class="form-label">SupplierId:</label> 
+                <InputNumber id="supplierid" @bind-Value="Book.SupplierId" class="form-control" /> 
+                <ValidationMessage For="() => Book.SupplierId" class="text-danger" /> 
             </div>        
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>

@@ -17,8 +17,13 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="publishername" class="form-label">PublisherName:</label> 
-                <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" /> 
+                <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" aria-required="true"/> 
                 <ValidationMessage For="() => Publisher.PublisherName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="contactemail" class="form-label">ContactEmail:</label> 
+                <InputText id="contactemail" @bind-Value="Publisher.ContactEmail" class="form-control" /> 
+                <ValidationMessage For="() => Publisher.ContactEmail" class="text-danger" /> 
             </div>        
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
@@ -37,7 +42,7 @@
     private async Task AddPublisher()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Publisher.Add(Publisher);
+        context.Publishers.Add(Publisher);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/publishers");
     }

@@ -17,7 +17,7 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label> 
-                <InputText id="name" @bind-Value="Genre.Name" class="form-control" /> 
+                <InputText id="name" @bind-Value="Genre.Name" class="form-control" aria-required="true"/> 
                 <ValidationMessage For="() => Genre.Name" class="text-danger" /> 
             </div>        
             <button type="submit" class="btn btn-primary">Create</button>

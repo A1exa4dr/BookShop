@@ -15,7 +15,6 @@
 </p>
 
 <QuickGrid Class="table" Items="context.Wishlists">
-    <PropertyColumn Property="wishlist => wishlist.WishlistId" />
 
     <TemplateColumn Context="wishlist">
         <a href="@($"wishlists/edit?userid={wishlist.UserId}")">Edit</a> |

@@ -16,9 +16,9 @@
 
 <QuickGrid Class="table" Items="context.Orders">
     <PropertyColumn Property="order => order.UserId" />
-    <PropertyColumn Property="order => order.OrderStatusId" />
     <PropertyColumn Property="order => order.OrderDate" />
     <PropertyColumn Property="order => order.TotalAmount" />
+    <PropertyColumn Property="order => order.OrderStatusId" />
 
     <TemplateColumn Context="order">
         <a href="@($"orders/edit?orderid={order.OrderId}")">Edit</a> |

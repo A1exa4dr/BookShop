@@ -28,11 +28,6 @@ else
                     <ValidationMessage For="() => Order.UserId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="orderstatusid" class="form-label">OrderStatusId:</label>
-                    <InputNumber id="orderstatusid" @bind-Value="Order.OrderStatusId" class="form-control" />
-                    <ValidationMessage For="() => Order.OrderStatusId" class="text-danger" />
-                </div>
-                <div class="mb-3">
                     <label for="orderdate" class="form-label">OrderDate:</label>
                     <InputDate id="orderdate" @bind-Value="Order.OrderDate" class="form-control" />
                     <ValidationMessage For="() => Order.OrderDate" class="text-danger" />
@@ -41,6 +36,11 @@ else
                     <label for="totalamount" class="form-label">TotalAmount:</label>
                     <InputNumber id="totalamount" @bind-Value="Order.TotalAmount" class="form-control" />
                     <ValidationMessage For="() => Order.TotalAmount" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="orderstatusid" class="form-label">OrderStatusId:</label>
+                    <InputNumber id="orderstatusid" @bind-Value="Order.OrderStatusId" class="form-control" />
+                    <ValidationMessage For="() => Order.OrderStatusId" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>

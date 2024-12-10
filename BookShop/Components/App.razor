@@ -9,14 +9,28 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="BookShop.styles.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    @* <HeadOutlet @rendermode="RenderModeForPage" /> *@
-    <HeadOutlet />
+    <HeadOutlet @rendermode="RenderModeForPage" />
+    @* <HeadOutlet /> *@
 </head>
 
 <body>
-    <Routes />
-    @* <Routes @rendermode="RenderModeForPage" /> *@
+    @* <Routes /> *@
+    <Routes @rendermode="RenderModeForPage" /> 
+    @* <Routes @rendermode="InteractiveServer" /> *@ 
     <script src="_framework/blazor.web.js"></script>
+    <script src="js/openfile.js"></script> @* // *@
 </body>
 
 </html>
+
+@code {
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private IComponentRenderMode? RenderModeForPage =>
+        HttpContext.Request.Path.StartsWithSegments("/Account")
+            ? null
+            : InteractiveServer;
+
+}

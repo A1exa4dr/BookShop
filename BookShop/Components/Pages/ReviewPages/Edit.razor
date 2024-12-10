@@ -34,7 +34,7 @@ else
                 </div>
                 <div class="mb-3">
                     <label for="rating" class="form-label">Rating:</label>
-                    <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" />
+                    <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Review.Rating" class="text-danger" />
                 </div>
                 <div class="mb-3">

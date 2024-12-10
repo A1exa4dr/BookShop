@@ -226,12 +226,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCb29rUGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/ExportExcel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFeHBvcnRFeGNlbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/GenrePages/Create.razor]
@@ -256,6 +256,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/ImportExcel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbXBvcnRFeGNlbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/OrderDetailPages/Create.razor]
@@ -338,26 +342,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXZpZXdQYWdlc1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierBookPages/Create.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllckJvb2tQYWdlc1xDcmVhdGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierBookPages/Delete.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllckJvb2tQYWdlc1xEZWxldGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierBookPages/Details.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllckJvb2tQYWdlc1xEZXRhaWxzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierBookPages/Edit.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllckJvb2tQYWdlc1xFZGl0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierBookPages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllckJvb2tQYWdlc1xJbmRleC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierPages/Create.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllclBhZ2VzXENyZWF0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -376,10 +360,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/SupplierPages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdXBwbGllclBhZ2VzXEluZGV4LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/WishlistPages/Create.razor]

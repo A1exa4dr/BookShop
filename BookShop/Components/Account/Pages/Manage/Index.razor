@@ -3,15 +3,17 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
 @using BookShop.Data
+@using Microsoft.EntityFrameworkCore
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject IdentityUserAccessor UserAccessor
 @inject IdentityRedirectManager RedirectManager
+@inject ApplicationDbContext dbContext
 
-<PageTitle>Profile</PageTitle>
+<PageTitle>Профиль</PageTitle>
 
-<h3>Profile</h3>
+<h3>Профиль</h3>
 <StatusMessage />
 
 <div class="row">
@@ -20,15 +22,55 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
-                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
-                <label for="username" class="form-label">Username</label>
+                <input type="text" value="@username" class="form-control" placeholder="Пожалуйства введите имя пользователя." disabled />
+                <label for="username" class="form-label">Имя пользователя</label>
             </div>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
-                <label for="phone-number" class="form-label">Phone number</label>
-                <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Фамилия:</label>
+                <InputText id="lastname" @bind-Value="Input.LastName" class="form-control" />
+                <ValidationMessage For="() => Input.LastName" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">Имя:</label>
+                <InputText id="firstname" @bind-Value="Input.FirstName" class="form-control" />
+                <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="middlename" class="form-label">Отчество:</label>
+                <InputText id="middlename" @bind-Value="Input.MiddleName" class="form-control" />
+                <ValidationMessage For="() => Input.MiddleName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Пол:</label>
+                <InputSelect id="gender" @bind-Value="Input.GenderId" class="form-control">
+                    @foreach (Gender gender in genders)
+                    {
+                        <option value="@gender.Id">@gender.GenderName</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="() => Input.GenderId" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="datebirth" class="form-label">Дата рождения:</label>
+                <InputDate id="datebirth" @bind-Value="Input.DateBirth" class="form-control" />
+                <ValidationMessage For="() => Input.DateBirth" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="dateOfRegist" class="form-label">Дата ркгистрации:</label>
+                <InputDate id="dateOfRegist" @bind-Value="Input.DateOfRegist" class="form-control" />
+                <ValidationMessage For="() => Input.DateOfRegist" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Телефон:</label>
+                <InputText id="phone" @bind-Value="Input.Phone" class="form-control" />
+                <ValidationMessage For="() => Input.Phone" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="adress" class="form-label">Адресс:</label>
+                <InputText id="adress" @bind-Value="Input.Address" class="form-control" />
+                <ValidationMessage For="() => Input.Address" class="text-danger" />
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Сохранить</button>
         </EditForm>
     </div>
 </div>
@@ -37,6 +79,15 @@
     private ApplicationUser user = default!;
     private string? username;
     private string? phoneNumber;
+    private string? LastName;
+    private string? FirstName;
+    private string? MiddleName;
+    private int? GenderId;
+    private string? Phone;
+    private string? Address;
+    private DateTime? DateBirth;
+    private DateTime? DateOfRegist;
+    public List<Gender>? genders;
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
@@ -46,21 +97,108 @@
 
     protected override async Task OnInitializedAsync()
     {
+        genders = dbContext.Genders.ToList();
         user = await UserAccessor.GetRequiredUserAsync(HttpContext);
         username = await UserManager.GetUserNameAsync(user);
-        phoneNumber = await UserManager.GetPhoneNumberAsync(user);
+        LastName = user.LastName;
+        FirstName = user.FirstName;
+        MiddleName = user.MiddleName;
+        Phone = user.Phone;
+        Address = user.Address;
+        DateBirth = user.DateBirth;
+        DateOfRegist = user.DateOfRegist;
+        GenderId = user.GenderId;
 
-        Input.PhoneNumber ??= phoneNumber;
+        Input.LastName ??= LastName;
+        Input.FirstName ??= FirstName;
+        Input.MiddleName ??= MiddleName;
+        Input.Phone ??= Phone;
+        Input.Address ??= Address;
+        Input.DateBirth ??= DateBirth;
+        Input.DateOfRegist ??= DateOfRegist;
+        Input.GenderId ??= GenderId;
     }
 
     private async Task OnValidSubmitAsync()
     {
-        if (Input.PhoneNumber != phoneNumber)
+        if (Input.LastName != LastName)
         {
-            var setPhoneResult = await UserManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-            if (!setPhoneResult.Succeeded)
+            user.LastName = Input.LastName;
+
+            var setLastName = await UserManager.UpdateAsync(user);
+            if (!setLastName.Succeeded)
             {
-                RedirectManager.RedirectToCurrentPageWithStatus("Error: Failed to set phone number.", HttpContext);
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении фамилии.", HttpContext);
+            }
+        }
+        if (Input.FirstName != FirstName)
+        {
+            user.LastName = Input.FirstName;
+
+            var setFirstName = await UserManager.UpdateAsync(user);
+            if (!setFirstName.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении имени.", HttpContext);
+            }
+        }
+        if (Input.MiddleName != MiddleName)
+        {
+            user.MiddleName = Input.MiddleName;
+
+            var setMiddleName = await UserManager.UpdateAsync(user);
+            if (!setMiddleName.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении отчества.", HttpContext);
+            }
+        }
+        if (Input.GenderId != GenderId)
+        {
+            user.GenderId = Input.GenderId;
+
+            var setGenderId = await UserManager.UpdateAsync(user);
+            if (!setGenderId.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении пола.", HttpContext);
+            }
+        }
+        if (Input.DateBirth != DateBirth)
+        {
+            user.DateBirth = Input.DateBirth;
+
+            var setDateBirth = await UserManager.UpdateAsync(user);
+            if (!setDateBirth.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении даты рождения.", HttpContext);
+            }
+        }
+        // if (Input.DateOfRegist != DateOfRegist)
+        // {
+        //     user.DateOfRegist = Input.DateOfRegist;
+
+        //     var setDateOfRegist = await UserManager.UpdateAsync(user);
+        //     if (!setDateOfRegist.Succeeded)
+        //     {
+        //         RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении даты регистрации.", HttpContext);
+        //     }
+        // }
+        if (Input.Phone != Phone)
+        {
+            user.Phone = Input.Phone;
+
+            var setPhone = await UserManager.UpdateAsync(user);
+            if (!setPhone.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении номера телефона.", HttpContext);
+            }
+        }
+        if (Input.Address != Address)
+        {
+            user.Address = Input.Address;
+
+            var setAdress = await UserManager.UpdateAsync(user);
+            if (!setAdress.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Ошибка: Ошибка при обновлении адреса.", HttpContext);
             }
         }
 
@@ -73,5 +211,42 @@
         [Phone]
         [Display(Name = "Phone number")]
         public string? PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия")]
+        [StringLength(100, ErrorMessage = "{0} должно быть не меньше {2} и не больше {1} символов.", MinimumLength = 3)]
+        public string? LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Имя")]
+        [StringLength(100, ErrorMessage = "{0} должно быть не меньше {2} и не больше {1} символов.", MinimumLength = 3)]
+        public string? FirstName { get; set; }
+
+        [Display(Name = "Отчество")]
+        public string? MiddleName { get; set; }
+
+        [Required]
+        [Display(Name = "Пол")]
+        public int? GenderId { get; set; }
+
+        [Required]
+        [Display(Name = "Дата рождения")]
+
+        public DateTime? DateBirth { get; set; }
+
+        [Required]
+        [Display(Name = "Дата регистрации")]
+
+        public DateTime? DateOfRegist { get; set; }
+
+        [Required]
+        [Display(Name = "Телефон")]
+
+        public string? Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Адресс")]
+
+        public string? Address { get; set; }
     }
 }

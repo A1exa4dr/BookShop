@@ -19,9 +19,11 @@
     <PropertyColumn Property="book => book.Title" />
     <PropertyColumn Property="book => book.AuthorId" />
     <PropertyColumn Property="book => book.PublisherId" />
+    <PropertyColumn Property="book => book.GenreId" />
     <PropertyColumn Property="book => book.Price" />
     <PropertyColumn Property="book => book.Description" />
     <PropertyColumn Property="book => book.StockQuantity" />
+    <PropertyColumn Property="book => book.SupplierId" />
 
     <TemplateColumn Context="book">
         <a href="@($"books/edit?bookid={book.BookId}")">Edit</a> |

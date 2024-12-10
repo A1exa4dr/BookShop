@@ -37,7 +37,7 @@
     private async Task AddAuthor()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Author.Add(Author);
+        context.Authors.Add(Author);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/authors");
     }

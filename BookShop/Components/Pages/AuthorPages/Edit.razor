@@ -47,7 +47,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Author ??= await context.Author.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
+        Author ??= await context.Authors.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
 
         if (Author is null)
         {
@@ -84,6 +84,6 @@ else
     private bool AuthorExists(int authorid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Author.Any(e => e.AuthorId == authorid);
+        return context.Authors.Any(e => e.AuthorId == authorid);
     }
 }

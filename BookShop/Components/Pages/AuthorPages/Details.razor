@@ -36,7 +36,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        author = await context.Author.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
+        author = await context.Authors.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
 
         if (author is null)
         {

@@ -19,6 +19,8 @@
         <dl class="row">
             <dt class="col-sm-2">PublisherName</dt>
             <dd class="col-sm-10">@publisher.PublisherName</dd>
+            <dt class="col-sm-2">ContactEmail</dt>
+            <dd class="col-sm-10">@publisher.ContactEmail</dd>
         </dl>
         <div>
             <a href="@($"/publishers/edit?publisherid={publisher.PublisherId}")">Edit</a> |
@@ -36,7 +38,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        publisher = await context.Publisher.FirstOrDefaultAsync(m => m.PublisherId == PublisherId);
+        publisher = await context.Publishers.FirstOrDefaultAsync(m => m.PublisherId == PublisherId);
 
         if (publisher is null)
         {

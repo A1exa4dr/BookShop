@@ -37,7 +37,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        author = await context.Author.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
+        author = await context.Authors.FirstOrDefaultAsync(m => m.AuthorId == AuthorId);
 
         if (author is null)
         {
@@ -48,7 +48,7 @@
     private async Task DeleteAuthor()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Author.Remove(author!);
+        context.Authors.Remove(author!);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/authors");
     }

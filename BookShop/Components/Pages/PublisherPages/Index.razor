@@ -14,8 +14,9 @@
     <a href="publishers/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Publisher">
+<QuickGrid Class="table" Items="context.Publishers">
     <PropertyColumn Property="publisher => publisher.PublisherName" />
+    <PropertyColumn Property="publisher => publisher.ContactEmail" />
 
     <TemplateColumn Context="publisher">
         <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")">Edit</a> |

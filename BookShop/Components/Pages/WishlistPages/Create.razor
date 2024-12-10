@@ -15,11 +15,6 @@
         <EditForm method="post" Model="Wishlist" OnValidSubmit="AddWishlist" FormName="create" Enhance>
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
-            <div class="mb-3">
-                <label for="wishlistid" class="form-label">WishlistId:</label> 
-                <InputNumber id="wishlistid" @bind-Value="Wishlist.WishlistId" class="form-control" /> 
-                <ValidationMessage For="() => Wishlist.WishlistId" class="text-danger" /> 
-            </div>        
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>
