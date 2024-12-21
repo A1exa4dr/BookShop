@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241210095842_migr1")]
+    [Migration("20241221130732_migr1")]
     partial class migr1
     {
         /// <inheritdoc />
@@ -44,7 +44,7 @@ namespace BookShop.Migrations
                     b.Property<DateTime?>("DateBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfRegist")
+                    b.Property<DateTime>("DateOfRegist")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -164,11 +164,10 @@ namespace BookShop.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookId");
@@ -182,6 +181,47 @@ namespace BookShop.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookShop.Data.Cart", b =>
+                {
+                    b.Property<int>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("BookShop.Data.CartItem", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("BookShop.Data.Gender", b =>
@@ -276,7 +316,6 @@ namespace BookShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderStatusId"));
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderStatusId");
@@ -327,7 +366,6 @@ namespace BookShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ReviewId");
@@ -528,19 +566,19 @@ namespace BookShop.Migrations
             modelBuilder.Entity("BookShop.Data.Book", b =>
                 {
                     b.HasOne("BookShop.Data.Author", "Author")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookShop.Data.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookShop.Data.Publisher", "Publisher")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -548,8 +586,7 @@ namespace BookShop.Migrations
                     b.HasOne("BookShop.Data.Supplier", "Supplier")
                         .WithMany("Books")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Author");
 
@@ -558,6 +595,36 @@ namespace BookShop.Migrations
                     b.Navigation("Publisher");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("BookShop.Data.Cart", b =>
+                {
+                    b.HasOne("BookShop.Data.ApplicationUser", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("BookShop.Data.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookShop.Data.CartItem", b =>
+                {
+                    b.HasOne("BookShop.Data.Book", "Book")
+                        .WithMany("CartItems")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookShop.Data.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("BookShop.Data.Order", b =>
@@ -606,9 +673,7 @@ namespace BookShop.Migrations
 
                     b.HasOne("BookShop.Data.ApplicationUser", "User")
                         .WithMany("Reviews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Book");
 
@@ -687,6 +752,9 @@ namespace BookShop.Migrations
 
             modelBuilder.Entity("BookShop.Data.ApplicationUser", b =>
                 {
+                    b.Navigation("Cart")
+                        .IsRequired();
+
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
@@ -694,8 +762,15 @@ namespace BookShop.Migrations
                     b.Navigation("Wishlists");
                 });
 
+            modelBuilder.Entity("BookShop.Data.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("BookShop.Data.Book", b =>
                 {
+                    b.Navigation("CartItems");
+
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Reviews");
@@ -703,9 +778,24 @@ namespace BookShop.Migrations
                     b.Navigation("Wishlists");
                 });
 
+            modelBuilder.Entity("BookShop.Data.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
+            modelBuilder.Entity("BookShop.Data.Genre", b =>
+                {
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("BookShop.Data.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("BookShop.Data.Publisher", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("BookShop.Data.Supplier", b =>

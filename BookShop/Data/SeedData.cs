@@ -6,7 +6,7 @@ public class SeedData
 {
     public async Task InitializeAsync(ApplicationDbContext context)
     {
-        if (!context.Roles.Any())
+        /*if (!context.Roles.Any())
         {
             var roles = new List<IdentityRole>
         {
@@ -16,11 +16,11 @@ public class SeedData
 
             await context.Roles.AddRangeAsync(roles);
             await context.SaveChangesAsync();
-        }
+        }*/
 
-        var role1 = new IdentityRole("Admin");
+        var role1 = new IdentityRole { Id = "1", Name = "Admin" };
 
-        var role2 = new IdentityRole("Client");
+        var role2 = new IdentityRole { Id = "2", Name = "Client" };
 
         await context.Roles.AddAsync(role1);
 

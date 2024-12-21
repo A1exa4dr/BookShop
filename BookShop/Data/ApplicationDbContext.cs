@@ -17,29 +17,38 @@ namespace BookShop.Data
         public DbSet<Author> Authors { get; set; }=default!;
         public DbSet<Publisher> Publishers { get; set; } = default!;
         public DbSet<OrderStatus> OrderStatuses{ get; set; }= default!;
+        public DbSet<CartItem> CartItems { get; set; } = default!;
+        public DbSet<Cart> Carts { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            //// Связь "многие-к-одному" между User и Gender
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasOne(b => b.Gender)
+            //    .WithMany()
+            //    .HasForeignKey(b => b.GenderId)
+            //    .OnDelete(DeleteBehavior.Restrict); // Ограничение на удаление пола
+
             // Связь "многие-к-одному" между Book и Genre
             modelBuilder.Entity<Book>()
                 .HasOne(b => b.Genre)
-                .WithMany()
+                .WithMany(g => g.Books)
                 .HasForeignKey(b => b.GenreId)
                 .OnDelete(DeleteBehavior.Restrict); // Ограничение на удаление жанра
 
             // Связь "многие-к-одному" между Book и Author
             modelBuilder.Entity<Book>()
                 .HasOne(b => b.Author) // Каждая книга имеет одного автора
-                .WithMany() // Один автор может написать множество книг
+                .WithMany(a => a.Books) // Один автор может написать множество книг
                 .HasForeignKey(b => b.AuthorId) 
                 .OnDelete(DeleteBehavior.Restrict); // Ограничение на удаление автора
 
             // Связь "многие-к-одному" между Book и Publisher
             modelBuilder.Entity<Book>()
                 .HasOne(b => b.Publisher) // Каждая книга имеет одного издателя
-                .WithMany() // Один издатель может выпустить множество книг
+                .WithMany(p => p.Books) // Один издатель может выпустить множество книг
                 .HasForeignKey(b => b.PublisherId) 
                 .OnDelete(DeleteBehavior.Restrict); // Ограничение на удаление издательства
 
@@ -49,6 +58,20 @@ namespace BookShop.Data
                 .WithMany(s => s.Books) // Один поставщик может поставлять несколько книг
                 .HasForeignKey(b => b.SupplierId) // Внешний ключ указывает на Supplier
                 .OnDelete(DeleteBehavior.Restrict); // Ограничение на удаление поставщика
+
+            // Связь между корзиной и книгами
+            modelBuilder.Entity<CartItem>()
+                .HasKey(ob => new { ob.CartId, ob.BookId });
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ob => ob.Cart)
+                .WithMany(c => c.CartItems)
+                .HasForeignKey(ob => ob.CartId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ob => ob.Book)
+                .WithMany(c => c.CartItems)
+                .HasForeignKey(ob => ob.BookId);
 
             // Связь между заказами и книгами
             modelBuilder.Entity<OrderDetail>()

@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Details</PageTitle>
 

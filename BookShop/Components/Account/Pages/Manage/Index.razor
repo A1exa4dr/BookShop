@@ -86,7 +86,7 @@
     private string? Phone;
     private string? Address;
     private DateTime? DateBirth;
-    private DateTime? DateOfRegist;
+    private DateTime DateOfRegist;
     public List<Gender>? genders;
 
     [CascadingParameter]
@@ -115,7 +115,7 @@
         Input.Phone ??= Phone;
         Input.Address ??= Address;
         Input.DateBirth ??= DateBirth;
-        Input.DateOfRegist ??= DateOfRegist;
+        Input.DateOfRegist = DateOfRegist;
         Input.GenderId ??= GenderId;
     }
 
@@ -237,7 +237,7 @@
         [Required]
         [Display(Name = "Дата регистрации")]
 
-        public DateTime? DateOfRegist { get; set; }
+        public DateTime DateOfRegist { get; set; }
 
         [Required]
         [Display(Name = "Телефон")]

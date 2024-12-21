@@ -8,7 +8,6 @@ namespace BookShop.Data
         [Key]
         public int BookId { get; set; }
         public string? ImageUrl { get; set; }
-        [Required]
         public string? Title { get; set; }
         public int AuthorId { get; set; }
         public int PublisherId { get; set; }
@@ -16,7 +15,7 @@ namespace BookShop.Data
         public decimal Price { get; set; }
         public string Description { get; set; }
         public int StockQuantity { get; set; }
-        public int SupplierId { get; set; } // Внешний ключ к поставщику // Связь с поставщиком (каждая книга поставляется только одним поставщиком)
+        public int? SupplierId { get; set; } // Внешний ключ к поставщику // Связь с поставщиком (каждая книга поставляется только одним поставщиком)
 
         // Навигационные свойства
         public Supplier Supplier { get; set; } // Поставщик книги
@@ -26,5 +25,6 @@ namespace BookShop.Data
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Wishlist> Wishlists { get; set; }
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

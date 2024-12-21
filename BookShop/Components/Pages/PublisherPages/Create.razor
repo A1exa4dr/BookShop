@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Create</PageTitle>
 
@@ -17,7 +18,7 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="publishername" class="form-label">PublisherName:</label> 
-                <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" aria-required="true"/> 
+                <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" /> 
                 <ValidationMessage For="() => Publisher.PublisherName" class="text-danger" /> 
             </div>        
             <div class="mb-3">

@@ -6,7 +6,6 @@ namespace BookShop.Data
     {
         [Key]
         public int OrderStatusId { get; set; }
-        [Required]
         public string? Status { get; set; }
     }
 }

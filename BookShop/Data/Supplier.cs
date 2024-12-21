@@ -6,10 +6,8 @@ namespace BookShop.Data
     {
         [Key]
         public int SupplierId { get; set; }
-        [Required]
         public string Name { get; set; }
         public string Address { get; set; }
-        [Required]
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 

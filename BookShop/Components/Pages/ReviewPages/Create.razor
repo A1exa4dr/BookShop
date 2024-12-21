@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Client,Admin")]
 
 <PageTitle>Create</PageTitle>
 
@@ -27,7 +28,7 @@
             </div>        
             <div class="mb-3">
                 <label for="rating" class="form-label">Rating:</label> 
-                <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" aria-required="true"/> 
+                <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" /> 
                 <ValidationMessage For="() => Review.Rating" class="text-danger" /> 
             </div>        
             <div class="mb-3">

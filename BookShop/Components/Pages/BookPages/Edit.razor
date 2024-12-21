@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Edit</PageTitle>
 
@@ -29,22 +30,40 @@ else
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title:</label>
-                    <InputText id="title" @bind-Value="Book.Title" class="form-control" aria-required="true"/>
+                    <InputText id="title" @bind-Value="Book.Title" class="form-control" />
                     <ValidationMessage For="() => Book.Title" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="authorid" class="form-label">AuthorId:</label>
-                    <InputNumber id="authorid" @bind-Value="Book.AuthorId" class="form-control" />
+                    <label for="authorid" class="form-label">Author:</label>
+                    <select id="authorid" @bind="Book.AuthorId" class="form-control">
+                        <option value="">Select an author</option>
+                        @foreach (var author in Authors)
+                        {
+                            <option value="@author.AuthorId">@author.AuthorName</option>
+                        }
+                    </select>
                     <ValidationMessage For="() => Book.AuthorId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="publisherid" class="form-label">PublisherId:</label>
-                    <InputNumber id="publisherid" @bind-Value="Book.PublisherId" class="form-control" />
+                    <label for="publisherid" class="form-label">Publisher:</label>
+                    <InputSelect id="publisherid" @bind-Value="Book.PublisherId" class="form-control">
+                        <option value="">-- Select Publisher --</option>
+                        @foreach (var publisher in Publishers)
+                        {
+                            <option value="@publisher.PublisherId">@publisher.PublisherName</option>
+                        }
+                    </InputSelect>
                     <ValidationMessage For="() => Book.PublisherId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="genreid" class="form-label">GenreId:</label>
-                    <InputNumber id="genreid" @bind-Value="Book.GenreId" class="form-control" />
+                    <label for="genreid" class="form-label">Genre:</label>
+                    <select id="genreid" @bind="Book.GenreId" class="form-control">
+                        <option value="">Select a genre</option>
+                        @foreach (var genre in Genres)
+                        {
+                            <option value="@genre.GenreId">@genre.Name</option>
+                        }
+                    </select>
                     <ValidationMessage For="() => Book.GenreId" class="text-danger" />
                 </div>
                 <div class="mb-3">
@@ -63,8 +82,14 @@ else
                     <ValidationMessage For="() => Book.StockQuantity" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="supplierid" class="form-label">SupplierId:</label>
-                    <InputNumber id="supplierid" @bind-Value="Book.SupplierId" class="form-control" />
+                    <label for="supplierid" class="form-label">Supplier:</label>
+                    <select id="supplierid" @bind="Book.SupplierId" class="form-control">
+                        <option value="">Select a supplier</option>
+                        @foreach (var supplier in Suppliers)
+                        {
+                            <option value="@supplier.SupplierId">@supplier.Name</option>
+                        }
+                    </select>
                     <ValidationMessage For="() => Book.SupplierId" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -83,11 +108,20 @@ else
 
     [SupplyParameterFromForm]
     private Book? Book { get; set; }
+    private List<Author> Authors { get; set; } = new();
+    private List<Publisher> Publishers { get; set; } = new();
+    private List<Genre> Genres { get; set; } = new();
+    private List<Supplier> Suppliers { get; set; } = new();
+
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
         Book ??= await context.Books.FirstOrDefaultAsync(m => m.BookId == BookId);
+        Authors = await context.Authors.ToListAsync();
+        Publishers = await context.Publishers.ToListAsync();
+        Genres = await context.Genres.ToListAsync();
+        Suppliers = await context.Suppliers.ToListAsync();
 
         if (Book is null)
         {
