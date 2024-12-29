@@ -1,4 +1,4 @@
-﻿@page "/wishlists/edit"
+﻿@page "/cartitems/edit"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
@@ -8,9 +8,9 @@
 
 <h1>Edit</h1>
 
-<h2>Wishlist</h2>
+<h2>CartItem</h2>
 <hr />
-@if (Wishlist is null)
+@if (CartItem is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -18,14 +18,19 @@ else
 {
     <div class="row">
         <div class="col-md-4">
-            <EditForm method="post" Model="Wishlist" OnValidSubmit="UpdateWishlist" FormName="edit" Enhance>
+            <EditForm method="post" Model="CartItem" OnValidSubmit="UpdateCartItem" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Wishlist.UserId" value="@Wishlist.UserId" />
+                <input type="hidden" name="CartItem.CartId" value="@CartItem.CartId" />
                 <div class="mb-3">
-                    <label for="wishlistid" class="form-label">WishlistId:</label>
-                    <InputNumber id="wishlistid" @bind-Value="Wishlist.WishlistId" class="form-control" />
-                    <ValidationMessage For="() => Wishlist.WishlistId" class="text-danger" />
+                    <label for="cartitemid" class="form-label">CartItemId:</label>
+                    <InputNumber id="cartitemid" @bind-Value="CartItem.CartItemId" class="form-control" />
+                    <ValidationMessage For="() => CartItem.CartItemId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <InputNumber id="quantity" @bind-Value="CartItem.Quantity" class="form-control" />
+                    <ValidationMessage For="() => CartItem.Quantity" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
@@ -34,22 +39,22 @@ else
 }
 
 <div>
-    <a href="/wishlists">Back to List</a>
+    <a href="/cartitems">Back to List</a>
 </div>
 
 @code {
     [SupplyParameterFromQuery]
-    private string UserId { get; set; }
+    private int CartId { get; set; }
 
     [SupplyParameterFromForm]
-    private Wishlist? Wishlist { get; set; }
+    private CartItem? CartItem { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Wishlist ??= await context.Wishlists.FirstOrDefaultAsync(m => m.UserId == UserId);
+        CartItem ??= await context.CartItems.FirstOrDefaultAsync(m => m.CartId == CartId);
 
-        if (Wishlist is null)
+        if (CartItem is null)
         {
             NavigationManager.NavigateTo("notfound");
         }
@@ -57,10 +62,10 @@ else
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
-    private async Task UpdateWishlist()
+    private async Task UpdateCartItem()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Attach(Wishlist!).State = EntityState.Modified;
+        context.Attach(CartItem!).State = EntityState.Modified;
 
         try
         {
@@ -68,7 +73,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!WishlistExists(Wishlist!.UserId))
+            if (!CartItemExists(CartItem!.CartId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -78,12 +83,12 @@ else
             }
         }
 
-        NavigationManager.NavigateTo("/wishlists");
+        NavigationManager.NavigateTo("/cartitems");
     }
 
-    private bool WishlistExists(string userid)
+    private bool CartItemExists(int cartid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Wishlists.Any(e => e.UserId == userid);
+        return context.CartItems.Any(e => e.CartId == cartid);
     }
 }

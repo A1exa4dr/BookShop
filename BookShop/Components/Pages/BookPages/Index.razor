@@ -2,44 +2,172 @@
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
-@using BookShop.Data
 @implements IAsyncDisposable
-@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "Client, Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Каталог</PageTitle>
 
-<h1>Index</h1>
+<h1>Каталог</h1>
 
 <p>
-    <a href="books/create">Create New</a>
+    <a href="books/create">Добавить книгу</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Books">
-    <PropertyColumn Property="book => book.ImageUrl" />
-    <PropertyColumn Property="book => book.Title" />
-    <PropertyColumn Property="book => book.AuthorId" />
-    <PropertyColumn Property="book => book.PublisherId" />
-    <PropertyColumn Property="book => book.GenreId" />
-    <PropertyColumn Property="book => book.Price" />
-    <PropertyColumn Property="book => book.Description" />
-    <PropertyColumn Property="book => book.StockQuantity" />
-    <PropertyColumn Property="book => book.SupplierId" />
+<div>
+    <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." />
+    <select @bind="selectedGenre">
+        <option height="35" value="">Все жанры</option>
+        @foreach (var genre in genres)
+        {
+            <option value="@genre.GenreId">@genre.Name</option>
+        }
+    </select>
+    <button @onclick="ResetFilter" class="btn btn-dark">Отменить</button>
+    @* <button @onclick="GoToCart" class="btn btn-primary">Корзина</button> *@
+   
+</div>
+
+
+<QuickGrid Class="table" Items="FilteredBooks" Pagination="pagination">
+    @* <PropertyColumn Property="book => book.ImageUrl" Title="Фото" /> *@
+    <TemplateColumn Title="Фото">
+        @if ((context as Book)?.ImageUrl is string imageUrl && !string.IsNullOrWhiteSpace(imageUrl))
+        {
+            @((MarkupString)$"<img src='{imageUrl}' alt='Book Image' style='max-width: 100px; max-height: 100px;' />")
+        }
+        else
+        {
+            <span>No Image</span>
+        }
+    </TemplateColumn>
+    <PropertyColumn Property="book => book.Title" Title="Название" Sortable="true" />
+    <PropertyColumn Property="book => book.Author.AuthorName" Title="Автор" />
+    <PropertyColumn Property="book => book.Publisher.PublisherName" Title="Издательство" />
+    <PropertyColumn Property="book => book.Genre.Name" Title="Жанр" />
+    <PropertyColumn Property="book => book.Price" Title="Цена" />
+    <PropertyColumn Property="book => book.Description" Title="Описание" />
+    <PropertyColumn Property="book => book.StockQuantity" Title="Количество" />
+    <PropertyColumn Property="book => book.Supplier.Name" Title="Поставщик" />
 
     <TemplateColumn Context="book">
-        <a href="@($"books/edit?bookid={book.BookId}")">Edit</a> |
-        <a href="@($"books/details?bookid={book.BookId}")">Details</a> |
-        <a href="@($"books/delete?bookid={book.BookId}")">Delete</a>
+        <button height="45" wight="60" @onclick="() => AddToCart(book)">Добавить в корзину</button>
+        @* <button @onclick="() => AddToWishlist(book)">❤️</button> *@
+        @* <a href="@($"cartitems?userid={book.UserId}")">Перейти в корзину</a> *@
+        <a href="@($"books/edit?bookid={book.BookId}")">Редактировать</a> |
+        <a href="@($"books/details?bookid={book.BookId}")">Детали</a> |
+        <a href="@($"books/delete?bookid={book.BookId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 
+<Paginator State="pagination" />
+
 @code {
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 6 };
+    private string titleFilter = string.Empty;
+    private string selectedGenre = string.Empty;
     private ApplicationDbContext context = default!;
+    private List<Genre> genres = new List<Genre>();
 
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
+        genres = context.Genres.ToList(); // Загружаем список жанров
+    }
+    
+    private void GoToCart()
+    {
+        //NavigationManager.NavigateTo("/cartitems");
     }
 
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+    private void ResetFilter()
+    {
+        titleFilter = string.Empty;
+        selectedGenre = string.Empty;
+    }
+
+    private void ApplyGenreFilter(ChangeEventArgs e)
+    {
+        selectedGenre = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private IQueryable<Book> FilteredBooks =>
+        context.Books
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .Include(b => b.Genre)
+            .Include(b => b.Supplier)
+            .Where(b => (string.IsNullOrEmpty(titleFilter) || b.Title.Contains(titleFilter)) &&
+                        (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre));
+
+    private async Task AddToCart(Book book)
+    {
+        // Создаем новый экземпляр контекста
+        using var context = DbFactory.CreateDbContext();
+
+        // Получение информации о текущем пользователе
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is null || !user.Identity.IsAuthenticated)
+        {
+            // Если пользователь не авторизован, обработайте это
+            return;
+        }
+
+        // Получение ID текущего пользователя
+        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+        if (userId == null)
+        {
+            // Если пользователь не найден, обработайте это
+            return;
+        }
+
+        // Получение или создание корзины для пользователя
+        var cart = await context.Carts
+            .Include(c => c.CartItems)
+            .FirstOrDefaultAsync(c => c.UserId == userId);
+
+        if (cart == null)
+        {
+            cart = new Cart
+                {
+                    UserId = userId,
+                    CartItems = new List<CartItem>()
+                };
+            context.Carts.Add(cart);
+        }
+
+        // Проверка, есть ли уже эта книга в корзине
+        var cartItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
+
+        if (cartItem != null)
+        {
+            // Если книга уже в корзине, увеличиваем количество
+            cartItem.Quantity++;
+        }
+        else
+        {
+            // Если книги еще нет в корзине, добавляем её
+            cart.CartItems.Add(new CartItem
+                {
+                    CartId = cart.CartId,
+                    BookId = book.BookId,
+                    Quantity = 1
+                });
+        }
+
+        // Сохранение изменений в базе данных
+        await context.SaveChangesAsync();
+    }
+
+
+
+    // public async ValueTask DisposeAsync() => await context.DisposeAsync();
+    public async ValueTask DisposeAsync()
+    {
+        
+    }
 }

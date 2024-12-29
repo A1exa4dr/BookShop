@@ -1,4 +1,4 @@
-﻿@page "/wishlists/details"
+﻿@page "/cartitems/details"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
@@ -9,36 +9,38 @@
 <h1>Details</h1>
 
 <div>
-    <h2>Wishlist</h2>
+    <h2>CartItem</h2>
     <hr />
-    @if (wishlist is null)
+    @if (cartitem is null)
     {
         <p><em>Loading...</em></p>
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">WishlistId</dt>
-            <dd class="col-sm-10">@wishlist.WishlistId</dd>
+            <dt class="col-sm-2">CartItemId</dt>
+            <dd class="col-sm-10">@cartitem.CartItemId</dd>
+            <dt class="col-sm-2">Quantity</dt>
+            <dd class="col-sm-10">@cartitem.Quantity</dd>
         </dl>
         <div>
-            <a href="@($"/wishlists/edit?userid={wishlist.UserId}")">Edit</a> |
-            <a href="@($"/wishlists")">Back to List</a>
+            <a href="@($"/cartitems/edit?cartid={cartitem.CartId}")">Edit</a> |
+            <a href="@($"/cartitems")">Back to List</a>
         </div>
     }
 </div>
 
 @code {
-    private Wishlist? wishlist;
+    private CartItem? cartitem;
 
     [SupplyParameterFromQuery]
-    private string UserId { get; set; }
+    private int CartId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        wishlist = await context.Wishlists.FirstOrDefaultAsync(m => m.UserId == UserId);
+        cartitem = await context.CartItems.FirstOrDefaultAsync(m => m.CartId == CartId);
 
-        if (wishlist is null)
+        if (cartitem is null)
         {
             NavigationManager.NavigateTo("notfound");
         }

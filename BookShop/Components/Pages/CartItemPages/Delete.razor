@@ -1,0 +1,59 @@
+﻿@page "/cartitems/delete"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>CartItem</h2>
+    <hr />
+    @if (cartitem is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">CartItemId</dt>
+            <dd class="col-sm-10">@cartitem.CartItemId</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Quantity</dt>
+            <dd class="col-sm-10">@cartitem.Quantity</dd>
+        </dl>
+        <EditForm method="post" Model="cartitem" OnValidSubmit="DeleteCartItem" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(cartitem is null)">Delete</button> |
+            <a href="/cartitems">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private CartItem? cartitem;
+
+    [SupplyParameterFromQuery]
+    private int CartId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        cartitem = await context.CartItems.FirstOrDefaultAsync(m => m.CartId == CartId);
+
+        if (cartitem is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteCartItem()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.CartItems.Remove(cartitem!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/cartitems");
+    }
+}

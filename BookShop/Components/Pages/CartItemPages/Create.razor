@@ -1,0 +1,49 @@
+﻿@page "/cartitems/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>CartItem</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="CartItem" OnValidSubmit="AddCartItem" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="cartitemid" class="form-label">CartItemId:</label> 
+                <InputNumber id="cartitemid" @bind-Value="CartItem.CartItemId" class="form-control" /> 
+                <ValidationMessage For="() => CartItem.CartItemId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity:</label> 
+                <InputNumber id="quantity" @bind-Value="CartItem.Quantity" class="form-control" /> 
+                <ValidationMessage For="() => CartItem.Quantity" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/cartitems">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private CartItem CartItem { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddCartItem()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.CartItems.Add(CartItem);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/cartitems");
+    }
+}

@@ -16,11 +16,21 @@
         <EditForm method="post" Model="Book" OnValidSubmit="AddBook" FormName="create" Enhance>
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
-            <div class="mb-3">
+            @* <div class="mb-3">
                 <label for="imageurl" class="form-label">ImageUrl:</label> 
                 <InputText id="imageurl" @bind-Value="Book.ImageUrl" class="form-control" /> 
                 <ValidationMessage For="() => Book.ImageUrl" class="text-danger" /> 
-            </div>        
+            </div> *@ 
+            <div class="mb-3">
+                <label for="image" class="form-label">Загрузить изображение:</label>
+                <InputFile id="image" OnChange="HandleImageUpload" />
+                @if (!string.IsNullOrEmpty(previewImage))
+                {
+                    <div class="mt-2">
+                        <img src="@previewImage" alt="Preview" style="max-width: 200px; max-height: 200px;" />
+                    </div>
+                }
+            </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label> 
                 <InputText id="title" @bind-Value="Book.Title" class="form-control" /> 
@@ -101,6 +111,8 @@
     private List<Publisher> Publishers { get; set; } = new();
     private List<Genre> Genres { get; set; } = new();
     private List<Supplier> Suppliers { get; set; } = new();
+    private string? previewImage; // Для предварительного просмотра изображения
+    private IBrowserFile? uploadedFile;
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,9 +122,32 @@
         Genres = await context.Genres.ToListAsync();
         Suppliers = await context.Suppliers.ToListAsync();
     }
+
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        uploadedFile = e.File;
+
+        // Создание предварительного просмотра изображения
+        var buffer = new byte[uploadedFile.Size];
+        await uploadedFile.OpenReadStream().ReadAsync(buffer);
+        previewImage = $"data:{uploadedFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
+    }
+
     // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddBook()
     {
+        if (uploadedFile != null)
+        {
+            var filePath = Path.Combine("wwwroot", "images", uploadedFile.Name);
+
+            // Сохранение файла на сервере
+            await using var stream = new FileStream(filePath, FileMode.Create);
+            await uploadedFile.OpenReadStream().CopyToAsync(stream);
+
+            // Сохранение пути к файлу в базе данных
+            Book.ImageUrl = $"/images/{uploadedFile.Name}";
+        }
+
         using var context = DbFactory.CreateDbContext();
         context.Books.Add(Book);
         await context.SaveChangesAsync();
