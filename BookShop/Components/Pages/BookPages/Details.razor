@@ -20,25 +20,29 @@
         <dl class="row">
             <dt class="col-sm-2">ImageUrl</dt>
             <dd class="col-sm-10">@book.ImageUrl</dd>
-            <dt class="col-sm-2">Title</dt>
+            <dt class="col-sm-2">Название</dt>
             <dd class="col-sm-10">@book.Title</dd>
-            <dt class="col-sm-2">AuthorId</dt>
+            <dt class="col-sm-2">Автор</dt>
             <dd class="col-sm-10">@book.AuthorId</dd>
-            <dt class="col-sm-2">PublisherId</dt>
-            <dd class="col-sm-10">@book.PublisherId</dd>
-            <dt class="col-sm-2">GenreId</dt>
+            <dt class="col-sm-2">Жанр</dt>
             <dd class="col-sm-10">@book.GenreId</dd>
-            <dt class="col-sm-2">Price</dt>
-            <dd class="col-sm-10">@book.Price</dd>
-            <dt class="col-sm-2">Description</dt>
+            <dt class="col-sm-2">Описание</dt>
             <dd class="col-sm-10">@book.Description</dd>
-            <dt class="col-sm-2">StockQuantity</dt>
-            <dd class="col-sm-10">@book.StockQuantity</dd>
-            <dt class="col-sm-2">SupplierId</dt>
-            <dd class="col-sm-10">@book.SupplierId</dd>
+            <dt class="col-sm-2">Цена</dt>
+            <dd class="col-sm-10">@book.Price</dd>
+            <AuthorizeView Roles="Admin">
+                <dt class="col-sm-2">PublisherId</dt>
+                <dd class="col-sm-10">@book.PublisherId</dd>
+                <dt class="col-sm-2">StockQuantity</dt>
+                <dd class="col-sm-10">@book.StockQuantity</dd>
+                <dt class="col-sm-2">SupplierId</dt>
+                <dd class="col-sm-10">@book.SupplierId</dd>
+            </AuthorizeView>
         </dl>
         <div>
-            <a href="@($"/books/edit?bookid={book.BookId}")">Edit</a> |
+            <AuthorizeView Roles="Admin">
+                <a href="@($"/books/edit?bookid={book.BookId}")">Edit</a> |
+            </AuthorizeView>
             <a href="@($"/books")">Back to List</a>
         </div>
     }

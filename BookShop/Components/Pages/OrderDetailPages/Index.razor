@@ -5,33 +5,68 @@
 @using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
 
-<p>
+@* <p>
     <a href="orderdetails/create">Create New</a>
+</p> *@
+<p>
+    <a href="orders">Возврат к списку заказов</a>
 </p>
 
-<QuickGrid Class="table" Items="context.OrderDetails">
+<QuickGrid Class="table" Items="context.OrderDetails.Where(t=>t.OrderId==OrderId)">
+    <PropertyColumn Property="orderdetail => orderdetail.OrderId" />
     <PropertyColumn Property="orderdetail => orderdetail.Quantity" />
     <PropertyColumn Property="orderdetail => orderdetail.Price" />
 
     <TemplateColumn Context="orderdetail">
-        <a href="@($"orderdetails/edit?orderid={orderdetail.OrderId}")">Edit</a> |
-        <a href="@($"orderdetails/details?orderid={orderdetail.OrderId}")">Details</a> |
-        <a href="@($"orderdetails/delete?orderid={orderdetail.OrderId}")">Delete</a>
+        @* <a href="@($"orderdetails/edit?orderid={orderdetail.OrderId}")">Edit</a> | *@
+        <a href="@($"orderdetails/details?orderid={orderdetail.OrderId}")">Детали</a> |
+       @*  <a href="@($"orderdetails/delete?orderid={orderdetail.OrderId}")">Delete</a> *@
     </TemplateColumn>
 </QuickGrid>
 
 @code {
+    [SupplyParameterFromQuery]
+    public int? OrderId { get; set; }
+
+    public string? UserId { get; set; }
+
+    public DateTime? OrderDate { get; set; }
+
+    public decimal? TotalAmount { get; set; }
+
+    public int? OrderStatusId { get; set; }
+
     private ApplicationDbContext context = default!;
 
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
+        if (OrderId == null)
+        {
+            NavigationManager.NavigateTo("not found");
+        }
+        {
+            Order? send = context.Orders.FirstOrDefault(d => d.OrderId == OrderId);
+
+            if (send == null)
+            {
+                NavigationManager.NavigateTo("not found");
+            }
+
+            UserId = send?.UserId;
+            OrderDate = send?.OrderDate;
+            TotalAmount = send?.TotalAmount;  /* по идее это всё надо написать, тк оно как я понимаю присваивается QuickGrid */
+            OrderStatusId = send?.OrderStatusId; /* который сверху, но если всё это убрать, то всё равно всё будет работать */
+                                         /* для срабатывания сортировки достаточно прописать только это (40-41 строки):  [SupplyParameterFromQuery]
+                                                                                                                    public int? SenderId { get; set; } */
+        }
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();

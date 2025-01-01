@@ -22,6 +22,7 @@
     <PropertyColumn Property="order => order.OrderStatusId" />
 
     <TemplateColumn Context="order">
+        <a href="@($"orderdetails?orderid={order.OrderId}")">Детали заказа</a> |
         <a href="@($"orders/edit?orderid={order.OrderId}")">Edit</a> |
         <a href="@($"orders/details?orderid={order.OrderId}")">Details</a> |
         <a href="@($"orders/delete?orderid={order.OrderId}")">Delete</a>

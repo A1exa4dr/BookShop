@@ -21,23 +21,14 @@
                 <InputText id="imageurl" @bind-Value="Book.ImageUrl" class="form-control" /> 
                 <ValidationMessage For="() => Book.ImageUrl" class="text-danger" /> 
             </div> *@ 
+
             <div class="mb-3">
-                <label for="image" class="form-label">Загрузить изображение:</label>
-                <InputFile id="image" OnChange="HandleImageUpload" />
-                @if (!string.IsNullOrEmpty(previewImage))
-                {
-                    <div class="mt-2">
-                        <img src="@previewImage" alt="Preview" style="max-width: 200px; max-height: 200px;" />
-                    </div>
-                }
-            </div>
-            <div class="mb-3">
-                <label for="title" class="form-label">Title:</label> 
+                <label for="title" class="form-label">Название:</label> 
                 <InputText id="title" @bind-Value="Book.Title" class="form-control" /> 
                 <ValidationMessage For="() => Book.Title" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="authorid" class="form-label">Author:</label>
+                <label for="authorid" class="form-label">Автор:</label>
                 <select id="authorid" @bind="Book.AuthorId" class="form-control">
                     <option value="">Select an author</option>
                     @foreach (var author in Authors)
@@ -48,7 +39,7 @@
                 <ValidationMessage For="() => Book.AuthorId" class="text-danger" />
             </div>
             <div class="mb-3">
-                <label for="publisherid" class="form-label">Publisher:</label>
+                <label for="publisherid" class="form-label">Издательство:</label>
                 <InputSelect id="publisherid" @bind-Value="Book.PublisherId" class="form-control">
                     <option value="">-- Select Publisher --</option>
                     @foreach (var publisher in Publishers)
@@ -59,7 +50,7 @@
                 <ValidationMessage For="() => Book.PublisherId" class="text-danger" />
             </div>
             <div class="mb-3">
-                <label for="genreid" class="form-label">Genre:</label>
+                <label for="genreid" class="form-label">Жанр:</label>
                 <select id="genreid" @bind="Book.GenreId" class="form-control">
                     <option value="">Select a genre</option>
                     @foreach (var genre in Genres)
@@ -70,22 +61,22 @@
                 <ValidationMessage For="() => Book.GenreId" class="text-danger" />
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Price:</label> 
+                <label for="price" class="form-label">Цена:</label> 
                 <InputNumber id="price" @bind-Value="Book.Price" class="form-control" /> 
                 <ValidationMessage For="() => Book.Price" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="description" class="form-label">Description:</label> 
+                <label for="description" class="form-label">Описание:</label> 
                 <InputText id="description" @bind-Value="Book.Description" class="form-control" /> 
                 <ValidationMessage For="() => Book.Description" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="stockquantity" class="form-label">StockQuantity:</label> 
+                <label for="stockquantity" class="form-label">Количество на складе:</label> 
                 <InputNumber id="stockquantity" @bind-Value="Book.StockQuantity" class="form-control" /> 
                 <ValidationMessage For="() => Book.StockQuantity" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="supplierid" class="form-label">Supplier:</label>
+                <label for="supplierid" class="form-label">Поставщик:</label>
                 <select id="supplierid" @bind="Book.SupplierId" class="form-control">
                     <option value="">Select a supplier</option>
                     @foreach (var supplier in Suppliers)
@@ -95,7 +86,17 @@
                 </select>
                 <ValidationMessage For="() => Book.SupplierId" class="text-danger" />
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <div class="mb-3">
+                <label for="image" class="form-label">Загрузить изображение:</label>
+                <InputFile id="image" OnChange="HandleImageUpload" />
+                @if (!string.IsNullOrEmpty(previewImage))
+                {
+                    <div class="mt-2">
+                        <img src="@previewImage" alt="Preview" style="max-width: 200px; max-height: 200px;" />
+                    </div>
+                }
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </EditForm>
     </div>
 </div>

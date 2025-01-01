@@ -1,0 +1,204 @@
+﻿@page "/cart"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@attribute [Authorize(Roles = "Client")]
+ 
+<h1>Корзина</h1>
+
+@if (cartItems.Count == 0)
+{
+    <p>Корзина пуста.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Количество</th>
+                <th>Цена за единицу</th>
+                <th>Общая цена</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in cartItems)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Book.ImageUrl))
+                        {
+                            <img src="@item.Book.ImageUrl" alt="Фото книги" style="max-width: 100px; max-height: 100px;" />
+                        }
+                        else
+                        {
+                            <span>Фото отсутствует</span>
+                        }
+                    </td>
+                    <td>@item.Book.Title</td>
+                    <td>@item.Book.Description</td>
+                    <td>
+                        <input type="number" min="1" value="@item.Quantity"
+                               @onchange="(e) => UpdateQuantity(item, int.Parse(e.Value.ToString()))" />
+                    </td>
+                    <td>@item.Book.Price руб.</td>
+                    <td>@(item.Book.Price * item.Quantity) руб.</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => RemoveFromCart(item)">Удалить</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3 style="text-align: right;">Итого: @TotalCartPrice руб.</h3>
+    <div style="text-align: right;">
+        <button class="btn btn-success" @onclick="CreateOrder">Купить</button>
+    </div>
+}
+@code {
+    private List<CartItem> cartItems = new List<CartItem>();
+
+    /// <summary>
+    /// Загрузка элементов корзины текущего пользователя при загрузке страницы.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCartItems();
+    }
+
+    /// <summary>
+    /// Метод для загрузки элементов корзины текущего пользователя.
+    /// </summary>
+    private async Task LoadCartItems()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        // Получение информации о текущем пользователе
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is null || !user.Identity.IsAuthenticated)
+        {
+            cartItems = new List<CartItem>();
+            return;
+        }
+
+        // Получение ID текущего пользователя
+        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+        if (userId != null)
+        {
+            // Загрузка элементов корзины пользователя
+            cartItems = await context.CartItems
+                .Include(ci => ci.Book)
+                .Where(ci => ci.Cart.UserId == userId)
+                .ToListAsync();
+        }
+    }
+
+    /// <summary>
+    /// Метод для удаления элемента из корзины.
+    /// </summary>
+    private async Task RemoveFromCart(CartItem item)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var cartItem = await context.CartItems
+            .FirstOrDefaultAsync(ci => ci.CartId == item.CartId && ci.BookId == item.BookId);
+
+        if (cartItem != null)
+        {
+            context.CartItems.Remove(cartItem);
+            await context.SaveChangesAsync();
+        }
+
+        // Обновляем список корзины
+        await LoadCartItems();
+    }
+
+    /// <summary>
+    /// Метод для обновления количества книги в корзине.
+    /// </summary>
+    private async Task UpdateQuantity(CartItem item, int newQuantity)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var cartItem = await context.CartItems
+            .FirstOrDefaultAsync(ci => ci.CartId == item.CartId && ci.BookId == item.BookId);
+
+        if (cartItem != null && newQuantity > 0)
+        {
+            cartItem.Quantity = newQuantity;
+            await context.SaveChangesAsync();
+        }
+        else if (cartItem != null && newQuantity == 0)
+        {
+            // Если количество 0, удаляем элемент
+            context.CartItems.Remove(cartItem);
+            await context.SaveChangesAsync();
+        }
+
+        // Обновляем список корзины
+        await LoadCartItems();
+    }
+    private async Task CreateOrder()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        // Получение ID текущего пользователя
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+        if (userId != null && cartItems.Any())
+        {
+            // Создаем заказ
+            var order = new Order
+                {
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    TotalAmount = TotalCartPrice,
+                    OrderStatusId = 1 // Например, "Ожидает подтверждения"
+                };
+            context.Orders.Add(order);
+
+            await context.SaveChangesAsync();
+
+            // Создаем детали заказа для каждой книги в корзине
+            foreach (var item in cartItems)
+            {
+                var orderDetail = new OrderDetail
+                    {
+                        OrderId = order.OrderId,
+                        BookId = item.BookId,
+                        Quantity = item.Quantity,
+                        Price = item.Book.Price
+                    };
+                context.OrderDetails.Add(orderDetail);
+            }
+
+            await context.SaveChangesAsync();
+
+            // Удаляем все элементы из корзины пользователя
+            var userCartItems = await context.CartItems
+                .Where(ci => ci.Cart.UserId == userId)
+                .ToListAsync();
+
+            context.CartItems.RemoveRange(userCartItems);
+            await context.SaveChangesAsync();
+
+            // Очищаем локальный список корзины
+            cartItems.Clear();
+        }
+    }
+
+    /// <summary>
+    /// Свойство для подсчета общей стоимости корзины.
+    /// </summary>
+    private decimal TotalCartPrice => cartItems.Sum(item => item.Quantity * item.Book.Price);
+}

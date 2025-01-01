@@ -25,7 +25,8 @@
         </dl>
         <div>
             <a href="@($"/orderdetails/edit?orderid={orderdetail.OrderId}")">Edit</a> |
-            <a href="@($"/orderdetails")">Back to List</a>
+            <a href="/orderdetails?orderid=@orderdetail?.OrderId">Возврат к списку заказов</a>
+           @*  <a href="@($"/orderdetails")">Back to List</a> *@
         </div>
     }
 </div>

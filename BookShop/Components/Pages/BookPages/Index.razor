@@ -4,17 +4,22 @@
 @using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "Client, Admin")]
 
 <PageTitle>Каталог</PageTitle>
 
 <h1>Каталог</h1>
-
+<div style="text-align: right;">
+    <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
+    <button @onclick="GoToCart" class="btn btn-primary">Перейти в корзину</button>
+</div>
+<AuthorizeView Roles="Admin">
 <p>
     <a href="books/create">Добавить книгу</a>
 </p>
-
+</AuthorizeView>
 <div>
     <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." />
     <select @bind="selectedGenre">
@@ -29,9 +34,7 @@
    
 </div>
 
-
 <QuickGrid Class="table" Items="FilteredBooks" Pagination="pagination">
-    @* <PropertyColumn Property="book => book.ImageUrl" Title="Фото" /> *@
     <TemplateColumn Title="Фото">
         @if ((context as Book)?.ImageUrl is string imageUrl && !string.IsNullOrWhiteSpace(imageUrl))
         {
@@ -44,20 +47,26 @@
     </TemplateColumn>
     <PropertyColumn Property="book => book.Title" Title="Название" Sortable="true" />
     <PropertyColumn Property="book => book.Author.AuthorName" Title="Автор" />
-    <PropertyColumn Property="book => book.Publisher.PublisherName" Title="Издательство" />
     <PropertyColumn Property="book => book.Genre.Name" Title="Жанр" />
     <PropertyColumn Property="book => book.Price" Title="Цена" />
-    <PropertyColumn Property="book => book.Description" Title="Описание" />
-    <PropertyColumn Property="book => book.StockQuantity" Title="Количество" />
-    <PropertyColumn Property="book => book.Supplier.Name" Title="Поставщик" />
+
+    <AuthorizeView Roles="Admin">
+        <PropertyColumn Property="book => book.Publisher.PublisherName" Title="Издательство" />
+        <PropertyColumn Property="book => book.Description" Title="Описание" />
+        <PropertyColumn Property="book => book.StockQuantity" Title="Количество" />
+        <PropertyColumn Property="book => book.Supplier.Name" Title="Поставщик" />
+    </AuthorizeView>
 
     <TemplateColumn Context="book">
         <button height="45" wight="60" @onclick="() => AddToCart(book)">Добавить в корзину</button>
         @* <button @onclick="() => AddToWishlist(book)">❤️</button> *@
         @* <a href="@($"cartitems?userid={book.UserId}")">Перейти в корзину</a> *@
+        <a href="@($"books/details?bookid={book.BookId}")">Детали</a> 
+
+        <AuthorizeView Roles="Admin">
         <a href="@($"books/edit?bookid={book.BookId}")">Редактировать</a> |
-        <a href="@($"books/details?bookid={book.BookId}")">Детали</a> |
         <a href="@($"books/delete?bookid={book.BookId}")">Удалить</a>
+        </AuthorizeView>
     </TemplateColumn>
 </QuickGrid>
 
@@ -70,15 +79,39 @@
     private ApplicationDbContext context = default!;
     private List<Genre> genres = new List<Genre>();
 
+    private async Task GoToOrders()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            using var context = DbFactory.CreateDbContext();
+
+            // Получаем UserId как строку
+            var userId = context.Users
+                .Where(u => u.UserName == user.Identity.Name)
+                .Select(u => u.Id) // Предполагается, что Id имеет тип string
+                .FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Переход на страницу заказов
+                NavigationManager.NavigateTo($"/myorders/{userId}");
+            }
+        }
+    }
+
+    private void GoToCart()
+    {
+        // Перенаправление на страницу корзины
+        NavigationManager.NavigateTo("/cart");
+    }
+
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
         genres = context.Genres.ToList(); // Загружаем список жанров
-    }
-    
-    private void GoToCart()
-    {
-        //NavigationManager.NavigateTo("/cartitems");
     }
 
     private void ResetFilter()

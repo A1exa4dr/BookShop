@@ -355,7 +355,7 @@ else
                             await context.SaveChangesAsync();
                             wishlistRefs.Add(new WishlistRef
                                 {
-                                    WishlistRefDB = wishlist.BookId,
+                                    WishlistRefDB = wishlist.WishlistId,//
                                     WishlistRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }

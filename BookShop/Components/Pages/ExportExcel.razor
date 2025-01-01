@@ -236,9 +236,9 @@
 
         // Лист для таблицы WishList
         var worksheet10 = workbook.Worksheets.Add("WishList");
-        //worksheet10.Cell(1, 1).Value = "WishListId";
-        worksheet10.Cell(1, 1).Value = "Идентификатор пользователя";
-        worksheet10.Cell(1, 2).Value = "Идентификатор книги";
+        worksheet10.Cell(1, 1).Value = "Идентификатор избранного";//
+        worksheet10.Cell(1, 2).Value = "Идентификатор пользователя";
+        worksheet10.Cell(1, 3).Value = "Идентификатор книги";
 
         worksheet10.Row(1).Style.Font.Bold = true;
 
@@ -246,9 +246,9 @@
 
         foreach (var wishList in context.Wishlists.Include(w => w.User).Include(w => w.Book))
         {
-            //worksheet10.Cell(i, 1).Value = wishList.WishlistId;
-            worksheet10.Cell(i, 1).Value = wishList.UserId;
-            worksheet10.Cell(i, 2).Value = wishList.BookId;
+            worksheet10.Cell(i, 1).Value = wishList.WishlistId;//
+            worksheet10.Cell(i, 2).Value = wishList.UserId;
+            worksheet10.Cell(i, 3).Value = wishList.BookId;
             i++;
         }
 

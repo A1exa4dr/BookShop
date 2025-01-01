@@ -1,0 +1,69 @@
+﻿@page "/myorders/{UserId}"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<h1>Мои заказы</h1>
+
+@if (userOrders == null || !userOrders.Any())
+{
+    <p>У вас нет заказов.</p>
+}
+else
+{
+    foreach (var order in userOrders)
+    {
+        <div class="order">
+            <h3>Заказ № @order.OrderId</h3>
+            <p>Дата заказа: @order.OrderDate.ToString("dd.MM.yyyy")</p>
+            <p>Статус: @order.OrderStatus.Status</p>
+            <p>Общая сумма: @order.TotalAmount.ToString("C")</p>
+
+            <h4>Детали заказа</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название книги</th>
+                        <th>Количество</th>
+                        <th>Цена за единицу</th>
+                        <th>Итоговая цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in order.OrderDetails)
+                    {
+                        <tr>
+                            <td>@detail.Book.Title</td>
+                            <td>@detail.Quantity</td>
+                            <td>@detail.Price.ToString("C")</td>
+                            <td>@((detail.Quantity * detail.Price).ToString("C"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public string UserId { get; set; } = string.Empty;
+
+    private List<Order> userOrders = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Создание контекста базы данных
+        using var context = DbFactory.CreateDbContext();
+
+        // Получение заказов пользователя с деталями
+        userOrders = await context.Orders
+            .Include(o => o.OrderStatus) // Статус заказа
+            .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Book) // Информация о книгах
+            .Where(o => o.UserId == UserId)
+            .OrderByDescending(o => o.OrderDate) // Сортировка по дате заказа
+            .ToListAsync();
+    }
+}

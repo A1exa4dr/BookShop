@@ -25,6 +25,14 @@
       "PackagePath": "staticwebassets\\images\\17292328428936k6toqxt.jpg"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\542259.png",
+      "PackagePath": "staticwebassets\\images\\542259.png"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Book Review - iconSvg.co.jpg",
+      "PackagePath": "staticwebassets\\images\\Book Review - iconSvg.co.jpg"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",
       "PackagePath": "staticwebassets\\js\\openfile.js"
     },
