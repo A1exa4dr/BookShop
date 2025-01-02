@@ -3,53 +3,103 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "Client, Admin")]
 
-<PageTitle>Details</PageTitle>
-
-<h1>Details</h1>
+<PageTitle>Описание книги</PageTitle>
+<link rel="stylesheet" href="css/bookdetail.css">
+<h1>Описание книги</h1>
 
 <div>
-    <h2>Book</h2>
+    @* <h2>Книги</h2> *@
     <hr />
     @if (book is null)
     {
         <p><em>Loading...</em></p>
     }
-    else {
-        <dl class="row">
-            <dt class="col-sm-2">ImageUrl</dt>
-            <dd class="col-sm-10">@book.ImageUrl</dd>
-            <dt class="col-sm-2">Название</dt>
-            <dd class="col-sm-10">@book.Title</dd>
-            <dt class="col-sm-2">Автор</dt>
-            <dd class="col-sm-10">@book.AuthorId</dd>
-            <dt class="col-sm-2">Жанр</dt>
-            <dd class="col-sm-10">@book.GenreId</dd>
-            <dt class="col-sm-2">Описание</dt>
-            <dd class="col-sm-10">@book.Description</dd>
-            <dt class="col-sm-2">Цена</dt>
-            <dd class="col-sm-10">@book.Price</dd>
-            <AuthorizeView Roles="Admin">
-                <dt class="col-sm-2">PublisherId</dt>
-                <dd class="col-sm-10">@book.PublisherId</dd>
-                <dt class="col-sm-2">StockQuantity</dt>
-                <dd class="col-sm-10">@book.StockQuantity</dd>
-                <dt class="col-sm-2">SupplierId</dt>
-                <dd class="col-sm-10">@book.SupplierId</dd>
-            </AuthorizeView>
-        </dl>
+    else
+    {
+        <div class="book-details">
+            <div class="book-image">
+                @if (!string.IsNullOrEmpty(book.ImageUrl))
+                {
+                    <img src="@book.ImageUrl" alt="Фото книги" style="max-width: 200px; max-height: 300px;" />
+                }
+                else
+                {
+                    <span>Фото отсутствует</span>
+                }
+            </div>
+            <div class="book-info">
+                <dl class="row">
+            @* <dt class="col-sm-2">ImageUrl</dt>
+            <dd class="col-sm-10">@book.ImageUrl</dd> *@
+                    <dt class="col-sm-2">Название:</dt>
+                    <dd class="col-sm-10">@book.Title</dd>
+                    <dt class="col-sm-2">Автор:</dt>
+                    <dd class="col-sm-10">@book.Author.AuthorName</dd>
+                    <dt class="col-sm-2">Жанр:</dt>
+                    <dd class="col-sm-10">@book.Genre.Name</dd>
+                    <dt class="col-sm-2">Описание:</dt>
+                    <dd class="col-sm-10">@book.Description</dd>
+                    <dt class="col-sm-2">Цена:</dt>
+                    <dd class="col-sm-10">@book.Price</dd>
+                    <AuthorizeView Roles="Admin">
+                        <dt class="col-sm-2">Количество на складе:</dt>
+                        <dd class="col-sm-10">@book.StockQuantity</dd>
+                        <dt class="col-sm-2">Поставщик:</dt>
+                        <dd class="col-sm-10">@book.Supplier?.Name</dd>
+                    </AuthorizeView>
+                </dl>
+            </div>
+        </div>
         <div>
             <AuthorizeView Roles="Admin">
-                <a href="@($"/books/edit?bookid={book.BookId}")">Edit</a> |
+                <a href="@($"/books/edit?bookid={book.BookId}")">Редактировать</a> |
             </AuthorizeView>
-            <a href="@($"/books")">Back to List</a>
+            <a href="@($"/books")">Обратно в каталог</a>
         </div>
+        <AuthorizeView Roles="Client">
+                <h3>Оставить отзыв</h3>
+                <textarea @bind="reviewText" class="form-control" rows="4" placeholder="Введите ваш отзыв"></textarea>
+                <br />
+                <label>Оценка:</label>
+                <select @bind="reviewRating" class="form-select">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <br />
+                <button class="btn btn-primary" @onclick="SubmitReview">Оставить отзыв</button>
+        </AuthorizeView>
+        <h3>Отзывы</h3>
+        @if (reviews is null || !reviews.Any())
+        {
+            <p>Отзывов пока нет.</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var review in reviews)
+                {
+                    <li class="list-group-item">
+                        <strong>@review.User.UserName</strong> (Рейтинг: @review.Rating)
+                        <p>@review.ReviewText</p>
+                        <small>Дата публикации: @review.DatePosted.ToShortDateString()</small>
+                    </li>
+                }
+            </ul>
+        }
     }
 </div>
 
 @code {
     private Book? book;
+    private List<Review>? reviews;
+    private string reviewText = string.Empty;
+    private int reviewRating = 1; // По умолчанию минимальный рейтинг.
+    private string message = string.Empty;
 
     [SupplyParameterFromQuery]
     private int BookId { get; set; }
@@ -57,11 +107,75 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        book = await context.Books.FirstOrDefaultAsync(m => m.BookId == BookId);
+        book = await context.Books
+            .Include(b => b.Author)
+            .Include(b => b.Genre)
+            .Include(b => b.Publisher)
+            .Include(b => b.Supplier)
+            .FirstOrDefaultAsync(m => m.BookId == BookId);
 
         if (book is null)
         {
             NavigationManager.NavigateTo("notfound");
         }
+
+        reviews = await context.Reviews
+            .Include(r => r.User)
+            .Where(r => r.BookId == BookId)
+            .ToListAsync();
+    }
+
+    private async Task SubmitReview()
+    {
+        if (string.IsNullOrWhiteSpace(reviewText))
+        {
+            // Добавьте сообщение об ошибке, если текст пустой
+            return;
+        }
+
+        using var context = DbFactory.CreateDbContext();
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+        if (userId is null)
+        {
+            // Обработка ситуации, если пользователь не найден
+            message = "Вы должны быть авторизованы для отправки отзыва.";
+            return;
+        }
+
+        // Проверка на существование отзыва
+        var existingReview = await context.Reviews.FirstOrDefaultAsync(r => r.UserId == userId && r.BookId == BookId);
+
+        if (existingReview != null)
+        {
+            message = "Вы уже оставили отзыв на эту книгу.";
+            return;
+        }
+
+        var review = new Review
+            {
+                UserId = userId,
+                BookId = BookId,
+                Rating = reviewRating,
+                ReviewText = reviewText,
+                DatePosted = DateTime.Now
+            };
+
+        context.Reviews.Add(review);
+        await context.SaveChangesAsync();
+
+        // Обновление списка отзывов
+        reviews = await context.Reviews
+            .Include(r => r.User)
+            .Where(r => r.BookId == BookId)
+            .ToListAsync();
+
+        // Очистка текстового поля и сброс рейтинга
+        message = "Спасибо за ваш отзыв!";
+        reviewText = string.Empty;
+        reviewRating = 1;
     }
 }

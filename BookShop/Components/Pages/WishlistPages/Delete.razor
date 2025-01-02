@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Client")]
 
 <PageTitle>Delete</PageTitle>
 
@@ -18,8 +19,12 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">WishlistId</dt>
-            <dd class="col-sm-10">@wishlist.WishlistId</dd>
+            <dt class="col-sm-2">Название</dt>
+            <dd class="col-sm-10">@wishlist.Book.Title</dd>
+            <dt class="col-sm-2">Автор</dt>
+            <dd class="col-sm-10">@wishlist.Book.Author.AuthorName</dd>
+            <dt class="col-sm-2">Цена</dt>
+            <dd class="col-sm-10">@wishlist.Book.Price</dd>
         </dl>
         <EditForm method="post" Model="wishlist" OnValidSubmit="DeleteWishlist" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(wishlist is null)">Delete</button> |
@@ -32,14 +37,23 @@
     private Wishlist? wishlist;
 
     [SupplyParameterFromQuery]
-    private string UserId { get; set; }
+    private string UserId { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        using var context = DbFactory.CreateDbContext();
-        wishlist = await context.Wishlists.FirstOrDefaultAsync(m => m.UserId == UserId);
+        if (string.IsNullOrEmpty(UserId))
+        {
+            NavigationManager.NavigateTo("notfound");
+            return;
+        }
 
-        if (wishlist is null)
+        using var context = DbFactory.CreateDbContext();
+        wishlist = await context.Wishlists
+                                .Include(w => w.Book)
+                                .ThenInclude(b => b.Author)
+                                .FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        if (wishlist == null)
         {
             NavigationManager.NavigateTo("notfound");
         }

@@ -17,6 +17,18 @@
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\bookdetail.css",
+      "PackagePath": "staticwebassets\\css\\bookdetail.css"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\catalog.css",
+      "PackagePath": "staticwebassets\\css\\catalog.css"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\wishlist.css",
+      "PackagePath": "staticwebassets\\css\\wishlist.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },

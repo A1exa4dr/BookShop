@@ -5,22 +5,21 @@
 @using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@attribute [Authorize(Roles = "Admin,Client")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Избранные книги</PageTitle>
 
-<h1>Index</h1>
-
-<p>
-    <a href="wishlists/create">Create New</a>
-</p>
+<h1>Избранные книги</h1>
 
 <QuickGrid Class="table" Items="context.Wishlists">
-    <PropertyColumn Property="wishlist => wishlist.WishlistId" />
+    <PropertyColumn Property="wishlist => wishlist.Book.Title" Title="Название"/>
+    <PropertyColumn Property="wishlist => wishlist.Book.Author.AuthorName" Title="Автор" />
+    <PropertyColumn Property="wishlist => wishlist.Book.Price" Title="Цена" />
 
     <TemplateColumn Context="wishlist">
-        <a href="@($"wishlists/edit?userid={wishlist.UserId}")">Edit</a> |
-        <a href="@($"wishlists/details?userid={wishlist.UserId}")">Details</a> |
-        <a href="@($"wishlists/delete?userid={wishlist.UserId}")">Delete</a>
+        <a href="@($"wishlists/edit?userid={wishlist.UserId}")">Редактировать</a> |
+        <a href="@($"wishlists/details?userid={wishlist.UserId}")">Описание</a> |
+        <a href="@($"wishlists/delete?userid={wishlist.UserId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 
@@ -30,6 +29,8 @@
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
+        // Ensure the data is loaded
+        context.Wishlists.Include(w => w.Book.Author).ToList();
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();

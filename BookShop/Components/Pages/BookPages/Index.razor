@@ -59,8 +59,7 @@
 
     <TemplateColumn Context="book">
         <button height="45" wight="60" @onclick="() => AddToCart(book)">Добавить в корзину</button>
-        @* <button @onclick="() => AddToWishlist(book)">❤️</button> *@
-        @* <a href="@($"cartitems?userid={book.UserId}")">Перейти в корзину</a> *@
+        @* <button class="btn btn-secondary" @onclick="() => AddToWishlist(book)">В избранное</button> *@
         <a href="@($"books/details?bookid={book.BookId}")">Детали</a> 
 
         <AuthorizeView Roles="Admin">
@@ -106,6 +105,12 @@
     {
         // Перенаправление на страницу корзины
         NavigationManager.NavigateTo("/cart");
+    }
+
+    private void GoToWishlist()
+    {
+        // Перенаправление на страницу корзины
+        NavigationManager.NavigateTo("/mywishlist");
     }
 
     protected override void OnInitialized()
@@ -195,8 +200,6 @@
         // Сохранение изменений в базе данных
         await context.SaveChangesAsync();
     }
-
-
 
     // public async ValueTask DisposeAsync() => await context.DisposeAsync();
     public async ValueTask DisposeAsync()
