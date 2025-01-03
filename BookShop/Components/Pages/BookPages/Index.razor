@@ -14,6 +14,7 @@
 <div style="text-align: right;">
     <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
     <button @onclick="GoToCart" class="btn btn-primary">Перейти в корзину</button>
+    <button @onclick="GoToWishlist" class="btn btn-primary">Избранное</button>
 </div>
 <AuthorizeView Roles="Admin">
 <p>
@@ -59,7 +60,7 @@
 
     <TemplateColumn Context="book">
         <button height="45" wight="60" @onclick="() => AddToCart(book)">Добавить в корзину</button>
-        @* <button class="btn btn-secondary" @onclick="() => AddToWishlist(book)">В избранное</button> *@
+        <button class="btn btn-secondary" @onclick="() => AddToWishlist(book)">В избранное</button>
         <a href="@($"books/details?bookid={book.BookId}")">Детали</a> 
 
         <AuthorizeView Roles="Admin">
@@ -110,7 +111,7 @@
     private void GoToWishlist()
     {
         // Перенаправление на страницу корзины
-        NavigationManager.NavigateTo("/mywishlist");
+        NavigationManager.NavigateTo("/wishlists");
     }
 
     protected override void OnInitialized()
@@ -199,6 +200,57 @@
 
         // Сохранение изменений в базе данных
         await context.SaveChangesAsync();
+    }
+    private async Task AddToWishlist(Book book)
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity is null || !user.Identity.IsAuthenticated)
+            {
+                Console.WriteLine("Ошибка: пользователь не авторизован.");
+                return;
+            }
+
+            // Попытка извлечь UserId
+            var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                Console.WriteLine("Ошибка: не удалось определить UserId.");
+                return;
+            }
+
+            using var context = DbFactory.CreateDbContext();
+
+            // Проверка, не добавлена ли книга ранее
+            var existingWishlist = await context.Wishlists
+                .FirstOrDefaultAsync(w => w.UserId == userId && w.BookId == book.BookId);
+
+            if (existingWishlist != null)
+            {
+                Console.WriteLine($"Книга '{book.Title}' уже находится в избранном.");
+                return;
+            }
+
+            // Добавление книги в избранное
+            var wishlistItem = new Wishlist
+                {
+                    UserId = userId,
+                    BookId = book.BookId
+                };
+
+            context.Wishlists.Add(wishlistItem);
+            await context.SaveChangesAsync();
+
+            Console.WriteLine($"Книга '{book.Title}' успешно добавлена в избранное.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при добавлении книги в избранное: {ex.Message}");
+        }
     }
 
     // public async ValueTask DisposeAsync() => await context.DisposeAsync();

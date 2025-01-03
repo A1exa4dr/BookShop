@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241229113536_wishlist")]
+    [Migration("20250103113957_wishlist")]
     partial class wishlist
     {
         /// <inheritdoc />

@@ -7,21 +7,21 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Авторы</PageTitle>
 
-<h1>Index</h1>
+<h1>Авторы</h1>
 
 <p>
-    <a href="authors/create">Create New</a>
+    <a href="authors/create">Добавить нового автора</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Authors">
-    <PropertyColumn Property="author => author.AuthorName" />
+    <PropertyColumn Property="author => author.AuthorName" Title="Имя автора"/>
 
     <TemplateColumn Context="author">
-        <a href="@($"authors/edit?authorid={author.AuthorId}")">Edit</a> |
-        <a href="@($"authors/details?authorid={author.AuthorId}")">Details</a> |
-        <a href="@($"authors/delete?authorid={author.AuthorId}")">Delete</a>
+        <a href="@($"authors/edit?authorid={author.AuthorId}")">Редактировать</a> |
+        <a href="@($"authors/details?authorid={author.AuthorId}")">Описание</a> |
+        <a href="@($"authors/delete?authorid={author.AuthorId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

@@ -5,11 +5,11 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать</h1>
 
-<h2>Author</h2>
+<h2>Автор</h2>
 <hr />
 @if (Author is null)
 {
@@ -24,18 +24,18 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Author.AuthorId" value="@Author.AuthorId" />
                 <div class="mb-3">
-                    <label for="authorname" class="form-label">AuthorName:</label>
+                    <label for="authorname" class="form-label">Имя автора:</label>
                     <InputText id="authorname" @bind-Value="Author.AuthorName" class="form-control" />
                     <ValidationMessage For="() => Author.AuthorName" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/authors">Back to List</a>
+    <a href="/authors">Назад к списку авторов</a>
 </div>
 
 @code {

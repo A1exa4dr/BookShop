@@ -1,37 +1,136 @@
 ﻿@page "/wishlists"
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
-@using BookShop.Data
-@implements IAsyncDisposable
-@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
-@attribute [Authorize(Roles = "Admin,Client")]
+@using System.Security.Claims
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>Избранные книги</PageTitle>
+<PageTitle>Избранное</PageTitle>
+<link rel="stylesheet" href="css/wishlist.css">
 
-<h1>Избранные книги</h1>
+<h1>Избранное</h1>
 
-<QuickGrid Class="table" Items="context.Wishlists">
-    <PropertyColumn Property="wishlist => wishlist.Book.Title" Title="Название"/>
-    <PropertyColumn Property="wishlist => wishlist.Book.Author.AuthorName" Title="Автор" />
-    <PropertyColumn Property="wishlist => wishlist.Book.Price" Title="Цена" />
-
-    <TemplateColumn Context="wishlist">
-        <a href="@($"wishlists/edit?userid={wishlist.UserId}")">Редактировать</a> |
-        <a href="@($"wishlists/details?userid={wishlist.UserId}")">Описание</a> |
-        <a href="@($"wishlists/delete?userid={wishlist.UserId}")">Удалить</a>
-    </TemplateColumn>
-</QuickGrid>
+@if (wishlists == null)
+{
+    <p>Загрузка...</p>
+}
+else if (!wishlists.Any())
+{
+    <p>@(isAdmin ? "Список избранного пуст." : "Ваш список избранного пуст.")</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th>Цена</th>
+                @if (isAdmin)
+                {
+                    <th>Пользователь</th>
+                }
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var wishlist in wishlists)
+            {
+                <tr>
+                    <td>
+                        <img width="200" height="200" src="@wishlist.Book.ImageUrl" alt="Book Image" class="book-image" />
+                    </td>
+                    <td>@wishlist.Book.Title</td>
+                    <td>@wishlist.Book.Author.AuthorName</td>
+                    <td>@wishlist.Book.Genre.Name</td>
+                    <td>@wishlist.Book.Price руб.</td>
+                    @if (isAdmin)
+                    {
+                        <td>@wishlist.User.UserName</td>
+                    }
+                    <td>
+                        <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
+                        @* <button class="btn btn-danger" @onclick="() => RemoveFromWishlist(wishlist.WishlistId)">Удалить</button> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
-    private ApplicationDbContext context = default!;
+    private List<Wishlist>? wishlists;
+    private bool isAdmin;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        context = DbFactory.CreateDbContext();
-        // Ensure the data is loaded
-        context.Wishlists.Include(w => w.Book.Author).ToList();
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated == true)
+            {
+                isAdmin = user.IsInRole("Admin");
+                var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                using var context = DbFactory.CreateDbContext();
+
+                if (isAdmin)
+                {
+                    // Загрузка всех данных для администратора
+                    wishlists = await context.Wishlists
+                        .Include(w => w.Book)
+                            .ThenInclude(b => b.Author)
+                        .Include(w => w.Book.Genre)
+                        .Include(w => w.User)
+                        .ToListAsync();
+                }
+                else if (!string.IsNullOrEmpty(userId))
+                {
+                    // Загрузка данных для текущего пользователя
+                    wishlists = await context.Wishlists
+                        .Where(w => w.UserId == userId)
+                        .Include(w => w.Book)
+                            .ThenInclude(b => b.Author)
+                        .Include(w => w.Book.Genre)
+                        .ToListAsync();
+                }
+
+                // Отладочный вывод
+                Console.WriteLine($"Загружено записей: {wishlists?.Count ?? 0}");
+            }
+            else
+            {
+                wishlists = new List<Wishlist>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
     }
 
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+    // private async Task RemoveFromWishlist(int wishlistId)
+    // {
+    //     try
+    //     {
+    //         using var context = DbFactory.CreateDbContext();
+    //         var wishlistItem = await context.Wishlists.FindAsync(wishlistId);
+
+    //         if (wishlistItem != null)
+    //         {
+    //             context.Wishlists.Remove(wishlistItem);
+    //             await context.SaveChangesAsync();
+
+    //             wishlists?.Remove(wishlistItem);
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine($"Ошибка при удалении: {ex.Message}");
+    //     }
+    // }
 }

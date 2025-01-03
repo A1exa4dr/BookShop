@@ -5,11 +5,11 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Create</PageTitle>
+<PageTitle>Добавить</PageTitle>
 
-<h1>Create</h1>
+<h1>Добавить автора</h1>
 
-<h2>Author</h2>
+<h2>Автор</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,17 +17,17 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
-                <label for="authorname" class="form-label">AuthorName:</label> 
+                <label for="authorname" class="form-label">Имя автора:</label> 
                 <InputText id="authorname" @bind-Value="Author.AuthorName" class="form-control" /> 
                 <ValidationMessage For="() => Author.AuthorName" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </EditForm>
     </div>
 </div>
 
 <div>
-    <a href="/authors">Back to List</a>
+    <a href="/authors">Обратно к списку авторов</a>
 </div>
 
 @code {

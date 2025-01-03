@@ -290,10 +290,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeU9yZGVycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/MyWishlist.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeVdpc2hsaXN0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/OrderDetailPages/Create.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmRlckRldGFpbFBhZ2VzXENyZWF0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

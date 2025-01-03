@@ -5,12 +5,12 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Details</PageTitle>
+<PageTitle>Описание</PageTitle>
 
-<h1>Details</h1>
+<h1>Описание</h1>
 
 <div>
-    <h2>Author</h2>
+    <h2>Автор</h2>
     <hr />
     @if (author is null)
     {
@@ -18,12 +18,12 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">AuthorName</dt>
+            <dt class="col-sm-2">Имя автора:</dt>
             <dd class="col-sm-10">@author.AuthorName</dd>
         </dl>
         <div>
-            <a href="@($"/authors/edit?authorid={author.AuthorId}")">Edit</a> |
-            <a href="@($"/authors")">Back to List</a>
+            <a href="@($"/authors/edit?authorid={author.AuthorId}")">Редактировать</a> |
+            <a href="@($"/authors")">Обратно к списку авторов</a>
         </div>
     }
 </div>
