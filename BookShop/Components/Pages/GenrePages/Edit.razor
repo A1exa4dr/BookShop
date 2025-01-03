@@ -5,15 +5,15 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать жанр</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать жанр</h1>
 
-<h2>Genre</h2>
+<h2>Жанр</h2>
 <hr />
 @if (Genre is null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Загрузка...</em></p>
 }
 else
 {
@@ -24,18 +24,18 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Genre.GenreId" value="@Genre.GenreId" />
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
+                    <label for="name" class="form-label">Название:</label>
                     <InputText id="name" @bind-Value="Genre.Name" class="form-control" />
                     <ValidationMessage For="() => Genre.Name" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/genres">Back to List</a>
+    <a href="/genres">Обратно к списку жанров</a>
 </div>
 
 @code {

@@ -5,13 +5,13 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Delete</PageTitle>
+<PageTitle>Удалить</PageTitle>
 
-<h1>Delete</h1>
+<h1>Удалить</h1>
 
-<p>Are you sure you want to delete this?</p>
+<p>Вы точно хотите удалить это издательство?</p>
 <div>
-    <h2>Publisher</h2>
+    <h2>Мздательство</h2>
     <hr />
     @if (publisher is null)
     {
@@ -19,16 +19,16 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">PublisherName</dt>
+            <dt class="col-sm-2">Название издательства</dt>
             <dd class="col-sm-10">@publisher.PublisherName</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">ContactEmail</dt>
+            <dt class="col-sm-2">почта</dt>
             <dd class="col-sm-10">@publisher.ContactEmail</dd>
         </dl>
         <EditForm method="post" Model="publisher" OnValidSubmit="DeletePublisher" FormName="delete" Enhance>
-            <button type="submit" class="btn btn-danger" disabled="@(publisher is null)">Delete</button> |
-            <a href="/publishers">Back to List</a>
+            <button type="submit" class="btn btn-danger" disabled="@(publisher is null)">Удалить</button> |
+            <a href="/publishers">Обратно к списку издательств</a>
         </EditForm>
     }
 </div>

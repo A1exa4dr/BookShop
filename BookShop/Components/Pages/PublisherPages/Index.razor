@@ -7,22 +7,22 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Издательства</PageTitle>
 
-<h1>Index</h1>
+<h1>Издательства</h1>
 
 <p>
-    <a href="publishers/create">Create New</a>
+    <a href="publishers/create">Добавить издательство</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Publishers">
-    <PropertyColumn Property="publisher => publisher.PublisherName"/>
-    <PropertyColumn Property="publisher => publisher.ContactEmail" />
+    <PropertyColumn Property="publisher => publisher.PublisherName" Title="Название издательства"/>
+    <PropertyColumn Property="publisher => publisher.ContactEmail" Title="Поста для связи"/>
 
     <TemplateColumn Context="publisher">
-        <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")">Edit</a> |
-        <a href="@($"publishers/details?publisherid={publisher.PublisherId}")">Details</a> |
-        <a href="@($"publishers/delete?publisherid={publisher.PublisherId}")">Delete</a>
+        <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")">Редактировать</a> |
+        <a href="@($"publishers/details?publisherid={publisher.PublisherId}")">Описание</a> |
+        <a href="@($"publishers/delete?publisherid={publisher.PublisherId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

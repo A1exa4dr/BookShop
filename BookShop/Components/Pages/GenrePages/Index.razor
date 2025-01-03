@@ -7,21 +7,21 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Жанры</PageTitle>
 
-<h1>Index</h1>
+<h1>Жанры</h1>
 
 <p>
-    <a href="genres/create">Create New</a>
+    <a href="genres/create">Добавить новы жанр</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Genres">
-    <PropertyColumn Property="genre => genre.Name" />
+    <PropertyColumn Property="genre => genre.Name" Title="Название жанра"/>
 
     <TemplateColumn Context="genre">
-        <a href="@($"genres/edit?genreid={genre.GenreId}")">Edit</a> |
-        <a href="@($"genres/details?genreid={genre.GenreId}")">Details</a> |
-        <a href="@($"genres/delete?genreid={genre.GenreId}")">Delete</a>
+        <a href="@($"genres/edit?genreid={genre.GenreId}")">Редактировать</a> |
+        <a href="@($"genres/details?genreid={genre.GenreId}")">Описание</a> |
+        <a href="@($"genres/delete?genreid={genre.GenreId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

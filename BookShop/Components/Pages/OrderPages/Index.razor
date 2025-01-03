@@ -7,13 +7,13 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Заказы</PageTitle>
 
-<h1>Index</h1>
+<h1>Заказы</h1>
 
-<p>
+@* <p>
     <a href="orders/create">Create New</a>
-</p>
+</p> *@
 
 <QuickGrid Class="table" Items="context.Orders">
     <PropertyColumn Property="order => order.UserId" />
@@ -23,9 +23,9 @@
 
     <TemplateColumn Context="order">
         <a href="@($"orderdetails?orderid={order.OrderId}")">Детали заказа</a> |
-        <a href="@($"orders/edit?orderid={order.OrderId}")">Edit</a> |
-        <a href="@($"orders/details?orderid={order.OrderId}")">Details</a> |
-        <a href="@($"orders/delete?orderid={order.OrderId}")">Delete</a>
+        @* <a href="@($"orders/edit?orderid={order.OrderId}")">Редактировать</a> | *@
+        <a href="@($"orders/details?orderid={order.OrderId}")">Описание</a> |
+        @* <a href="@($"orders/delete?orderid={order.OrderId}")">Удалить</a> *@
     </TemplateColumn>
 </QuickGrid>
 

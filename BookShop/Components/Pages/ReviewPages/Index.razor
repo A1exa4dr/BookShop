@@ -7,25 +7,25 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Отзывы</PageTitle>
 
-<h1>Index</h1>
+<h1>Отзывы</h1>
 
-<p>
+@* <p>
     <a href="reviews/create">Create New</a>
-</p>
+</p> *@
 
 <QuickGrid Class="table" Items="context.Reviews">
-    <PropertyColumn Property="review => review.UserId" />
-    <PropertyColumn Property="review => review.BookId" />
-    <PropertyColumn Property="review => review.Rating" />
-    <PropertyColumn Property="review => review.ReviewText" />
-    <PropertyColumn Property="review => review.DatePosted" />
+    <PropertyColumn Property="review => review.UserId" Title="Пользователь"/>
+    <PropertyColumn Property="review => review.Book.Title" Title="Название книги" />
+    <PropertyColumn Property="review => review.Rating" Title="Рейтинг" />
+    <PropertyColumn Property="review => review.ReviewText" Title="Отзыв" />
+    <PropertyColumn Property="review => review.DatePosted" Title="Дата отзыва" />
 
     <TemplateColumn Context="review">
-        <a href="@($"reviews/edit?reviewid={review.ReviewId}")">Edit</a> |
-        <a href="@($"reviews/details?reviewid={review.ReviewId}")">Details</a> |
-        <a href="@($"reviews/delete?reviewid={review.ReviewId}")">Delete</a>
+        @* <a href="@($"reviews/edit?reviewid={review.ReviewId}")">Редактировать</a> | *@
+        <a href="@($"reviews/details?reviewid={review.ReviewId}")">Описание</a> |
+        <a href="@($"reviews/delete?reviewid={review.ReviewId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

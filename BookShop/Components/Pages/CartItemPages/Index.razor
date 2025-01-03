@@ -7,13 +7,13 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Детали корзины</PageTitle>
 
-<h1>Index</h1>
+<h1>Детали корзины</h1>
 
-<p>
+@* <p>
     <a href="cartitems/create">Create New</a>
-</p>
+</p> *@
 
 <QuickGrid Class="table" Items="context.CartItems">
     @* <PropertyColumn Property="cartitem => cartitem.CartItemId" /> *@
@@ -24,20 +24,20 @@
         }
         else
         {
-            <span>No Image</span>
+            <span>Нет изображения</span>
         }
     </TemplateColumn>
-    <PropertyColumn Property="cartitem => cartitem.Book.Title" />
-    <PropertyColumn Property="cartitem => cartitem.Quantity" />
+    <PropertyColumn Property="cartitem => cartitem.Book.Title" Title="Название" />
+    <PropertyColumn Property="cartitem => cartitem.Quantity" Title="Количество" />
     <PropertyColumn Property="cartitem => cartitem.Book.Price" Title="Цена за единицу" />
     <TemplateColumn Title="Общая цена" Context="cartitem">
         @((cartitem.Quantity * cartitem.Book.Price).ToString("C"))
     </TemplateColumn>
 
     <TemplateColumn Context="cartitem">
-        <a href="@($"cartitems/edit?cartid={cartitem.CartId}")">Edit</a> |
-        <a href="@($"cartitems/details?cartid={cartitem.CartId}")">Details</a> |
-        <a href="@($"cartitems/delete?cartid={cartitem.CartId}")">Delete</a>
+       @*  <a href="@($"cartitems/edit?cartid={cartitem.CartId}")">Edit</a> | *@
+        <a href="@($"cartitems/details?cartid={cartitem.CartId}")">Описание</a> |
+        @* <a href="@($"cartitems/delete?cartid={cartitem.CartId}")">Delete</a> *@
     </TemplateColumn>
 </QuickGrid>
 

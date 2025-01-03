@@ -5,11 +5,11 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Create</PageTitle>
+<PageTitle>Добавить издательство</PageTitle>
 
-<h1>Create</h1>
+<h1>Добавить издательство</h1>
 
-<h2>Publisher</h2>
+<h2>Издательство</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,22 +17,22 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
-                <label for="publishername" class="form-label">PublisherName:</label> 
+                <label for="publishername" class="form-label">Название издательство:</label> 
                 <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" /> 
                 <ValidationMessage For="() => Publisher.PublisherName" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="contactemail" class="form-label">ContactEmail:</label> 
+                <label for="contactemail" class="form-label">Почта для связи:</label> 
                 <InputText id="contactemail" @bind-Value="Publisher.ContactEmail" class="form-control" /> 
                 <ValidationMessage For="() => Publisher.ContactEmail" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </EditForm>
     </div>
 </div>
 
 <div>
-    <a href="/publishers">Back to List</a>
+    <a href="/publishers">Обратно к списку издательств</a>
 </div>
 
 @code {

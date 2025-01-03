@@ -5,12 +5,12 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Client,Admin")]
 
-<PageTitle>Details</PageTitle>
+<PageTitle>Описание</PageTitle>
 
-<h1>Details</h1>
+<h1>Описание</h1>
 
 <div>
-    <h2>Review</h2>
+    <h2>Отзыв</h2>
     <hr />
     @if (review is null)
     {
@@ -18,20 +18,20 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">UserId</dt>
+            <dt class="col-sm-2">Пользователь</dt>
             <dd class="col-sm-10">@review.UserId</dd>
-            <dt class="col-sm-2">BookId</dt>
+            <dt class="col-sm-2">Название книги</dt>
             <dd class="col-sm-10">@review.BookId</dd>
-            <dt class="col-sm-2">Rating</dt>
+            <dt class="col-sm-2">Рейтинг</dt>
             <dd class="col-sm-10">@review.Rating</dd>
-            <dt class="col-sm-2">ReviewText</dt>
+            <dt class="col-sm-2">Отзыв</dt>
             <dd class="col-sm-10">@review.ReviewText</dd>
-            <dt class="col-sm-2">DatePosted</dt>
+            <dt class="col-sm-2">Дата отзыва</dt>
             <dd class="col-sm-10">@review.DatePosted</dd>
         </dl>
         <div>
-            <a href="@($"/reviews/edit?reviewid={review.ReviewId}")">Edit</a> |
-            <a href="@($"/reviews")">Back to List</a>
+            <a href="@($"/reviews/edit?reviewid={review.ReviewId}")">Редактировать</a> |
+            <a href="@($"/reviews")">Обратно к списку отзывов</a>
         </div>
     }
 </div>

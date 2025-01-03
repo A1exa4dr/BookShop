@@ -5,11 +5,11 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Create</PageTitle>
+<PageTitle>Добавить жанр</PageTitle>
 
-<h1>Create</h1>
+<h1>Добавить жанр</h1>
 
-<h2>Genre</h2>
+<h2>Жанр</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,17 +17,17 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label> 
+                <label for="name" class="form-label">Название жанра:</label> 
                 <InputText id="name" @bind-Value="Genre.Name" class="form-control" /> 
                 <ValidationMessage For="() => Genre.Name" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </EditForm>
     </div>
 </div>
 
 <div>
-    <a href="/genres">Back to List</a>
+    <a href="/genres">Обратно к списку жанров</a>
 </div>
 
 @code {

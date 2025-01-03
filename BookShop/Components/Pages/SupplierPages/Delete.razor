@@ -5,13 +5,13 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Delete</PageTitle>
+<PageTitle>Удалить поставщика</PageTitle>
 
-<h1>Delete</h1>
+<h1>Удалить поставщика</h1>
 
-<p>Are you sure you want to delete this?</p>
+<p>Вы точно хотите удалить этого поставщика?</p>
 <div>
-    <h2>Supplier</h2>
+    <h2>Поставщик</h2>
     <hr />
     @if (supplier is null)
     {
@@ -19,24 +19,24 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Name</dt>
+            <dt class="col-sm-2">ФИО</dt>
             <dd class="col-sm-10">@supplier.Name</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">Address</dt>
+            <dt class="col-sm-2">Адрес</dt>
             <dd class="col-sm-10">@supplier.Address</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">PhoneNumber</dt>
+            <dt class="col-sm-2">Номер телефона</dt>
             <dd class="col-sm-10">@supplier.PhoneNumber</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">Email</dt>
+            <dt class="col-sm-2">Почта</dt>
             <dd class="col-sm-10">@supplier.Email</dd>
         </dl>
         <EditForm method="post" Model="supplier" OnValidSubmit="DeleteSupplier" FormName="delete" Enhance>
-            <button type="submit" class="btn btn-danger" disabled="@(supplier is null)">Delete</button> |
-            <a href="/suppliers">Back to List</a>
+            <button type="submit" class="btn btn-danger" disabled="@(supplier is null)">Удалить</button> |
+            <a href="/suppliers">Обратно к списку поставщиков</a>
         </EditForm>
     }
 </div>

@@ -5,11 +5,11 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать</h1>
 
-<h2>Publisher</h2>
+<h2>Издательство</h2>
 <hr />
 @if (Publisher is null)
 {
@@ -24,23 +24,23 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Publisher.PublisherId" value="@Publisher.PublisherId" />
                 <div class="mb-3">
-                    <label for="publishername" class="form-label">PublisherName:</label>
+                    <label for="publishername" class="form-label">Название издательства:</label>
                     <InputText id="publishername" @bind-Value="Publisher.PublisherName" class="form-control" />
                     <ValidationMessage For="() => Publisher.PublisherName" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="contactemail" class="form-label">ContactEmail:</label>
+                    <label for="contactemail" class="form-label">Почта:</label>
                     <InputText id="contactemail" @bind-Value="Publisher.ContactEmail" class="form-control" />
                     <ValidationMessage For="() => Publisher.ContactEmail" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/publishers">Back to List</a>
+    <a href="/publishers">Обратно к списку издательств</a>
 </div>
 
 @code {
