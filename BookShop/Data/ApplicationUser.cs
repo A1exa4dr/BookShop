@@ -15,7 +15,6 @@ namespace BookShop.Data
         public string? Phone { get; set; }
         public string Address { get; set; }
         
-
         // Навигационные свойства
         public Cart Cart { get; set; }
         public Gender? Gender { get; set; }

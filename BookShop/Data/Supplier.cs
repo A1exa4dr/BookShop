@@ -6,13 +6,16 @@ namespace BookShop.Data
     {
         [Key]
         public int SupplierId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Добавьте ФИО поставщика")]
+        public string? Name { get; set; }
+        [Required(ErrorMessage = "Добавьте адрес поставщика")]
+        public string? Address { get; set; }
+        [Required(ErrorMessage = "Добавьте номер телефона поставщика")]
+        public string? PhoneNumber { get; set; }
+        [Required(ErrorMessage = "Добавьте почту поставщика")]
+        public string? Email { get; set; }
 
-        // Навигационное свойство
-        // Связь с книгами (поставщик может поставлять несколько книг)
+        // Навигационное свойство. Связь с книгами (поставщик может поставлять несколько книг)
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

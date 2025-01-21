@@ -30,7 +30,7 @@
             <div class="mb-3">
                 <label for="authorid" class="form-label">Автор:</label>
                 <select id="authorid" @bind="Book.AuthorId" class="form-control">
-                    <option value="">Select an author</option>
+                    <option value="">Выберите автора</option>
                     @foreach (var author in Authors)
                     {
                         <option value="@author.AuthorId">@author.AuthorName</option>
@@ -41,7 +41,7 @@
             <div class="mb-3">
                 <label for="publisherid" class="form-label">Издательство:</label>
                 <InputSelect id="publisherid" @bind-Value="Book.PublisherId" class="form-control">
-                    <option value="">-- Select Publisher --</option>
+                    <option value="">Выбрать издательство</option>
                     @foreach (var publisher in Publishers)
                     {
                         <option value="@publisher.PublisherId">@publisher.PublisherName</option>
@@ -52,7 +52,7 @@
             <div class="mb-3">
                 <label for="genreid" class="form-label">Жанр:</label>
                 <select id="genreid" @bind="Book.GenreId" class="form-control">
-                    <option value="">Select a genre</option>
+                    <option value="">Выберите жанр</option>
                     @foreach (var genre in Genres)
                     {
                         <option value="@genre.GenreId">@genre.Name</option>
@@ -78,7 +78,7 @@
             <div class="mb-3">
                 <label for="supplierid" class="form-label">Поставщик:</label>
                 <select id="supplierid" @bind="Book.SupplierId" class="form-control">
-                    <option value="">Select a supplier</option>
+                    <option value="">Выберите поставщика</option>
                     @foreach (var supplier in Suppliers)
                     {
                         <option value="@supplier.SupplierId">@supplier.Name</option>

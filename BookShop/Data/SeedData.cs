@@ -6,17 +6,6 @@ public class SeedData
 {
     public async Task InitializeAsync(ApplicationDbContext context)
     {
-        /*if (!context.Roles.Any())
-        {
-            var roles = new List<IdentityRole>
-        {
-            new IdentityRole { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
-            new IdentityRole { Id = "2", Name = "Client", NormalizedName = "CLIENT" }
-        };
-
-            await context.Roles.AddRangeAsync(roles);
-            await context.SaveChangesAsync();
-        }*/
 
         var role1 = new IdentityRole { Id = "1", Name = "Admin" };
 

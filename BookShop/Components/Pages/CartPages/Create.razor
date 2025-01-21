@@ -1,0 +1,44 @@
+﻿@page "/carts/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Cart</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Cart" OnValidSubmit="AddCart" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputText id="userid" @bind-Value="Cart.UserId" class="form-control" /> 
+                <ValidationMessage For="() => Cart.UserId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/carts">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Cart Cart { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddCart()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Carts.Add(Cart);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/carts");
+    }
+}

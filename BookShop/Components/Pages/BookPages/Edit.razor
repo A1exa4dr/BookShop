@@ -25,8 +25,13 @@ else
                 <input type="hidden" name="Book.BookId" value="@Book.BookId" />
                 <div class="mb-3">
                     <label for="imageurl" class="form-label">Изображение:</label>
-                    <InputText id="imageurl" @bind-Value="Book.ImageUrl" class="form-control" />
-                    <ValidationMessage For="() => Book.ImageUrl" class="text-danger" />
+                    <label class="form-label">Текущее изображение:</label>
+                    <img width="150" height="200" src="@Book.ImageUrl" alt="Обложка книги" class="img-thumbnail" />
+                </div>
+                <!-- Поле для загрузки нового изображения -->
+                <div class="mb-3">
+                    <label for="newImage" class="form-label">Новое изображение:</label>
+                    <InputFile OnChange="HandleImageUpload" />
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Название:</label>
@@ -36,7 +41,6 @@ else
                 <div class="mb-3">
                     <label for="authorid" class="form-label">Автор:</label>
                     <select id="authorid" @bind="Book.AuthorId" class="form-control">
-                        <option value="">Select an author</option>
                         @foreach (var author in Authors)
                         {
                             <option value="@author.AuthorId">@author.AuthorName</option>
@@ -47,7 +51,6 @@ else
                 <div class="mb-3">
                     <label for="publisherid" class="form-label">Издательство:</label>
                     <InputSelect id="publisherid" @bind-Value="Book.PublisherId" class="form-control">
-                        <option value="">-- Select Publisher --</option>
                         @foreach (var publisher in Publishers)
                         {
                             <option value="@publisher.PublisherId">@publisher.PublisherName</option>
@@ -58,7 +61,6 @@ else
                 <div class="mb-3">
                     <label for="genreid" class="form-label">Жанр:</label>
                     <select id="genreid" @bind="Book.GenreId" class="form-control">
-                        <option value="">Select a genre</option>
                         @foreach (var genre in Genres)
                         {
                             <option value="@genre.GenreId">@genre.Name</option>
@@ -84,7 +86,6 @@ else
                 <div class="mb-3">
                     <label for="supplierid" class="form-label">Поставщик:</label>
                     <select id="supplierid" @bind="Book.SupplierId" class="form-control">
-                        <option value="">Select a supplier</option>
                         @foreach (var supplier in Suppliers)
                         {
                             <option value="@supplier.SupplierId">@supplier.Name</option>
@@ -113,6 +114,28 @@ else
     private List<Genre> Genres { get; set; } = new();
     private List<Supplier> Suppliers { get; set; } = new();
 
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        // Проверка на наличие файла
+        var file = e.File;
+        if (file == null)
+        {
+            return;
+        }
+
+        // Генерация уникального имени файла
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.Name);
+
+        // Путь для сохранения файла
+        var filePath = Path.Combine("wwwroot", "images", fileName);
+
+        // Сохранение файла
+        await using var fileStream = new FileStream(filePath, FileMode.Create);
+        await file.OpenReadStream().CopyToAsync(fileStream);
+
+        // Обновление ImageUrl в модели книги
+        Book.ImageUrl = $"/images/{fileName}";
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -134,7 +157,31 @@ else
     private async Task UpdateBook()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Attach(Book!).State = EntityState.Modified;
+
+        // Проверяем, существует ли книга
+        var bookToUpdate = await context.Books
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .Include(b => b.Genre)
+            .Include(b => b.Supplier)
+            .FirstOrDefaultAsync(b => b.BookId == Book!.BookId);
+
+        if (bookToUpdate == null)
+        {
+            NavigationManager.NavigateTo("notfound");
+            return;
+        }
+
+        // Обновляем значения
+        bookToUpdate.Title = Book.Title;
+        bookToUpdate.Description = Book.Description;
+        bookToUpdate.Price = Book.Price;
+        bookToUpdate.StockQuantity = Book.StockQuantity;
+        bookToUpdate.ImageUrl = Book.ImageUrl;
+        bookToUpdate.AuthorId = Book.AuthorId;
+        bookToUpdate.PublisherId = Book.PublisherId;
+        bookToUpdate.GenreId = Book.GenreId;
+        bookToUpdate.SupplierId = Book.SupplierId;
 
         try
         {
@@ -142,7 +189,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!BookExists(Book!.BookId))
+            if (!BookExists(Book.BookId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -154,6 +201,7 @@ else
 
         NavigationManager.NavigateTo("/books");
     }
+
 
     private bool BookExists(int bookid)
     {

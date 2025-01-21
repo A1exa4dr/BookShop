@@ -46,6 +46,8 @@
                     <dt class="col-sm-2">Цена:</dt>
                     <dd class="col-sm-10">@book.Price</dd>
                     <AuthorizeView Roles="Admin">
+                        <dt class="col-sm-2">Издательство: </dt>
+                        <dd class="col-sm-10">@book.Publisher.PublisherName</dd>
                         <dt class="col-sm-2">Количество на складе:</dt>
                         <dd class="col-sm-10">@book.StockQuantity</dd>
                         <dt class="col-sm-2">Поставщик:</dt>
@@ -58,8 +60,9 @@
             <AuthorizeView Roles="Admin">
                 <a href="@($"/books/edit?bookid={book.BookId}")">Редактировать</a> |
             </AuthorizeView>
+            <br />
             <a href="@($"/books")">Обратно в каталог</a>
-        </div>
+        </div><br />
         <AuthorizeView Roles="Client">
                 <h3>Оставить отзыв</h3>
                 <textarea @bind="reviewText" class="form-control" rows="4" placeholder="Введите ваш отзыв"></textarea>
@@ -74,6 +77,8 @@
                 <br />
                 <button class="btn btn-primary" @onclick="SubmitReview">Оставить отзыв</button>
         </AuthorizeView>
+        
+        <br />
         <h3>Отзывы</h3>
         @if (reviews is null || !reviews.Any())
         {

@@ -1,4 +1,4 @@
-﻿@page "/cart"
+﻿@page "/usercart"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -63,17 +63,13 @@ else
 @code {
     private List<CartItem> cartItems = new List<CartItem>();
 
-    /// <summary>
-    /// Загрузка элементов корзины текущего пользователя при загрузке страницы.
-    /// </summary>
+    // Загрузка элементов корзины текущего пользователя при загрузке страницы.
     protected override async Task OnInitializedAsync()
     {
         await LoadCartItems();
     }
 
-    /// <summary>
-    /// Метод для загрузки элементов корзины текущего пользователя.
-    /// </summary>
+    // Метод для загрузки элементов корзины текущего пользователя.
     private async Task LoadCartItems()
     {
         using var context = DbFactory.CreateDbContext();
@@ -101,9 +97,7 @@ else
         }
     }
 
-    /// <summary>
-    /// Метод для удаления элемента из корзины.
-    /// </summary>
+    // Метод для удаления элемента из корзины.
     private async Task RemoveFromCart(CartItem item)
     {
         using var context = DbFactory.CreateDbContext();
@@ -121,9 +115,7 @@ else
         await LoadCartItems();
     }
 
-    /// <summary>
-    /// Метод для обновления количества книги в корзине.
-    /// </summary>
+    // Метод для обновления количества книги в корзине.
     private async Task UpdateQuantity(CartItem item, int newQuantity)
     {
         using var context = DbFactory.CreateDbContext();
@@ -180,6 +172,12 @@ else
                         Price = item.Book.Price
                     };
                 context.OrderDetails.Add(orderDetail);
+
+                var book = await context.Books.FirstOrDefaultAsync(b => b.BookId == item.BookId);
+                if (book != null)
+                {
+                    book.StockQuantity -= item.Quantity; // Уменьшаем количество на складе
+                }
             }
 
             await context.SaveChangesAsync();
@@ -197,8 +195,6 @@ else
         }
     }
 
-    /// <summary>
-    /// Свойство для подсчета общей стоимости корзины.
-    /// </summary>
+    // Свойство для подсчета общей стоимости корзины.
     private decimal TotalCartPrice => cartItems.Sum(item => item.Quantity * item.Book.Price);
 }

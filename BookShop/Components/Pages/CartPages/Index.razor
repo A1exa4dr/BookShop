@@ -1,0 +1,37 @@
+﻿@page "/carts"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BookShop.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Корзина</PageTitle>
+
+<h1>Корзина</h1>
+
+@* <p>
+    <a href="carts/create">Create New</a>
+</p> *@
+
+<QuickGrid Class="table" Items="context.Carts">
+    <PropertyColumn Property="cart => cart.CartId" Title="ID корзины" />
+    <PropertyColumn Property="cart => cart.UserId" Title="Пользователь"/>
+
+    <TemplateColumn Context="cart">
+        <a href="@($"cartitems?cartid={cart.CartId}")">Детали корзины</a> |
+        @* <a href="@($"carts/edit?cartid={cart.CartId}")">Редактировать</a> |
+        <a href="@($"carts/details?cartid={cart.CartId}")">Описание</a> |
+        <a href="@($"carts/delete?cartid={cart.CartId}")">Удалить</a> *@
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

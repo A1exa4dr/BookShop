@@ -5,15 +5,15 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Client,Admin")]
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать</h1>
 
-<h2>Review</h2>
+<h2>Отзыв</h2>
 <hr />
 @if (Review is null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Загрузка...</em></p>
 }
 else
 {
@@ -24,38 +24,38 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Review.ReviewId" value="@Review.ReviewId" />
                 <div class="mb-3">
-                    <label for="userid" class="form-label">UserId:</label>
+                    <label for="userid" class="form-label">Пользователь:</label>
                     <InputText id="userid" @bind-Value="Review.UserId" class="form-control" />
                     <ValidationMessage For="() => Review.UserId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="bookid" class="form-label">BookId:</label>
+                    <label for="bookid" class="form-label">Книга:</label>
                     <InputNumber id="bookid" @bind-Value="Review.BookId" class="form-control" />
                     <ValidationMessage For="() => Review.BookId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="rating" class="form-label">Rating:</label>
+                    <label for="rating" class="form-label">Рейтинг:</label>
                     <InputNumber id="rating" @bind-Value="Review.Rating" class="form-control" />
                     <ValidationMessage For="() => Review.Rating" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="reviewtext" class="form-label">ReviewText:</label>
+                    <label for="reviewtext" class="form-label">Текст отзыва:</label>
                     <InputText id="reviewtext" @bind-Value="Review.ReviewText" class="form-control" />
                     <ValidationMessage For="() => Review.ReviewText" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="dateposted" class="form-label">DatePosted:</label>
+                    <label for="dateposted" class="form-label">Дата отзыва:</label>
                     <InputDate id="dateposted" @bind-Value="Review.DatePosted" class="form-control" />
                     <ValidationMessage For="() => Review.DatePosted" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/reviews">Back to List</a>
+    <a href="/reviews">Обратно к списку отзывов</a>
 </div>
 
 @code {

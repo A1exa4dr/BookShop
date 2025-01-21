@@ -52,7 +52,6 @@ else
                     }
                     <td>
                         <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
-                        @* <button class="btn btn-danger" @onclick="() => RemoveFromWishlist(wishlist.WishlistId)">Удалить</button> *@
                     </td>
                 </tr>
             }
@@ -112,25 +111,4 @@ else
             Console.WriteLine($"Ошибка: {ex.Message}");
         }
     }
-
-    // private async Task RemoveFromWishlist(int wishlistId)
-    // {
-    //     try
-    //     {
-    //         using var context = DbFactory.CreateDbContext();
-    //         var wishlistItem = await context.Wishlists.FindAsync(wishlistId);
-
-    //         if (wishlistItem != null)
-    //         {
-    //             context.Wishlists.Remove(wishlistItem);
-    //             await context.SaveChangesAsync();
-
-    //             wishlists?.Remove(wishlistItem);
-    //         }
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Console.WriteLine($"Ошибка при удалении: {ex.Message}");
-    //     }
-    // }
 }

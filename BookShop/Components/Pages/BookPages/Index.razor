@@ -9,47 +9,52 @@
 @attribute [Authorize(Roles = "Client, Admin")]
 
 <PageTitle>Каталог</PageTitle>
+<link href="css/catalog.css" rel="stylesheet">
 
 <h1>Каталог</h1>
-<div style="text-align: right;">
-    <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
-    <button @onclick="GoToCart" class="btn btn-primary">Перейти в корзину</button>
-    <button @onclick="GoToWishlist" class="btn btn-primary">Избранное</button>
-</div>
+
+<AuthorizeView Roles="Client">
+    <div style="text-align: right;">
+        <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
+        <button @onclick="GoToCart" class="btn btn-primary"> Моя корзина</button><br />
+        @* <button @onclick="GoToWishlist" class="btn btn-primary">Избранное</button> *@
+    </div>
+</AuthorizeView>
+
 <AuthorizeView Roles="Admin">
 <p>
     <a href="books/create">Добавить книгу</a>
 </p>
 </AuthorizeView>
-<div>
-    <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." />
-    <select @bind="selectedGenre">
-        <option height="35" value="">Все жанры</option>
+<br />
+<div class="filter-container">
+    <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." class="form-control filter-input" />
+    <select @bind="selectedGenre" class="form-select filter-input">
+        <option value="">Все жанры</option>
         @foreach (var genre in genres)
         {
             <option value="@genre.GenreId">@genre.Name</option>
         }
     </select>
-    <button @onclick="ResetFilter" class="btn btn-dark">Отменить</button>
-    @* <button @onclick="GoToCart" class="btn btn-primary">Корзина</button> *@
-   
+    <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
 </div>
 
 <QuickGrid Class="table" Items="FilteredBooks" Pagination="pagination">
     <TemplateColumn Title="Фото">
         @if ((context as Book)?.ImageUrl is string imageUrl && !string.IsNullOrWhiteSpace(imageUrl))
         {
-            @((MarkupString)$"<img src='{imageUrl}' alt='Book Image' style='max-width: 100px; max-height: 100px;' />")
+            @((MarkupString)$"<img src='{imageUrl}' alt='Book Image' style='max-width: 150px; max-height: 150px;' />")
         }
         else
         {
             <span>No Image</span>
         }
     </TemplateColumn>
+
     <PropertyColumn Property="book => book.Title" Title="Название" Sortable="true" />
     <PropertyColumn Property="book => book.Author.AuthorName" Title="Автор" />
     <PropertyColumn Property="book => book.Genre.Name" Title="Жанр" />
-    <PropertyColumn Property="book => book.Price" Title="Цена" />
+    <PropertyColumn Property="book => book.Price" Title="Цена" Sortable="true"/>
 
     <AuthorizeView Roles="Admin">
         <PropertyColumn Property="book => book.Publisher.PublisherName" Title="Издательство" />
@@ -59,18 +64,21 @@
     </AuthorizeView>
 
     <TemplateColumn Context="book">
-        <button height="45" wight="60" @onclick="() => AddToCart(book)">Добавить в корзину</button>
-        <button class="btn btn-secondary" @onclick="() => AddToWishlist(book)">В избранное</button>
-        <a href="@($"books/details?bookid={book.BookId}")">Детали</a> 
+        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a> <br />
+        <AuthorizeView Roles="Client">
+            <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button"> Добавить в корзину </button> <br />
+            <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button"> В избранное </button><br />
+        </AuthorizeView>
 
         <AuthorizeView Roles="Admin">
-        <a href="@($"books/edit?bookid={book.BookId}")">Редактировать</a> |
-        <a href="@($"books/delete?bookid={book.BookId}")">Удалить</a>
+            <a href="@($"books/edit?bookid={book.BookId}")" class="btn btn-warning action-button">Редактировать</a><br />
+            <a href="@($"books/delete?bookid={book.BookId}")" class="btn btn-danger action-button">Удалить</a>
         </AuthorizeView>
     </TemplateColumn>
 </QuickGrid>
 
 <Paginator State="pagination" />
+
 
 @code {
     private PaginationState pagination = new PaginationState { ItemsPerPage = 6 };
@@ -105,7 +113,7 @@
     private void GoToCart()
     {
         // Перенаправление на страницу корзины
-        NavigationManager.NavigateTo("/cart");
+        NavigationManager.NavigateTo("/usercart");
     }
 
     private void GoToWishlist()

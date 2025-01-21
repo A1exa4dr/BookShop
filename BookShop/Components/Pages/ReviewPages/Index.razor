@@ -15,7 +15,7 @@
     <a href="reviews/create">Create New</a>
 </p> *@
 
-<QuickGrid Class="table" Items="context.Reviews">
+<QuickGrid Class="table" Items="context.Reviews.Include(ci => ci.Book)">
     <PropertyColumn Property="review => review.UserId" Title="Пользователь"/>
     <PropertyColumn Property="review => review.Book.Title" Title="Название книги" />
     <PropertyColumn Property="review => review.Rating" Title="Рейтинг" />

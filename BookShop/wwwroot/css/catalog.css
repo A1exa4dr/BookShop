@@ -1,55 +1,24 @@
-﻿.catalog-container {
+﻿/* Общий контейнер для фильтрации */
+.filter-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.book-card {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-    .book-card:hover {
-        transform: scale(1.05);
-    }
+/* Входные элементы одинаковой длины */
+.filter-input {
+    flex: 1;
+    max-width: 400px; /* Ограничение длины */
+}
 
-    .book-card img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin-bottom: 10px;
-    }
+/* Кнопка сброса фильтров */
+.filter-button {
+    flex-shrink: 0;
+}
 
-    .book-card .book-info {
-        text-align: center;
-    }
-
-        .book-card .book-info h3 {
-            font-size: 1.2em;
-            margin: 5px 0;
-        }
-
-        .book-card .book-info p {
-            margin: 2px 0;
-            color: #555;
-        }
-
-        .book-card .book-info .price {
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
-        }
-
-    .book-card .buttons {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-    }
+/* Стили кнопок действий */
+.action-button {
+    margin-right: 5px;
+    min-width: 120px;
+}

@@ -3,6 +3,7 @@
 @using BookShop.Data
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Client")]
 
 <h1>Мои заказы</h1>
 

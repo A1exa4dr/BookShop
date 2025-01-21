@@ -2,15 +2,14 @@
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
-@using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Детали заказа</PageTitle>
 
-<h1>Index</h1>
+<h1>Детали заказа</h1>
 
 @* <p>
     <a href="orderdetails/create">Create New</a>
@@ -19,10 +18,14 @@
     <a href="orders">Возврат к списку заказов</a>
 </p>
 
-<QuickGrid Class="table" Items="context.OrderDetails.Where(t=>t.OrderId==OrderId)">
-    <PropertyColumn Property="orderdetail => orderdetail.OrderId" />
-    <PropertyColumn Property="orderdetail => orderdetail.Quantity" />
-    <PropertyColumn Property="orderdetail => orderdetail.Price" />
+<QuickGrid Class="table" Items="context.OrderDetails.Include(ci => ci.Book).Where(t=>t.OrderId==OrderId)">
+    <PropertyColumn Property="orderdetail => orderdetail.OrderId" Title="ID заказа"/>
+    <PropertyColumn Property="orderdetail => orderdetail.Book.Title" Title="Книга"/>
+    <PropertyColumn Property="orderdetail => orderdetail.Quantity" Title="Количество"/>
+    <PropertyColumn Property="orderdetail => orderdetail.Price" Title="Цена"/>
+    <TemplateColumn Title="Общая цена" Context="cartitem">
+        @((cartitem.Quantity * cartitem.Price).ToString("C"))
+    </TemplateColumn>
 
     <TemplateColumn Context="orderdetail">
         @* <a href="@($"orderdetails/edit?orderid={orderdetail.OrderId}")">Edit</a> | *@

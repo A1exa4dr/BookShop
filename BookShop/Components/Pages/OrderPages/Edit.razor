@@ -5,15 +5,15 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать</h1>
 
-<h2>Order</h2>
+<h2>Заказ</h2>
 <hr />
 @if (Order is null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Загрузка...</em></p>
 }
 else
 {
@@ -23,34 +23,39 @@ else
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="Order.OrderId" value="@Order.OrderId" />
-                <div class="mb-3">
-                    <label for="userid" class="form-label">UserId:</label>
+                @* <div class="mb-3">
+                    <label for="userid" class="form-label">Пользователь:</label>
                     <InputText id="userid" @bind-Value="Order.UserId" class="form-control" />
                     <ValidationMessage For="() => Order.UserId" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="orderdate" class="form-label">OrderDate:</label>
+                    <label for="orderdate" class="form-label">Дата заказа:</label>
                     <InputDate id="orderdate" @bind-Value="Order.OrderDate" class="form-control" />
                     <ValidationMessage For="() => Order.OrderDate" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="totalamount" class="form-label">TotalAmount:</label>
+                    <label for="totalamount" class="form-label">Сумма заказа:</label>
                     <InputNumber id="totalamount" @bind-Value="Order.TotalAmount" class="form-control" />
                     <ValidationMessage For="() => Order.TotalAmount" class="text-danger" />
-                </div>
+                </div> *@
                 <div class="mb-3">
-                    <label for="orderstatusid" class="form-label">OrderStatusId:</label>
-                    <InputNumber id="orderstatusid" @bind-Value="Order.OrderStatusId" class="form-control" />
+                    <label for="orderstatusid" class="form-label">Статус заказа:</label>
+                    <select id="orderstatusid" @bind="Order.OrderStatusId" class="form-control">
+                        @foreach (var orderstatus in OrderStatuses)
+                        {
+                            <option value="@orderstatus.OrderStatusId">@orderstatus.Status</option>
+                        }
+                    </select>
                     <ValidationMessage For="() => Order.OrderStatusId" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/orders">Back to List</a>
+    <a href="/orders">Обратно к списку заказов</a>
 </div>
 
 @code {
@@ -59,10 +64,12 @@ else
 
     [SupplyParameterFromForm]
     private Order? Order { get; set; }
+    private List<OrderStatus> OrderStatuses { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
+        OrderStatuses = await context.OrderStatuses.ToListAsync();
         Order ??= await context.Orders.FirstOrDefaultAsync(m => m.OrderId == OrderId);
 
         if (Order is null)
@@ -76,7 +83,21 @@ else
     private async Task UpdateOrder()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Attach(Order!).State = EntityState.Modified;
+        // context.Attach(Order!).State = EntityState.Modified;
+
+        // Проверяем, существует ли книга
+        var orderToUpdate = await context.Orders
+            .Include(b => b.OrderStatus)
+            .FirstOrDefaultAsync(b => b.OrderId == Order!.OrderId);
+
+        if (orderToUpdate == null)
+        {
+            NavigationManager.NavigateTo("notfound");
+            return;
+        }
+
+        // Обновляем значения
+        orderToUpdate.OrderStatusId = Order.OrderStatusId;
 
         try
         {

@@ -1,0 +1,67 @@
+﻿@page "/users"
+@using BookShop.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject UserManager<ApplicationUser> UserManager
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Пользователи</h3>
+
+@if (users == null)
+{
+    <p>Загрузка данных...</p>
+}
+else if (users.Count == 0)
+{
+    <p>Нет зарегистрированных пользователей.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>Дата регистрации</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>@user.LastName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.MiddleName</td>
+                    <td>@(user.Gender?.GenderName ?? "Не указан")</td>
+                    <td>@user.DateBirth?.ToString("dd.MM.yyyy")</td>
+                    <td>@user.DateOfRegist.ToString("dd.MM.yyyy")</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Address</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ApplicationUser> users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Загрузка списка пользователей
+        users = await UserManager.Users
+            .Include(u => u.Gender) // Если используется EF Core и связь с таблицей Gender
+            .ToListAsync();
+    }
+}

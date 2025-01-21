@@ -4,7 +4,7 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">BookNest</a>
+        <a class="navbar-brand" href="">Назначение на должность</a>
     </div>
 </div>
 
@@ -12,24 +12,22 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
-        @* <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div> *@
-        <div class="nav-item px-3">
+       @*  <div class="nav-item px-3">
             <NavLink class="nav-link" href="/books" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Каталог
             </NavLink>
-        </div>
-        <AuthorizeView Roles="Client, Admin">
+        </div> *@
 
+        <AuthorizeView Roles="Client">
         <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/cart">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Корзина
+                <NavLink class="nav-link" href="/usercart">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Моя корзина
             </NavLink>
         </div>
 
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Client, Admin">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/wishlists">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Избранное
@@ -40,16 +38,28 @@
         <AuthorizeView Roles="Admin">
 
             <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/users">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Пользователи
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/carts">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Корзина
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/reviews">
                     <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Отзывы
                 </NavLink>
             </div>
 
-        <div class="nav-item px-3">
+@*         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/cartitems">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Корзина книг
             </NavLink>
-        </div>
+        </div> *@
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/authors">

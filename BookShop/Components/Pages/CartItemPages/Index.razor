@@ -2,9 +2,9 @@
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
-@using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Детали корзины</PageTitle>
@@ -14,9 +14,12 @@
 @* <p>
     <a href="cartitems/create">Create New</a>
 </p> *@
-
-<QuickGrid Class="table" Items="context.CartItems">
+<p>
+    <a href="carts">Возврат к списку корзин</a>
+</p>
+<QuickGrid Class="table" Items="context.CartItems.Include(ci => ci.Book).Where(t=>t.CartId==CartId)">
     @* <PropertyColumn Property="cartitem => cartitem.CartItemId" /> *@
+    <PropertyColumn Property="cartitem => cartitem.CartId" />
     <TemplateColumn Title="Фото">
         @if (!string.IsNullOrWhiteSpace(context.Book.ImageUrl))
         {
@@ -27,32 +30,56 @@
             <span>Нет изображения</span>
         }
     </TemplateColumn>
-    <PropertyColumn Property="cartitem => cartitem.Book.Title" Title="Название" />
+    <TemplateColumn Title="Название книги" Context="cartitem">@cartitem.Book.Title</TemplateColumn>
     <PropertyColumn Property="cartitem => cartitem.Quantity" Title="Количество" />
-    <PropertyColumn Property="cartitem => cartitem.Book.Price" Title="Цена за единицу" />
+    <TemplateColumn Title="Цена книги" Context="cartitem">@cartitem.Book.Price</TemplateColumn>
     <TemplateColumn Title="Общая цена" Context="cartitem">
         @((cartitem.Quantity * cartitem.Book.Price).ToString("C"))
-    </TemplateColumn>
-
-    <TemplateColumn Context="cartitem">
-       @*  <a href="@($"cartitems/edit?cartid={cartitem.CartId}")">Edit</a> | *@
-        <a href="@($"cartitems/details?cartid={cartitem.CartId}")">Описание</a> |
-        @* <a href="@($"cartitems/delete?cartid={cartitem.CartId}")">Delete</a> *@
     </TemplateColumn>
 </QuickGrid>
 
 @code {
-    private ApplicationDbContext context = default!;
-    private List<CartItem> cartItems = new();
+    [SupplyParameterFromQuery]
+    public int? CartId { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    public string? UserId { get; set; }
+
+    private ApplicationDbContext context = default!;
+
+    // private List<CartItem> cartItems = new();
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     context = DbFactory.CreateDbContext();
+    //     cartItems = await context.CartItems
+    //         .Include(ci => ci.Cart)
+    //         .Include(ci => ci.Book) // Подгружаем данные о книге
+    //         .ToListAsync();
+    // }
+    protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
-        cartItems = await context.CartItems
-            .Include(ci => ci.Book) // Подгружаем данные о книге
-            .ToListAsync();
-    }
 
+        if (CartId == null)
+        {
+            NavigationManager.NavigateTo("not found");
+        }
+        {
+            Cart? send = context.Carts.FirstOrDefault(d => d.CartId == CartId);
+
+            if (send == null)
+            {
+                NavigationManager.NavigateTo("not found");
+            }
+
+            UserId = send?.UserId;
+            
+              /* по идее это всё надо написать, тк оно как я понимаю присваивается QuickGrid */
+             /* который сверху, но если всё это убрать, то всё равно всё будет работать */
+            /* для срабатывания сортировки достаточно прописать только это (40-41 строки):  [SupplyParameterFromQuery]
+                                                                                       public int? SenderId { get; set; } */
+        }
+    }
     
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
