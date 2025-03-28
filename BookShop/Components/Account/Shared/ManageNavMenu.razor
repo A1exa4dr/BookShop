@@ -1,7 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using BookShop.Data
+﻿@using BookShop.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
@@ -16,18 +20,10 @@
     <li class="nav-item">
         <NavLink class="nav-link" href="Account/Manage/PersonalData">Удалить аккаунт</NavLink>
     </li>
-    @* @if (hasExternalLogins)
-    {
-        <li class="nav-item">
-            <NavLink class="nav-link" href="Account/Manage/ExternalLogins">External logins</NavLink>
-        </li>
-    }
+    <!-- Новая ссылка для перехода к заказам -->
     <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</NavLink>
+        <button class="nav-link btn btn-link" @onclick="GoToOrders">Мои заказы</button>
     </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="Account/Manage/PersonalData">Personal data</NavLink>
-    </li> *@
 </ul>
 
 @code {
@@ -36,5 +32,28 @@
     protected override async Task OnInitializedAsync()
     {
         hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }
+
+    private async Task GoToOrders()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            using var context = DbFactory.CreateDbContext();
+
+            // Получаем UserId как строку
+            var userId = context.Users
+                .Where(u => u.UserName == user.Identity.Name)
+                .Select(u => u.Id) // Предполагается, что Id имеет тип string
+                .FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Переход на страницу заказов
+                NavigationManager.NavigateTo($"/myorders/{userId}");
+            }
+        }
     }
 }

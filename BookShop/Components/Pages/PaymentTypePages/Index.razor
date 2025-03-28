@@ -1,0 +1,36 @@
+﻿@page "/paymenttypes"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BookShop.Data
+@using BookShop.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="paymenttypes/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.PaymentTypes">
+    <PropertyColumn Property="paymenttype => paymenttype.Name" />
+
+    <TemplateColumn Context="paymenttype">
+        <a href="@($"paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Edit</a> |
+        <a href="@($"paymenttypes/details?paymenttypeid={paymenttype.PaymentTypeId}")">Details</a> |
+        <a href="@($"paymenttypes/delete?paymenttypeid={paymenttype.PaymentTypeId}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

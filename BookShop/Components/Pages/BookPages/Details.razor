@@ -43,6 +43,8 @@
                     <dd class="col-sm-10">@book.Genre.Name</dd>
                     <dt class="col-sm-2">Описание:</dt>
                     <dd class="col-sm-10">@book.Description</dd>
+                    <dt class="col-sm-2">Рейтинг:</dt>
+                    <dd class="col-sm-10">@book.AverageRating</dd>
                     <dt class="col-sm-2">Цена:</dt>
                     <dd class="col-sm-10">@book.Price</dd>
                     <AuthorizeView Roles="Admin">
@@ -136,6 +138,7 @@
         if (string.IsNullOrWhiteSpace(reviewText))
         {
             // Добавьте сообщение об ошибке, если текст пустой
+            message = "Текст отзыва не может быть пустым.";
             return;
         }
 
@@ -161,6 +164,7 @@
             return;
         }
 
+        // Создание нового отзыва
         var review = new Review
             {
                 UserId = userId,
@@ -173,6 +177,9 @@
         context.Reviews.Add(review);
         await context.SaveChangesAsync();
 
+        // Пересчет среднего рейтинга
+        await UpdateBookAverageRating(context);
+
         // Обновление списка отзывов
         reviews = await context.Reviews
             .Include(r => r.User)
@@ -183,5 +190,29 @@
         message = "Спасибо за ваш отзыв!";
         reviewText = string.Empty;
         reviewRating = 1;
+
+        // Обновление интерфейса
+        StateHasChanged();
+    }
+
+    private async Task UpdateBookAverageRating(ApplicationDbContext context)
+    {
+        // Получаем все отзывы для текущей книги
+        var bookReviews = await context.Reviews
+            .Where(r => r.BookId == BookId)
+            .ToListAsync();
+
+        // Рассчитываем средний рейтинг
+        var averageRating = bookReviews.Any()
+            ? bookReviews.Average(r => r.Rating)
+            : 0;
+
+        // Обновляем поле AverageRating в таблице Books
+        var currentBook = await context.Books.FindAsync(BookId);
+        if (currentBook != null)
+        {
+            currentBook.AverageRating = (decimal)averageRating;
+            await context.SaveChangesAsync();
+        }
     }
 }

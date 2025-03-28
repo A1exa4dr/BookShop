@@ -10,10 +10,12 @@ namespace BookShop.Data
         public DateTime OrderDate { get; set; }= DateTime.Now;
         public decimal TotalAmount { get; set; }
         public int OrderStatusId { get; set; }
+        public int PaymentTypeId { get; set; } = 1; // Обязательное поле
 
         // Навигационное свойство
         public ApplicationUser User { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public PaymentType PaymentType { get; set; } // Тип оплаты
     }
 }

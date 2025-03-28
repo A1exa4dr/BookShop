@@ -19,6 +19,7 @@ namespace BookShop.Data
         public DbSet<OrderStatus> OrderStatuses{ get; set; }= default!;
         public DbSet<CartItem> CartItems { get; set; } = default!;
         public DbSet<Cart> Carts { get; set; } = default!;
+        public DbSet<PaymentType> PaymentTypes { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

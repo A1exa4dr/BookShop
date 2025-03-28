@@ -1,0 +1,44 @@
+﻿@page "/paymenttypes/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>PaymentType</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="PaymentType" OnValidSubmit="AddPaymentType" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="PaymentType.Name" class="form-control" /> 
+                <ValidationMessage For="() => PaymentType.Name" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/paymenttypes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private PaymentType PaymentType { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddPaymentType()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.PaymentTypes.Add(PaymentType);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/paymenttypes");
+    }
+}

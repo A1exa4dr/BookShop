@@ -1,0 +1,89 @@
+﻿@page "/paymenttypes/edit"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>PaymentType</h2>
+<hr />
+@if (PaymentType is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="PaymentType" OnValidSubmit="UpdatePaymentType" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="PaymentType.PaymentTypeId" value="@PaymentType.PaymentTypeId" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="PaymentType.Name" class="form-control" />
+                    <ValidationMessage For="() => PaymentType.Name" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/paymenttypes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int PaymentTypeId { get; set; }
+
+    [SupplyParameterFromForm]
+    private PaymentType? PaymentType { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        PaymentType ??= await context.PaymentTypes.FirstOrDefaultAsync(m => m.PaymentTypeId == PaymentTypeId);
+
+        if (PaymentType is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdatePaymentType()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(PaymentType!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PaymentTypeExists(PaymentType!.PaymentTypeId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/paymenttypes");
+    }
+
+    private bool PaymentTypeExists(int paymenttypeid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.PaymentTypes.Any(e => e.PaymentTypeId == paymenttypeid);
+    }
+}

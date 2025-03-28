@@ -77,7 +77,7 @@
 @code {
     private ApplicationUser user = default!;
     private string? username;
-    private string? phoneNumber;
+    // private string? phoneNumber;
     private string? LastName;
     private string? FirstName;
     private string? MiddleName;
@@ -202,14 +202,14 @@
         }
 
         await SignInManager.RefreshSignInAsync(user);
-        RedirectManager.RedirectToCurrentPageWithStatus("Your profile has been updated", HttpContext);
+        RedirectManager.RedirectToCurrentPageWithStatus("Изменения профиля созранены", HttpContext);
     }
 
     private sealed class InputModel
     {
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string? PhoneNumber { get; set; }
+        // [Phone]
+        // [Display(Name = "Phone number")]
+        // public string? PhoneNumber { get; set; }
 
         [Required]
         [Display(Name = "Фамилия")]
@@ -238,7 +238,7 @@
 
         public DateTime DateOfRegist { get; set; }
 
-        [Required]
+        [Phone]
         [Display(Name = "Телефон")]
 
         public string? Phone { get; set; }

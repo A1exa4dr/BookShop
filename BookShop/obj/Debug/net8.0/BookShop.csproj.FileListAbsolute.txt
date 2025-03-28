@@ -333,3 +333,7 @@ C:\Users\1\source\repos\BookShop\BookShop\obj\Debug\net8.0\BookShop.sourcelink.j
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\BookShop.staticwebassets.endpoints.json
+C:\Users\1\source\repos\BookShop\BookShop\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\1\source\repos\BookShop\BookShop\obj\Debug\net8.0\staticwebassets\msbuild.BookShop.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\1\source\repos\BookShop\BookShop\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

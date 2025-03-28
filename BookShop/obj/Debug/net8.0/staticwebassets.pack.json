@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BookShop.bundle.scp.css",
-      "PackagePath": "staticwebassets\\BookShop.bundle.scp.css"
+      "PackagePath": "staticwebassets\\BookShop.384i3wshrm.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\app.css",
@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\images\\Book Review - iconSvg.co.jpg"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\EaDvpL0GkR8.jpg",
+      "PackagePath": "staticwebassets\\images\\EaDvpL0GkR8.jpg"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\b77e37f6-5bd5-4e92-a614-f0e66bac1016.jpg",
       "PackagePath": "staticwebassets\\images\\b77e37f6-5bd5-4e92-a614-f0e66bac1016.jpg"
     },
@@ -75,6 +79,10 @@
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",
       "PackagePath": "staticwebassets\\js\\openfile.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookShop.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookShop.Microsoft.AspNetCore.StaticWebAssets.props",

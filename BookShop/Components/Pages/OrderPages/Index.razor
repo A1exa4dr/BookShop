@@ -15,11 +15,12 @@
     <a href="orders/create">Create New</a>
 </p> *@
 
-<QuickGrid Class="table" Items="context.Orders.Include(ci => ci.OrderStatus)">
-    <PropertyColumn Property="order => order.UserId" />
-    <PropertyColumn Property="order => order.OrderDate" />
-    <PropertyColumn Property="order => order.TotalAmount" />
-    <PropertyColumn Property="order => order.OrderStatus.Status" />
+<QuickGrid Class="table" Items="context.Orders.Include(ci => ci.OrderStatus).Include(ci => ci.PaymentType)">
+    <PropertyColumn Property="order => order.UserId" Title="Пользователь"/>
+    <PropertyColumn Property="order => order.OrderDate" Title="Дата заказа" />
+    <PropertyColumn Property="order => order.TotalAmount" Title="Сумма заказа" />
+    <PropertyColumn Property="order => order.OrderStatus.Status" Title="Статус заказа" />
+    <PropertyColumn Property="order => order.PaymentType.Name" Title="Тип оплаты" />
 
     <TemplateColumn Context="order">
         <a href="@($"orderdetails?orderid={order.OrderId}")">Детали заказа</a> |

@@ -19,6 +19,7 @@ else
             <h3>Заказ № @order.OrderId</h3>
             <p>Дата заказа: @order.OrderDate.ToString("dd.MM.yyyy")</p>
             <p>Статус: @order.OrderStatus.Status</p>
+            <p>Оплата: @order.PaymentType.Name</p>
             <p>Общая сумма: @order.TotalAmount.ToString("C")</p>
 
             <h4>Детали заказа</h4>
@@ -62,6 +63,7 @@ else
         // Получение заказов пользователя с деталями
         userOrders = await context.Orders
             .Include(o => o.OrderStatus) // Статус заказа
+            .Include(o =>o.PaymentType)
             .Include(o => o.OrderDetails)
                 .ThenInclude(od => od.Book) // Информация о книгах
             .Where(o => o.UserId == UserId)

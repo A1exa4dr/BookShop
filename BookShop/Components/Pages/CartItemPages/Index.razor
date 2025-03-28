@@ -18,7 +18,6 @@
     <a href="carts">Возврат к списку корзин</a>
 </p>
 <QuickGrid Class="table" Items="context.CartItems.Include(ci => ci.Book).Where(t=>t.CartId==CartId)">
-    @* <PropertyColumn Property="cartitem => cartitem.CartItemId" /> *@
     <PropertyColumn Property="cartitem => cartitem.CartId" />
     <TemplateColumn Title="Фото">
         @if (!string.IsNullOrWhiteSpace(context.Book.ImageUrl))
@@ -31,7 +30,8 @@
         }
     </TemplateColumn>
     <TemplateColumn Title="Название книги" Context="cartitem">@cartitem.Book.Title</TemplateColumn>
-    <PropertyColumn Property="cartitem => cartitem.Quantity" Title="Количество" />
+    <TemplateColumn Title="Рейтинг книги" Context="cartitem">@cartitem.Book.AverageRating</TemplateColumn>
+    <PropertyColumn Title="Количество" Property="cartitem => cartitem.Quantity"/>
     <TemplateColumn Title="Цена книги" Context="cartitem">@cartitem.Book.Price</TemplateColumn>
     <TemplateColumn Title="Общая цена" Context="cartitem">
         @((cartitem.Quantity * cartitem.Book.Price).ToString("C"))
@@ -74,10 +74,7 @@
 
             UserId = send?.UserId;
             
-              /* по идее это всё надо написать, тк оно как я понимаю присваивается QuickGrid */
-             /* который сверху, но если всё это убрать, то всё равно всё будет работать */
-            /* для срабатывания сортировки достаточно прописать только это (40-41 строки):  [SupplyParameterFromQuery]
-                                                                                       public int? SenderId { get; set; } */
+             
         }
     }
     
