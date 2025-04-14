@@ -9,8 +9,9 @@ namespace BookShop.Data
         public string? UserId { get; set; }
         public DateTime OrderDate { get; set; }= DateTime.Now;
         public decimal TotalAmount { get; set; }
+        public string? DeliveryAddress { get; set; }
         public int OrderStatusId { get; set; }
-        public int PaymentTypeId { get; set; } = 1; // Обязательное поле
+        public int PaymentTypeId { get; set; } // Обязательное поле
 
         // Навигационное свойство
         public ApplicationUser User { get; set; }

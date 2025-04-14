@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\catalog.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
+      "PackagePath": "staticwebassets\\css\\usercart.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\wishlist.css",
       "PackagePath": "staticwebassets\\css\\wishlist.css"
     },

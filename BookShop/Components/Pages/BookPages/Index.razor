@@ -51,7 +51,7 @@
         }
     </TemplateColumn>
 
-    <PropertyColumn Property="book => book.Title" Title="Названиеffffffffffffffffffffffffff" Sortable="true" />
+    <PropertyColumn Property="book => book.Title" Title="Название" Sortable="true" />
     <PropertyColumn Property="book => book.Author.AuthorName" Title="Автор" />
     <PropertyColumn Property="book => book.Genre.Name" Title="Жанр" />
     <PropertyColumn Property="book => book.AverageRating" Title="Рейтинг" Sortable="true"/>
@@ -148,67 +148,59 @@
             .Include(b => b.Supplier)
             .Where(b => (string.IsNullOrEmpty(titleFilter) || b.Title.Contains(titleFilter)) &&
                         (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre));
-
+    
     private async Task AddToCart(Book book)
     {
-        // Создаем новый экземпляр контекста
-        using var context = DbFactory.CreateDbContext();
-
-        // Получение информации о текущем пользователе
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity is null || !user.Identity.IsAuthenticated)
+        try
         {
-            // Если пользователь не авторизован, обработайте это
-            return;
-        }
+            using var db = DbFactory.CreateDbContext();
 
-        // Получение ID текущего пользователя
-        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
 
-        if (userId == null)
-        {
-            // Если пользователь не найден, обработайте это
-            return;
-        }
+            if (user.Identity is null || !user.Identity.IsAuthenticated)
+            {
+                return;
+            }
 
-        // Получение или создание корзины для пользователя
-        var cart = await context.Carts
-            .Include(c => c.CartItems)
-            .FirstOrDefaultAsync(c => c.UserId == userId);
+            // Получение ID текущего пользователя
+            var userId = db.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
 
-        if (cart == null)
-        {
-            cart = new Cart
-                {
-                    UserId = userId,
-                    CartItems = new List<CartItem>()
-                };
-            context.Carts.Add(cart);
-        }
+            if (userId == null)
+            {
+                return;
+            }
 
-        // Проверка, есть ли уже эта книга в корзине
-        var cartItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
+            // Получение или создание корзины для пользователя
+            var cart = await db.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
 
-        if (cartItem != null)
-        {
-            // Если книга уже в корзине, увеличиваем количество
-            cartItem.Quantity++;
-        }
-        else
-        {
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId, CartItems = new List<CartItem>() };
+                db.Carts.Add(cart);
+            }
+
+            // Проверка, есть ли уже эта книга в корзине
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
+
+            if (cartItem != null)
+            {
+                cartItem.Quantity++;
+            }
             // Если книги еще нет в корзине, добавляем её
-            cart.CartItems.Add(new CartItem
-                {
-                    CartId = cart.CartId,
-                    BookId = book.BookId,
-                    Quantity = 1
-                });
-        }
+            else
+            {
+                cart.CartItems.Add(new CartItem { CartId = cart.CartId, BookId = book.BookId, Quantity = 1 });
+            }
 
-        // Сохранение изменений в базе данных
-        await context.SaveChangesAsync();
+            await db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при добавлении в корзину: {ex.Message}");
+        }
     }
     private async Task AddToWishlist(Book book)
     {

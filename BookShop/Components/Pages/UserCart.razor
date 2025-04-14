@@ -4,7 +4,9 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Client")]
- 
+
+<link rel="stylesheet" href="css/usercart.css">
+
 <h1>Корзина</h1>
 
 @if (cartItems.Count == 0)
@@ -57,24 +59,60 @@ else
 
     <h3 style="text-align: right;">Итого: @TotalCartPrice руб.</h3>
     <div style="text-align: right;">
-        <button class="btn btn-success" @onclick="CreateOrder">Купить</button>
+        <button class="btn btn-success" @onclick="ShowOrderForm">Купить</button>
     </div>
 }
+
+<!-- Модальное окно -->
+@if (showOrderForm)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <h2>Оформление заказа</h2>
+            <form @onsubmit="SubmitOrder">
+                <div class="form-group">
+                    <label>Сумма заказа:</label>
+                    <input type="text" class="form-control" readonly value="@TotalCartPrice руб." />
+                </div>
+                <div class="form-group">
+                    <label>Тип оплаты:</label>
+                    <select class="form-control" @bind="selectedPaymentTypeId">
+                        @foreach (var paymentType in paymentTypes)
+                        {
+                            <option value="@paymentType.PaymentTypeId">@paymentType.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Адрес доставки:</label>
+                    <input type="text" class="form-control" @bind="deliveryAddress" placeholder="Введите адрес доставки" />
+                </div>
+                <button type="submit" class="btn btn-primary">Оплатить</button>
+                <button type="button" class="btn btn-secondary" @onclick="CancelOrder">Отмена</button>
+            </form>
+        </div>
+    </div>
+}
+
 @code {
     private List<CartItem> cartItems = new List<CartItem>();
+    private bool showOrderForm = false;
+    private int selectedPaymentTypeId = 1; // По умолчанию первый тип оплаты
+    private string deliveryAddress = string.Empty;
 
-    // Загрузка элементов корзины текущего пользователя при загрузке страницы.
+    private List<PaymentType> paymentTypes = new List<PaymentType>();
+
     protected override async Task OnInitializedAsync()
     {
         await LoadCartItems();
+        await LoadPaymentTypes();
+        await LoadUserDeliveryAddress();
     }
 
-    // Метод для загрузки элементов корзины текущего пользователя.
     private async Task LoadCartItems()
     {
         using var context = DbFactory.CreateDbContext();
 
-        // Получение информации о текущем пользователе
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
@@ -84,12 +122,10 @@ else
             return;
         }
 
-        // Получение ID текущего пользователя
         var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
 
         if (userId != null)
         {
-            // Загрузка элементов корзины пользователя
             cartItems = await context.CartItems
                 .Include(ci => ci.Book)
                 .Where(ci => ci.Cart.UserId == userId)
@@ -97,6 +133,45 @@ else
         }
     }
 
+    private async Task LoadPaymentTypes()
+    {
+        using var context = DbFactory.CreateDbContext();
+        paymentTypes = await context.PaymentTypes.ToListAsync();
+    }
+
+    private async Task LoadUserDeliveryAddress()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+        if (userId != null)
+        {
+            var userAddress = await context.Users
+                .Where(u => u.Id == userId)
+                .Select(u => u.Address)
+                .FirstOrDefaultAsync();
+
+            if (!string.IsNullOrEmpty(userAddress))
+            {
+                deliveryAddress = userAddress;
+            }
+        }
+    }
+
+    private void ShowOrderForm()
+    {
+        showOrderForm = true;
+    }
+
+    private void CancelOrder()
+    {
+        showOrderForm = false;
+        deliveryAddress = string.Empty;
+    }
     // Метод для удаления элемента из корзины.
     private async Task RemoveFromCart(CartItem item)
     {
@@ -138,11 +213,16 @@ else
         // Обновляем список корзины
         await LoadCartItems();
     }
-    private async Task CreateOrder()
+    private async Task SubmitOrder()
     {
+        if (string.IsNullOrWhiteSpace(deliveryAddress))
+        {
+            // Показать сообщение об ошибке, если адрес не указан
+            return;
+        }
+
         using var context = DbFactory.CreateDbContext();
 
-        // Получение ID текущего пользователя
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
@@ -155,10 +235,12 @@ else
                     UserId = userId,
                     OrderDate = DateTime.Now,
                     TotalAmount = TotalCartPrice,
+                    PaymentTypeId = selectedPaymentTypeId,
+                    DeliveryAddress = deliveryAddress,
                     OrderStatusId = 1 // Например, "Ожидает подтверждения"
                 };
-            context.Orders.Add(order);
 
+            context.Orders.Add(order);
             await context.SaveChangesAsync();
 
             // Создаем детали заказа для каждой книги в корзине
@@ -171,6 +253,7 @@ else
                         Quantity = item.Quantity,
                         Price = item.Book.Price
                     };
+
                 context.OrderDetails.Add(orderDetail);
 
                 var book = await context.Books.FirstOrDefaultAsync(b => b.BookId == item.BookId);
@@ -192,9 +275,12 @@ else
 
             // Очищаем локальный список корзины
             cartItems.Clear();
+
+            // Скрываем форму заказа
+            showOrderForm = false;
+            deliveryAddress = string.Empty;
         }
     }
 
-    // Свойство для подсчета общей стоимости корзины.
     private decimal TotalCartPrice => cartItems.Sum(item => item.Quantity * item.Book.Price);
 }

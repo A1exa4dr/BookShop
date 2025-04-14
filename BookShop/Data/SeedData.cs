@@ -6,6 +6,13 @@ public class SeedData
 {
     public async Task InitializeAsync(ApplicationDbContext context)
     {
+        //var genders = new List<Gender>
+        //{
+        //    new Gender { Id=1, GenderName="Мужской" },
+        //    new Gender { Id=2, GenderName = "Женский"}
+        //};
+        //context.Genders.AddRange(genders);
+        //await context.SaveChangesAsync();
 
         var role1 = new IdentityRole { Id = "1", Name = "Admin" };
 
