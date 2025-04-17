@@ -524,6 +524,88 @@
       ]
     },
     {
+      "Route": "css/adminbooks.css",
+      "AssetFile": "css/adminbooks.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "839"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 09:56:04 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M="
+        }
+      ]
+    },
+    {
+      "Route": "css/adminbooks.mjv4tltnu2.css",
+      "AssetFile": "css/adminbooks.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "839"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 09:56:04 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mjv4tltnu2"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M="
+        },
+        {
+          "Name": "label",
+          "Value": "css/adminbooks.css"
+        }
+      ]
+    },
+    {
       "Route": "css/bookdetail.91ih6zcgza.css",
       "AssetFile": "css/bookdetail.css",
       "Selectors": [],
@@ -606,88 +688,6 @@
       ]
     },
     {
-      "Route": "css/catalog.4svp96ck65.css",
-      "AssetFile": "css/catalog.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "562"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 12 Jan 2025 11:39:13 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "4svp96ck65"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk="
-        },
-        {
-          "Name": "label",
-          "Value": "css/catalog.css"
-        }
-      ]
-    },
-    {
-      "Route": "css/catalog.css",
-      "AssetFile": "css/catalog.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "562"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 12 Jan 2025 11:39:13 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk="
-        }
-      ]
-    },
-    {
       "Route": "css/usercart.css",
       "AssetFile": "css/usercart.css",
       "Selectors": [],
@@ -766,6 +766,88 @@
         {
           "Name": "label",
           "Value": "css/usercart.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/userscatalog.css",
+      "AssetFile": "css/userscatalog.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 14 Apr 2025 13:31:48 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw="
+        }
+      ]
+    },
+    {
+      "Route": "css/userscatalog.dkygpy3wjo.css",
+      "AssetFile": "css/userscatalog.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 14 Apr 2025 13:31:48 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dkygpy3wjo"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw="
+        },
+        {
+          "Name": "label",
+          "Value": "css/userscatalog.css"
         }
       ]
     },

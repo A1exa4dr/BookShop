@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4GN4Vc5PneDgh1Wmz76ZjE4jNi+VIaM41XUvjOVyd3M=",
+  "Hash": "cqiYjjIFMyJ01tuZt8lAqMegXq06c5WTbPE7ZCML8Tw=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -227,6 +227,27 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\adminbooks.css",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "css/adminbooks#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "mjv4tltnu2",
+      "Integrity": "srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\adminbooks.css"
+    },
+    {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\bookdetail.css",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
@@ -248,27 +269,6 @@
       "OriginalItemSpec": "wwwroot\\css\\bookdetail.css"
     },
     {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\catalog.css",
-      "SourceId": "BookShop",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
-      "BasePath": "_content/BookShop",
-      "RelativePath": "css/catalog#[.{fingerprint}]?.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "4svp96ck65",
-      "Integrity": "JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\catalog.css"
-    },
-    {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
@@ -288,6 +288,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\usercart.css"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\userscatalog.css",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "css/userscatalog#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dkygpy3wjo",
+      "Integrity": "/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\userscatalog.css"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\wishlist.css",
@@ -1189,6 +1210,88 @@
       ]
     },
     {
+      "Route": "css/adminbooks.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\adminbooks.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "839"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 09:56:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M="
+        }
+      ]
+    },
+    {
+      "Route": "css/adminbooks.mjv4tltnu2.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\adminbooks.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "839"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 09:56:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mjv4tltnu2"
+        },
+        {
+          "Name": "label",
+          "Value": "css/adminbooks.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-srkMEyUN6TElExDVnwfsXNSiZBHaAH4pKq2socEFL2M="
+        }
+      ]
+    },
+    {
       "Route": "css/bookdetail.91ih6zcgza.css",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\bookdetail.css",
       "Selectors": [],
@@ -1271,88 +1374,6 @@
       ]
     },
     {
-      "Route": "css/catalog.4svp96ck65.css",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\catalog.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "562"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 12 Jan 2025 11:39:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "4svp96ck65"
-        },
-        {
-          "Name": "label",
-          "Value": "css/catalog.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk="
-        }
-      ]
-    },
-    {
-      "Route": "css/catalog.css",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\catalog.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "562"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 12 Jan 2025 11:39:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-JK7UNBQ+/pQwyCxX8CeeW6ur65iMWHaV21Seh+yynyk="
-        }
-      ]
-    },
-    {
       "Route": "css/usercart.css",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
       "Selectors": [],
@@ -1431,6 +1452,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-UFMh+PeblP6VDmylcH5FgyXQnNymKNISCErBJfMMK+A="
+        }
+      ]
+    },
+    {
+      "Route": "css/userscatalog.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\userscatalog.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 14 Apr 2025 13:31:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw="
+        }
+      ]
+    },
+    {
+      "Route": "css/userscatalog.dkygpy3wjo.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\userscatalog.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 14 Apr 2025 13:31:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dkygpy3wjo"
+        },
+        {
+          "Name": "label",
+          "Value": "css/userscatalog.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/cOuP7acUQ89+BDLrB7ob0spUe5x0/0/umzvNtUCwBw="
         }
       ]
     },

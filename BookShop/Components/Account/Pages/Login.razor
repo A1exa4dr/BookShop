@@ -92,7 +92,7 @@
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
-            RedirectManager.RedirectTo(ReturnUrl);
+            RedirectManager.RedirectTo("/books");         //ReturnUrl
         }
         else if (result.RequiresTwoFactor)
         {

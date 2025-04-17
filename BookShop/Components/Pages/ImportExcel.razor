@@ -289,7 +289,9 @@ else
                                     UserId = row.Cell(2).Value.ToString(),
                                     OrderDate = DateTime.Parse(row.Cell(3).Value.ToString()),
                                     TotalAmount = decimal.Parse(row.Cell(4).Value.ToString()),
-                                    OrderStatusId = int.Parse(row.Cell(5).Value.ToString())
+                                    DeliveryAddress = row.Cell(5).Value.ToString(),
+                                    OrderStatusId = int.Parse(row.Cell(6).Value.ToString()),
+                                    PaymentTypeId = int.Parse(row.Cell(7).Value.ToString())
                                 };
                             await context.Orders.AddAsync(order);
                             await context.SaveChangesAsync();

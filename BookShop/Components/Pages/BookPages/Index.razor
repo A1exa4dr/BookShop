@@ -1,32 +1,93 @@
 ﻿@page "/books"
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
-@implements IAsyncDisposable
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
-@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = "Client, Admin")]
+@inject NavigationManager NavigationManager
 
-<PageTitle>Каталог</PageTitle>
-<link href="css/catalog.css" rel="stylesheet">
-
-<h1>Каталог</h1>
-
-<AuthorizeView Roles="Client">
-    <div style="text-align: right;">
-        <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
-        <button @onclick="GoToCart" class="btn btn-primary"> Моя корзина</button><br />
-        @* <button @onclick="GoToWishlist" class="btn btn-primary">Избранное</button> *@
-    </div>
-</AuthorizeView>
 
 <AuthorizeView Roles="Admin">
-<p>
-    <a href="books/create">Добавить книгу</a>
-</p>
+    <PageTitle>Управление книгами</PageTitle>
+    <link href="css/admin.css" rel="stylesheet">
+
+    <h1>Управление книгами</h1>
+
+    <p>
+        <a href="books/create" class="btn btn-primary">Добавить книгу</a>
+    </p>
+
+    <div class="filter-container">
+        <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию или автору..." class="form-control filter-input" />
+        <select @bind="selectedGenre" class="form-select filter-input">
+            <option value="">Все жанры</option>
+            @foreach (var genre in genres)
+            {
+                <option value="@genre.GenreId">@genre.Name</option>
+            }
+        </select>
+        <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Издательство</th>
+                <th>Описание</th>
+                <th>Поставщик</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in FilteredBooks)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(book.ImageUrl))
+                        {
+                            <img src="@book.ImageUrl" alt="Book Image" style="max-width: 150px; max-height: 150px;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>@book.Title</td>
+                    <td>@book.Author.AuthorName</td>
+                    <td>@book.Genre.Name</td>
+                    <td>@book.Price.ToString("C")</td>
+                    <td>@book.StockQuantity</td>
+                    <td>@book.Publisher.PublisherName</td>
+                    <td>@(book.Description.Length > 50 ? book.Description.Substring(0, 50) + "..." : book.Description)</td>
+                    <td>@(book.Supplier?.Name ?? "Нет поставщика")</td>
+                    <td>
+                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info">Описание</a>
+                        <a href="@($"books/edit?bookid={book.BookId}")" class="btn btn-warning">Редактировать</a>
+                        <a href="@($"books/delete?bookid={book.BookId}")" class="btn btn-danger">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </AuthorizeView>
+
+
+<PageTitle>Каталог</PageTitle>
+<link href="css/userscatalog.css" rel="stylesheet">
+
+<div class="user-actions">
+    <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
+    <button @onclick="GoToCart" class="btn btn-primary">Моя корзина</button>
+</div>
+
 <br />
+
 <div class="filter-container">
     <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." class="form-control filter-input" />
     <select @bind="selectedGenre" class="form-select filter-input">
@@ -36,92 +97,53 @@
             <option value="@genre.GenreId">@genre.Name</option>
         }
     </select>
+    <input type="number" @bind="maxPrice" placeholder="Максимальная цена" class="form-control filter-input" />
     <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
 </div>
 
-<QuickGrid Class="table" Items="FilteredBooks" Pagination="pagination">
-    <TemplateColumn Title="Фото">
-        @if ((context as Book)?.ImageUrl is string imageUrl && !string.IsNullOrWhiteSpace(imageUrl))
+<div class="book-grid">
+    @if (FilteredBooks.Any())
+    {
+        @foreach (var book in FilteredBooks)
         {
-            @((MarkupString)$"<img src='{imageUrl}' alt='Book Image' style='max-width: 150px; max-height: 150px;' />")
+            <div class="book-card">
+                <div class="book-image">
+                    @if (!string.IsNullOrEmpty(book.ImageUrl))
+                    {
+                        <img src="@book.ImageUrl" alt="@book.Title" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </div>
+                <div class="book-details">
+                    <h3>@book.Title</h3>
+                    <p><strong>Автор:</strong> @book.Author.AuthorName</p>
+                    <p><strong>Жанр:</strong> @book.Genre.Name</p>
+                    <p><strong>Рейтинг:</strong> @book.AverageRating</p>
+                    <p><strong>Цена:</strong> @book.Price.ToString("C")</p>
+                </div>
+                <div class="book-actions">
+                    <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
+                    <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
+                    <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button">В избранное</button>
+                </div>
+            </div>
         }
-        else
-        {
-            <span>No Image</span>
-        }
-    </TemplateColumn>
-
-    <PropertyColumn Property="book => book.Title" Title="Название" Sortable="true" />
-    <PropertyColumn Property="book => book.Author.AuthorName" Title="Автор" />
-    <PropertyColumn Property="book => book.Genre.Name" Title="Жанр" />
-    <PropertyColumn Property="book => book.AverageRating" Title="Рейтинг" Sortable="true"/>
-    <PropertyColumn Property="book => book.Price" Title="Цена" Sortable="true" />
-
-    <AuthorizeView Roles="Admin">
-        <PropertyColumn Property="book => book.Publisher.PublisherName" Title="Издательство" />
-        <PropertyColumn Property="book => book.Description" Title="Описание" />
-        <PropertyColumn Property="book => book.StockQuantity" Title="Количество" />
-        <PropertyColumn Property="book => book.Supplier.Name" Title="Поставщик" />
-    </AuthorizeView>
-
-    <TemplateColumn Context="book">
-        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a> <br />
-        <AuthorizeView Roles="Client">
-            <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button"> Добавить в корзину </button> <br />
-            <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button"> В избранное </button><br />
-        </AuthorizeView>
-
-        <AuthorizeView Roles="Admin">
-            <a href="@($"books/edit?bookid={book.BookId}")" class="btn btn-warning action-button">Редактировать</a><br />
-            <a href="@($"books/delete?bookid={book.BookId}")" class="btn btn-danger action-button">Удалить</a>
-        </AuthorizeView>
-    </TemplateColumn>
-</QuickGrid>
-
-<Paginator State="pagination" />
-
+    }
+    else
+    {
+        <p>Книги не найдены.</p>
+    }
+</div>
 
 @code {
-    private PaginationState pagination = new PaginationState { ItemsPerPage = 6 };
     private string titleFilter = string.Empty;
     private string selectedGenre = string.Empty;
+    private decimal? maxPrice = null; // Максимальная цена
     private ApplicationDbContext context = default!;
     private List<Genre> genres = new List<Genre>();
-
-    private async Task GoToOrders()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            using var context = DbFactory.CreateDbContext();
-
-            // Получаем UserId как строку
-            var userId = context.Users
-                .Where(u => u.UserName == user.Identity.Name)
-                .Select(u => u.Id) // Предполагается, что Id имеет тип string
-                .FirstOrDefault();
-
-            if (!string.IsNullOrEmpty(userId))
-            {
-                // Переход на страницу заказов
-                NavigationManager.NavigateTo($"/myorders/{userId}");
-            }
-        }
-    }
-
-    private void GoToCart()
-    {
-        // Перенаправление на страницу корзины
-        NavigationManager.NavigateTo("/usercart");
-    }
-
-    private void GoToWishlist()
-    {
-        // Перенаправление на страницу корзины
-        NavigationManager.NavigateTo("/wishlists");
-    }
 
     protected override void OnInitialized()
     {
@@ -133,11 +155,7 @@
     {
         titleFilter = string.Empty;
         selectedGenre = string.Empty;
-    }
-
-    private void ApplyGenreFilter(ChangeEventArgs e)
-    {
-        selectedGenre = e.Value?.ToString() ?? string.Empty;
+        maxPrice = null;
     }
 
     private IQueryable<Book> FilteredBooks =>
@@ -147,8 +165,31 @@
             .Include(b => b.Genre)
             .Include(b => b.Supplier)
             .Where(b => (string.IsNullOrEmpty(titleFilter) || b.Title.Contains(titleFilter)) &&
-                        (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre));
-    
+                        (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre) &&
+                        (!maxPrice.HasValue || b.Price <= maxPrice)); // Фильтрация по цене
+
+    private void GoToOrders()
+    {
+        var authState = AuthenticationStateProvider.GetAuthenticationStateAsync().Result;
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            using var db = DbFactory.CreateDbContext();
+            var userId = db.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                NavigationManager.NavigateTo($"/myorders/{userId}");
+            }
+        }
+    }
+
+    private void GoToCart()
+    {
+        NavigationManager.NavigateTo("/usercart");
+    }
+
     private async Task AddToCart(Book book)
     {
         try
@@ -163,7 +204,6 @@
                 return;
             }
 
-            // Получение ID текущего пользователя
             var userId = db.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
 
             if (userId == null)
@@ -171,7 +211,6 @@
                 return;
             }
 
-            // Получение или создание корзины для пользователя
             var cart = await db.Carts
                 .Include(c => c.CartItems)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
@@ -182,14 +221,12 @@
                 db.Carts.Add(cart);
             }
 
-            // Проверка, есть ли уже эта книга в корзине
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
 
             if (cartItem != null)
             {
                 cartItem.Quantity++;
             }
-            // Если книги еще нет в корзине, добавляем её
             else
             {
                 cart.CartItems.Add(new CartItem { CartId = cart.CartId, BookId = book.BookId, Quantity = 1 });
@@ -202,6 +239,7 @@
             Console.WriteLine($"Ошибка при добавлении в корзину: {ex.Message}");
         }
     }
+
     private async Task AddToWishlist(Book book)
     {
         try
@@ -215,7 +253,6 @@
                 return;
             }
 
-            // Попытка извлечь UserId
             var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(userId))
@@ -224,10 +261,9 @@
                 return;
             }
 
-            using var context = DbFactory.CreateDbContext();
+            using var db = DbFactory.CreateDbContext();
 
-            // Проверка, не добавлена ли книга ранее
-            var existingWishlist = await context.Wishlists
+            var existingWishlist = await db.Wishlists
                 .FirstOrDefaultAsync(w => w.UserId == userId && w.BookId == book.BookId);
 
             if (existingWishlist != null)
@@ -236,27 +272,13 @@
                 return;
             }
 
-            // Добавление книги в избранное
-            var wishlistItem = new Wishlist
-                {
-                    UserId = userId,
-                    BookId = book.BookId
-                };
-
-            context.Wishlists.Add(wishlistItem);
-            await context.SaveChangesAsync();
-
-            Console.WriteLine($"Книга '{book.Title}' успешно добавлена в избранное.");
+            var wishlistItem = new Wishlist { UserId = userId, BookId = book.BookId };
+            db.Wishlists.Add(wishlistItem);
+            await db.SaveChangesAsync();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Ошибка при добавлении книги в избранное: {ex.Message}");
+            Console.WriteLine($"Ошибка при добавлении в избранное: {ex.Message}");
         }
-    }
-
-    // public async ValueTask DisposeAsync() => await context.DisposeAsync();
-    public async ValueTask DisposeAsync()
-    {
-        
     }
 }

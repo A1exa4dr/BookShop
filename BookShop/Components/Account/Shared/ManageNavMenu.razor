@@ -20,10 +20,6 @@
     <li class="nav-item">
         <NavLink class="nav-link" href="Account/Manage/PersonalData">Удалить аккаунт</NavLink>
     </li>
-    <!-- Новая ссылка для перехода к заказам -->
-    <li class="nav-item">
-        <button class="nav-link btn btn-link" @onclick="GoToOrders">Мои заказы</button>
-    </li>
 </ul>
 
 @code {
@@ -34,26 +30,4 @@
         hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
     }
 
-    private async Task GoToOrders()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            using var context = DbFactory.CreateDbContext();
-
-            // Получаем UserId как строку
-            var userId = context.Users
-                .Where(u => u.UserName == user.Identity.Name)
-                .Select(u => u.Id) // Предполагается, что Id имеет тип string
-                .FirstOrDefault();
-
-            if (!string.IsNullOrEmpty(userId))
-            {
-                // Переход на страницу заказов
-                NavigationManager.NavigateTo($"/myorders/{userId}");
-            }
-        }
-    }
 }
