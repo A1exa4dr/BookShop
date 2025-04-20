@@ -18,7 +18,7 @@
     else {
         <dl class="row">
             <dt class="col-sm-2">Товар</dt>
-            <dd class="col-sm-10">@cartitem.BookId</dd>
+            <dd class="col-sm-10">@cartitem.Book.Title</dd>
             <dt class="col-sm-2">Количество</dt>
             <dd class="col-sm-10">@cartitem.Quantity</dd>
 
@@ -39,7 +39,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        cartitem = await context.CartItems.FirstOrDefaultAsync(m => m.CartId == CartId);
+        cartitem = await context.CartItems.Include(od => od.Book).FirstOrDefaultAsync(m => m.CartId == CartId);
 
         if (cartitem is null)
         {

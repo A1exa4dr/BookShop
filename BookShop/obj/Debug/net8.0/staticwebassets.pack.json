@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\bookdetail.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
+      "PackagePath": "staticwebassets\\css\\myorders.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
       "PackagePath": "staticwebassets\\css\\usercart.css"
     },

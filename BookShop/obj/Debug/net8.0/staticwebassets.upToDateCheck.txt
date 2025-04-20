@@ -3,6 +3,7 @@ wwwroot\bootstrap\bootstrap.min.css
 wwwroot\bootstrap\bootstrap.min.css.map
 wwwroot\css\adminbooks.css
 wwwroot\css\bookdetail.css
+wwwroot\css\myorders.css
 wwwroot\css\usercart.css
 wwwroot\css\userscatalog.css
 wwwroot\css\wishlist.css

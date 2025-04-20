@@ -1,7 +1,7 @@
 ﻿@page "/books/details"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
-@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = "Client, Admin")]
@@ -11,18 +11,75 @@
 
 <h1>Описание книги</h1>
 
-<div>
-    @* <h2>Книги</h2> *@
-    <hr />
-    @if (book is null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
+<AuthorizeView Roles="Admin">
+    <div class="admin-view">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Параметр</th>
+                    <th>Значение</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Изображение</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(book?.ImageUrl))
+                        {
+                            <img src="@book.ImageUrl" alt="Фото книги" style="max-width: 100px; max-height: 200px;" />
+                        }
+                        else
+                        {
+                            <span>Фото отсутствует</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Название</td>
+                    <td>@book?.Title</td>
+                </tr>
+                <tr>
+                    <td>Автор</td>
+                    <td>@book?.Author.AuthorName</td>
+                </tr>
+                <tr>
+                    <td>Жанр</td>
+                    <td>@book?.Genre.Name</td>
+                </tr>
+                <tr>
+                    <td>Описание</td>
+                    <td>@book?.Description</td>
+                </tr>
+                <tr>
+                    <td>Цена</td>
+                    <td>@book?.Price.ToString("C")</td>
+                </tr>
+                <tr>
+                    <td>Издательство</td>
+                    <td>@book?.Publisher.PublisherName</td>
+                </tr>
+                <tr>
+                    <td>Количество на складе</td>
+                    <td>@book?.StockQuantity</td>
+                </tr>
+                <tr>
+                    <td>Поставщик</td>
+                    <td>@book?.Supplier?.Name</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a href="@($"/books/edit?bookid={book?.BookId}")" class="btn btn-warning">Редактировать</a>
+            <button class="btn btn-secondary" @onclick="GoBackToCatalog">Обратно в каталог</button>
+        </div>
+    </div>
+</AuthorizeView>
+
+<AuthorizeView Roles="Client">
+    <div class="client-view">
         <div class="book-details">
             <div class="book-image">
-                @if (!string.IsNullOrEmpty(book.ImageUrl))
+                @if (!string.IsNullOrEmpty(book?.ImageUrl))
                 {
                     <img src="@book.ImageUrl" alt="Фото книги" style="max-width: 200px; max-height: 300px;" />
                 }
@@ -32,75 +89,59 @@
                 }
             </div>
             <div class="book-info">
-                <dl class="row">
-            @* <dt class="col-sm-2">ImageUrl</dt>
-            <dd class="col-sm-10">@book.ImageUrl</dd> *@
-                    <dt class="col-sm-2">Название:</dt>
-                    <dd class="col-sm-10">@book.Title</dd>
-                    <dt class="col-sm-2">Автор:</dt>
-                    <dd class="col-sm-10">@book.Author.AuthorName</dd>
-                    <dt class="col-sm-2">Жанр:</dt>
-                    <dd class="col-sm-10">@book.Genre.Name</dd>
-                    <dt class="col-sm-2">Описание:</dt>
-                    <dd class="col-sm-10">@book.Description</dd>
-                    <dt class="col-sm-2">Рейтинг:</dt>
-                    <dd class="col-sm-10">@book.AverageRating</dd>
-                    <dt class="col-sm-2">Цена:</dt>
-                    <dd class="col-sm-10">@book.Price</dd>
-                    <AuthorizeView Roles="Admin">
-                        <dt class="col-sm-2">Издательство: </dt>
-                        <dd class="col-sm-10">@book.Publisher.PublisherName</dd>
-                        <dt class="col-sm-2">Количество на складе:</dt>
-                        <dd class="col-sm-10">@book.StockQuantity</dd>
-                        <dt class="col-sm-2">Поставщик:</dt>
-                        <dd class="col-sm-10">@book.Supplier?.Name</dd>
-                    </AuthorizeView>
-                </dl>
+                <h2>@book?.Title</h2>
+                <p><strong>Автор:</strong> @book?.Author.AuthorName</p>
+                <p><strong>Жанр:</strong> @book?.Genre.Name</p>
+                <p><strong>Описание:</strong> @book?.Description</p>
+                <p><strong>Рейтинг:</strong> @book?.AverageRating</p>
+                <div class="price-and-cart">
+                    <p><strong>Цена:</strong> @book?.Price.ToString("C")</p>
+                    <button class="btn btn-primary" @onclick="AddToCart">Добавить в корзину</button>
+                </div>
             </div>
         </div>
-        <div>
-            <AuthorizeView Roles="Admin">
-                <a href="@($"/books/edit?bookid={book.BookId}")">Редактировать</a> |
-            </AuthorizeView>
-            <br />
-            <a href="@($"/books")">Обратно в каталог</a>
-        </div><br />
-        <AuthorizeView Roles="Client">
-                <h3>Оставить отзыв</h3>
-                <textarea @bind="reviewText" class="form-control" rows="4" placeholder="Введите ваш отзыв"></textarea>
-                <br />
-                <label>Оценка:</label>
-                <select @bind="reviewRating" class="form-select">
-                    @for (int i = 1; i <= 5; i++)
+
+        <div class="reviews-section">
+            <h3>Отзывы</h3>
+            @if (reviews is null || !reviews.Any())
+            {
+                <p>Отзывов пока нет.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var review in reviews)
                     {
-                        <option value="@i">@i</option>
+                        <li class="list-group-item">
+                            <strong>@review.User.UserName</strong> (Рейтинг: @review.Rating)
+                            <p>@review.ReviewText</p>
+                            <small>Дата публикации: @review.DatePosted.ToShortDateString()</small>
+                        </li>
                     }
-                </select>
-                <br />
-                <button class="btn btn-primary" @onclick="SubmitReview">Оставить отзыв</button>
-        </AuthorizeView>
-        
-        <br />
-        <h3>Отзывы</h3>
-        @if (reviews is null || !reviews.Any())
-        {
-            <p>Отзывов пока нет.</p>
-        }
-        else
-        {
-            <ul class="list-group">
-                @foreach (var review in reviews)
+                </ul>
+            }
+        </div>
+
+        <div class="add-review">
+            <h4>Оставить отзыв</h4>
+            <textarea @bind="reviewText" class="form-control" rows="4" placeholder="Введите ваш отзыв"></textarea>
+            <br />
+            <label>Оценка:</label>
+            <select @bind="reviewRating" class="form-select">
+                @for (int i = 1; i <= 5; i++)
                 {
-                    <li class="list-group-item">
-                        <strong>@review.User.UserName</strong> (Рейтинг: @review.Rating)
-                        <p>@review.ReviewText</p>
-                        <small>Дата публикации: @review.DatePosted.ToShortDateString()</small>
-                    </li>
+                    <option value="@i">@i</option>
                 }
-            </ul>
-        }
-    }
-</div>
+            </select>
+            <br />
+            <button class="btn btn-success" @onclick="SubmitReview">Оставить отзыв</button>
+            @if (!string.IsNullOrEmpty(message))
+            {
+                <p class="message">@message</p>
+            }
+        </div>
+    </div>
+</AuthorizeView>
 
 @code {
     private Book? book;
@@ -137,7 +178,6 @@
     {
         if (string.IsNullOrWhiteSpace(reviewText))
         {
-            // Добавьте сообщение об ошибке, если текст пустой
             message = "Текст отзыва не может быть пустым.";
             return;
         }
@@ -150,69 +190,113 @@
         var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
         if (userId is null)
         {
-            // Обработка ситуации, если пользователь не найден
             message = "Вы должны быть авторизованы для отправки отзыва.";
             return;
         }
 
-        // Проверка на существование отзыва
         var existingReview = await context.Reviews.FirstOrDefaultAsync(r => r.UserId == userId && r.BookId == BookId);
-
         if (existingReview != null)
         {
             message = "Вы уже оставили отзыв на эту книгу.";
             return;
         }
 
-        // Создание нового отзыва
         var review = new Review
-            {
-                UserId = userId,
-                BookId = BookId,
-                Rating = reviewRating,
-                ReviewText = reviewText,
-                DatePosted = DateTime.Now
-            };
+        {
+            UserId = userId,
+            BookId = BookId,
+            Rating = reviewRating,
+            ReviewText = reviewText,
+            DatePosted = DateTime.Now
+        };
 
         context.Reviews.Add(review);
         await context.SaveChangesAsync();
 
-        // Пересчет среднего рейтинга
         await UpdateBookAverageRating(context);
 
-        // Обновление списка отзывов
         reviews = await context.Reviews
             .Include(r => r.User)
             .Where(r => r.BookId == BookId)
             .ToListAsync();
 
-        // Очистка текстового поля и сброс рейтинга
         message = "Спасибо за ваш отзыв!";
         reviewText = string.Empty;
         reviewRating = 1;
 
-        // Обновление интерфейса
         StateHasChanged();
     }
 
     private async Task UpdateBookAverageRating(ApplicationDbContext context)
     {
-        // Получаем все отзывы для текущей книги
         var bookReviews = await context.Reviews
             .Where(r => r.BookId == BookId)
             .ToListAsync();
 
-        // Рассчитываем средний рейтинг
         var averageRating = bookReviews.Any()
             ? bookReviews.Average(r => r.Rating)
             : 0;
 
-        // Обновляем поле AverageRating в таблице Books
         var currentBook = await context.Books.FindAsync(BookId);
         if (currentBook != null)
         {
             currentBook.AverageRating = (decimal)averageRating;
             await context.SaveChangesAsync();
+        }
+    }
+
+    private void GoBackToCatalog()
+    {
+        NavigationManager.NavigateTo("/books");
+    }
+
+    private async Task AddToCart()
+    {
+        try
+        {
+            using var context = DbFactory.CreateDbContext();
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity is null || !user.Identity.IsAuthenticated)
+            {
+                return;
+            }
+
+            var userId = context.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+
+            if (userId == null)
+            {
+                return;
+            }
+
+            var cart = await context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId, CartItems = new List<CartItem>() };
+                context.Carts.Add(cart);
+            }
+
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
+
+            if (cartItem != null)
+            {
+                cartItem.Quantity++;
+            }
+            else
+            {
+                cart.CartItems.Add(new CartItem { CartId = cart.CartId, BookId = book.BookId, Quantity = 1 });
+            }
+
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при добавлении в корзину: {ex.Message}");
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cqiYjjIFMyJ01tuZt8lAqMegXq06c5WTbPE7ZCML8Tw=",
+  "Hash": "FNxZodnaIK2y1CCceSkCp3Iz3GeX/lAiqtmqeYZT5h4=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -262,11 +262,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "91ih6zcgza",
-      "Integrity": "c5ghGhDiJ8vHZ2OEiGDnTUHhhMi6Ql/PtPXV6argeOs=",
+      "Fingerprint": "1tt539dccs",
+      "Integrity": "JZ3rsu9lRcUh4yA6HwQCnqdzzO0CyGIX5zwUS0wtUNM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bookdetail.css"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "css/myorders#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gl8ih50isp",
+      "Integrity": "BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\myorders.css"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
@@ -896,7 +917,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Dec 2024 11:42:38 GMT"
+          "Value": "Thu, 17 Apr 2025 11:38:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -945,7 +966,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Dec 2024 11:42:38 GMT"
+          "Value": "Thu, 17 Apr 2025 11:38:19 GMT"
         },
         {
           "Name": "Link",
@@ -990,7 +1011,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Dec 2024 11:42:38 GMT"
+          "Value": "Thu, 17 Apr 2025 11:38:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1031,7 +1052,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Dec 2024 11:42:38 GMT"
+          "Value": "Thu, 17 Apr 2025 11:38:19 GMT"
         },
         {
           "Name": "Link",
@@ -1292,7 +1313,7 @@
       ]
     },
     {
-      "Route": "css/bookdetail.91ih6zcgza.css",
+      "Route": "css/bookdetail.1tt539dccs.css",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\bookdetail.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1302,7 +1323,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "743"
+          "Value": "1512"
         },
         {
           "Name": "Content-Type",
@@ -1310,11 +1331,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c5ghGhDiJ8vHZ2OEiGDnTUHhhMi6Ql/PtPXV6argeOs=\""
+          "Value": "\"JZ3rsu9lRcUh4yA6HwQCnqdzzO0CyGIX5zwUS0wtUNM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 02 Jan 2025 13:04:17 GMT"
+          "Value": "Thu, 17 Apr 2025 11:53:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1324,7 +1345,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "91ih6zcgza"
+          "Value": "1tt539dccs"
         },
         {
           "Name": "label",
@@ -1332,7 +1353,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-c5ghGhDiJ8vHZ2OEiGDnTUHhhMi6Ql/PtPXV6argeOs="
+          "Value": "sha256-JZ3rsu9lRcUh4yA6HwQCnqdzzO0CyGIX5zwUS0wtUNM="
         }
       ]
     },
@@ -1347,7 +1368,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "743"
+          "Value": "1512"
         },
         {
           "Name": "Content-Type",
@@ -1355,11 +1376,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"c5ghGhDiJ8vHZ2OEiGDnTUHhhMi6Ql/PtPXV6argeOs=\""
+          "Value": "\"JZ3rsu9lRcUh4yA6HwQCnqdzzO0CyGIX5zwUS0wtUNM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 02 Jan 2025 13:04:17 GMT"
+          "Value": "Thu, 17 Apr 2025 11:53:35 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1369,7 +1390,89 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-c5ghGhDiJ8vHZ2OEiGDnTUHhhMi6Ql/PtPXV6argeOs="
+          "Value": "sha256-JZ3rsu9lRcUh4yA6HwQCnqdzzO0CyGIX5zwUS0wtUNM="
+        }
+      ]
+    },
+    {
+      "Route": "css/myorders.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1069"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 11:38:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/myorders.gl8ih50isp.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1069"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 17 Apr 2025 11:38:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gl8ih50isp"
+        },
+        {
+          "Name": "label",
+          "Value": "css/myorders.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ="
         }
       ]
     },

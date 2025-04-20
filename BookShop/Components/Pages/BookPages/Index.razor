@@ -4,6 +4,7 @@
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Client, Admin")]
 
 
 <AuthorizeView Roles="Admin">
@@ -13,7 +14,7 @@
     <h1>Управление книгами</h1>
 
     <p>
-        <a href="books/create" class="btn btn-primary">Добавить книгу</a>
+        <a href="books/create" class="btn btn-primary">Добавить новую книгу</a>
     </p>
 
     <div class="filter-container">
@@ -77,66 +78,67 @@
     </table>
 </AuthorizeView>
 
+<AuthorizeView Roles="Client">
+    <PageTitle>Каталог</PageTitle>
+    <link href="css/userscatalog.css" rel="stylesheet">
 
-<PageTitle>Каталог</PageTitle>
-<link href="css/userscatalog.css" rel="stylesheet">
+    <div class="user-actions">
+        <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
+        <button @onclick="GoToCart" class="btn btn-primary">Моя корзина</button>
+    </div>
 
-<div class="user-actions">
-    <button @onclick="GoToOrders" class="btn btn-primary">Мои заказы</button>
-    <button @onclick="GoToCart" class="btn btn-primary">Моя корзина</button>
-</div>
+    <br />
 
-<br />
+    <div class="filter-container">
+        <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." class="form-control filter-input" />
+        <select @bind="selectedGenre" class="form-select filter-input">
+            <option value="">Все жанры</option>
+            @foreach (var genre in genres)
+            {
+                <option value="@genre.GenreId">@genre.Name</option>
+            }
+        </select>
+        <input type="number" @bind="maxPrice" placeholder="Максимальная цена" class="form-control filter-input" />
+        <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
+    </div>
 
-<div class="filter-container">
-    <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." class="form-control filter-input" />
-    <select @bind="selectedGenre" class="form-select filter-input">
-        <option value="">Все жанры</option>
-        @foreach (var genre in genres)
+    <div class="book-grid">
+        @if (FilteredBooks.Any())
         {
-            <option value="@genre.GenreId">@genre.Name</option>
+            @foreach (var book in FilteredBooks)
+            {
+                <div class="book-card">
+                    <div class="book-image">
+                        @if (!string.IsNullOrEmpty(book.ImageUrl))
+                        {
+                            <img src="@book.ImageUrl" alt="@book.Title" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </div>
+                    <div class="book-details">
+                        <h3>@book.Title</h3>
+                        <p><strong>Автор:</strong> @book.Author.AuthorName</p>
+                        <p><strong>Жанр:</strong> @book.Genre.Name</p>
+                        <p><strong>Рейтинг:</strong> @book.AverageRating</p>
+                        <p><strong>Цена:</strong> @book.Price.ToString("C")</p>
+                    </div>
+                    <div class="book-actions">
+                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
+                        <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
+                        <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button">В избранное</button>
+                    </div>
+                </div>
+            }
         }
-    </select>
-    <input type="number" @bind="maxPrice" placeholder="Максимальная цена" class="form-control filter-input" />
-    <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
-</div>
-
-<div class="book-grid">
-    @if (FilteredBooks.Any())
-    {
-        @foreach (var book in FilteredBooks)
+        else
         {
-            <div class="book-card">
-                <div class="book-image">
-                    @if (!string.IsNullOrEmpty(book.ImageUrl))
-                    {
-                        <img src="@book.ImageUrl" alt="@book.Title" />
-                    }
-                    else
-                    {
-                        <span>No Image</span>
-                    }
-                </div>
-                <div class="book-details">
-                    <h3>@book.Title</h3>
-                    <p><strong>Автор:</strong> @book.Author.AuthorName</p>
-                    <p><strong>Жанр:</strong> @book.Genre.Name</p>
-                    <p><strong>Рейтинг:</strong> @book.AverageRating</p>
-                    <p><strong>Цена:</strong> @book.Price.ToString("C")</p>
-                </div>
-                <div class="book-actions">
-                    <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
-                    <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
-                    <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button">В избранное</button>
-                </div>
-            </div>
+            <p>Книги не найдены.</p>
         }
-    }
-    else
-    {
-        <p>Книги не найдены.</p>
-    }
-</div>
+    </div>
+</AuthorizeView>
 
 @code {
     private string titleFilter = string.Empty;

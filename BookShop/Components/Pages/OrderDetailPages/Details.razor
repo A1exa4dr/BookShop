@@ -19,7 +19,7 @@
     else {
         <dl class="row">
             <dt class="col-sm-2">Книга</dt>
-            <dd class="col-sm-10">@orderdetail.BookId</dd>
+            <dd class="col-sm-10">@orderdetail.Book.Title</dd>
             <dt class="col-sm-2">Количество</dt>
             <dd class="col-sm-10">@orderdetail.Quantity</dd>
             <dt class="col-sm-2">Цена</dt>
@@ -42,7 +42,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        orderdetail = await context.OrderDetails.FirstOrDefaultAsync(m => m.OrderId == OrderId);
+        orderdetail = await context.OrderDetails.Include(od => od.Book).FirstOrDefaultAsync(m => m.OrderId == OrderId);
 
         if (orderdetail is null)
         {
