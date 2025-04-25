@@ -17,8 +17,9 @@
 
 <QuickGrid Class="table" Items="context.Orders.Include(ci => ci.OrderStatus).Include(ci => ci.PaymentType)">
     <PropertyColumn Property="order => order.UserId" Title="Пользователь"/>
-    <PropertyColumn Property="order => order.OrderDate" Title="Дата заказа" />
-    <PropertyColumn Property="order => order.TotalAmount" Title="Сумма заказа" />
+    <PropertyColumn Property="order => order.OrderDate" Title="Дата заказа" Sortable="true"/>
+    <PropertyColumn Property="order => order.TotalAmount" Title="Сумма заказа" Sortable="true"/>
+    <PropertyColumn Property="order => order.DeliveryAddress" Title="Адрес доставки" />
     <PropertyColumn Property="order => order.OrderStatus.Status" Title="Статус заказа" />
     <PropertyColumn Property="order => order.PaymentType.Name" Title="Тип оплаты" />
 

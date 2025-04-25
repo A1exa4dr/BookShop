@@ -388,6 +388,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQdWJsaXNoZXJQYWdlc1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/Reports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXBvcnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/1/source/repos/BookShop/BookShop/Components/Pages/ReviewPages/Create.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXZpZXdQYWdlc1xDcmVhdGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

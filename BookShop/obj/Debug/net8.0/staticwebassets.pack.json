@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\myorders.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
+      "PackagePath": "staticwebassets\\css\\reports.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
       "PackagePath": "staticwebassets\\css\\usercart.css"
     },
@@ -87,6 +91,10 @@
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
       "PackagePath": "staticwebassets\\images\\Р и Дж.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
+      "PackagePath": "staticwebassets\\js\\chart.js"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",

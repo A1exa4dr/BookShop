@@ -27,6 +27,11 @@ else
                 <p>Статус: @order.OrderStatus.Status</p>
                 <p>Оплата: @order.PaymentType.Name</p>
                 <p>Общая сумма: @order.TotalAmount.ToString("C")</p>
+
+                @if (CanCancelOrder(order))
+                {
+                    <button class="btn btn-danger" @onclick="() => CancelOrder(order.OrderId)">Отменить заказ</button>
+                }
             </div>
 
             @if (expandedOrderIds.Contains(order.OrderId))
@@ -96,5 +101,36 @@ else
     private void GoToCatalog()
     {
         NavigationManager.NavigateTo("/books");
+    }
+
+    private bool CanCancelOrder(Order order)
+    {
+        // Заказ можно отменить, если его статус не "Доставлен" и не "В пути"
+        return order.OrderStatus.Status != "Доставлен" && order.OrderStatus.Status != "В пути";
+    }
+
+    private async Task CancelOrder(int orderId)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var order = await context.Orders
+            .Include(o => o.OrderStatus)
+            .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order != null && CanCancelOrder(order))
+        {
+            // Находим статус "Отменен" в базе данных
+            var canceledStatus = await context.OrderStatuses
+                .FirstOrDefaultAsync(os => os.Status == "Отменен");
+
+            if (canceledStatus != null)
+            {
+                order.OrderStatusId = canceledStatus.OrderStatusId; // Изменяем статус заказа
+                await context.SaveChangesAsync(); // Сохраняем изменения
+            }
+        }
+
+        // Обновляем список заказов
+        await OnParametersSetAsync();
     }
 }

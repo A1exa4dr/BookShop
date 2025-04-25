@@ -32,7 +32,9 @@ else
                 {
                     <th>Пользователь</th>
                 }
-                <th>Действия</th>
+                <AuthorizeView Roles="Client">
+                    <th>Действия</th>
+                </AuthorizeView>
             </tr>
         </thead>
         <tbody>
@@ -46,15 +48,17 @@ else
                     <td>@wishlist.Book.Author.AuthorName</td>
                     <td>@wishlist.Book.Genre.Name</td>
                     <td>@wishlist.Book.Price руб.</td>
-                    @if (isAdmin)
+                    @if (isAdmin) 
                     {
                         <td>@wishlist.User.
 
-</td>
+                        </td>
                     }
-                    <td>
-                        <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
-                    </td>
+                    <AuthorizeView Roles="Client">
+                        <td>
+                            <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
+                        </td>
+                    </AuthorizeView>
                 </tr>
             }
         </tbody>

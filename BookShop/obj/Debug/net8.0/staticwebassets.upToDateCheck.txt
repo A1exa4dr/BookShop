@@ -4,6 +4,7 @@ wwwroot\bootstrap\bootstrap.min.css.map
 wwwroot\css\adminbooks.css
 wwwroot\css\bookdetail.css
 wwwroot\css\myorders.css
+wwwroot\css\reports.css
 wwwroot\css\usercart.css
 wwwroot\css\userscatalog.css
 wwwroot\css\wishlist.css
@@ -19,4 +20,5 @@ wwwroot\images\e163870c-3fee-4b7b-9519-d4f331701c27.jpg
 wwwroot\images\EaDvpL0GkR8.jpg
 wwwroot\images\Оно.jpg
 wwwroot\images\Р и Дж.jpg
+wwwroot\js\chart.js
 wwwroot\js\openfile.js

@@ -37,6 +37,7 @@
                 <th>Название</th>
                 <th>Автор</th>
                 <th>Жанр</th>
+                <th>Рейтинг</th>
                 <th>Цена</th>
                 <th>Количество</th>
                 <th>Издательство</th>
@@ -62,6 +63,7 @@
                     <td>@book.Title</td>
                     <td>@book.Author.AuthorName</td>
                     <td>@book.Genre.Name</td>
+                    <td>@book.AverageRating</td>
                     <td>@book.Price.ToString("C")</td>
                     <td>@book.StockQuantity</td>
                     <td>@book.Publisher.PublisherName</td>

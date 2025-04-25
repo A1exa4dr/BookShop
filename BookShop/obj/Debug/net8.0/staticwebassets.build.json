@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FNxZodnaIK2y1CCceSkCp3Iz3GeX/lAiqtmqeYZT5h4=",
+  "Hash": "XmqYfb6cuXcV3rNHTqEO69eJINNbUHbb2xFJYI06KMs=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -288,6 +288,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\myorders.css"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "css/reports#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "twfaemi762",
+      "Integrity": "DTXp+liWyXNIvkzZk85cZUQZJck/izNb8W4wcmx1EGo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\reports.css"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\usercart.css",
@@ -603,6 +624,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Р и Дж.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "js/chart#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rzz9luc8rz",
+      "Integrity": "d0vOeu8Lhok6ivKR2OlbagfIEGF5Lr+6W1+pW/iIikc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\chart.js"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",
@@ -1473,6 +1515,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-BGFmca52M94OxShspJB8tpxx0hN8ZMdk2v6qA9NpTCQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/reports.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1353"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DTXp+liWyXNIvkzZk85cZUQZJck/izNb8W4wcmx1EGo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 14:57:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DTXp+liWyXNIvkzZk85cZUQZJck/izNb8W4wcmx1EGo="
+        }
+      ]
+    },
+    {
+      "Route": "css/reports.twfaemi762.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1353"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DTXp+liWyXNIvkzZk85cZUQZJck/izNb8W4wcmx1EGo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 14:57:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twfaemi762"
+        },
+        {
+          "Name": "label",
+          "Value": "css/reports.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DTXp+liWyXNIvkzZk85cZUQZJck/izNb8W4wcmx1EGo="
         }
       ]
     },
@@ -2703,6 +2827,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-B9rIcH3G2UGJXchzYSLw8TWAA5q1qoUNndCjrPWKaE4="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1190"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"d0vOeu8Lhok6ivKR2OlbagfIEGF5Lr+6W1+pW/iIikc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 24 Apr 2025 13:28:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-d0vOeu8Lhok6ivKR2OlbagfIEGF5Lr+6W1+pW/iIikc="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.rzz9luc8rz.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1190"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"d0vOeu8Lhok6ivKR2OlbagfIEGF5Lr+6W1+pW/iIikc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 24 Apr 2025 13:28:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rzz9luc8rz"
+        },
+        {
+          "Name": "label",
+          "Value": "js/chart.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-d0vOeu8Lhok6ivKR2OlbagfIEGF5Lr+6W1+pW/iIikc="
         }
       ]
     },

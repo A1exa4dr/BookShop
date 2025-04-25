@@ -1,0 +1,183 @@
+﻿@page "/reports"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>Отчеты</PageTitle>
+<link href="css/reports.css" rel="stylesheet">
+
+<h1>Отчеты</h1>
+
+<div class="report-container">
+    <h2>Формирование отчетов</h2>
+
+    <div class="filters-row">
+        <div class="filter-item">
+            <label>Тип отчета:</label>
+            <select @bind="selectedReportType" class="form-select">
+                <option value="sales">Продажи</option>
+                <option value="orders">Заказы</option>
+            </select>
+        </div>
+
+        <div class="filter-item">
+            <label>Дата начала:</label>
+            <input type="date" @bind="startDate" class="form-control" />
+        </div>
+
+        <div class="filter-item">
+            <label>Дата окончания:</label>
+            <input type="date" @bind="endDate" class="form-control" />
+        </div>
+
+        <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
+    </div>
+
+    <div class="report-results">
+        @if (isLoading)
+        {
+            <p><em>Загрузка данных...</em></p>
+        }
+        else if (reportData.Any())
+        {
+            <h3>Результаты отчета</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @foreach (var header in reportHeaders)
+                        {
+                            <th>@header</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in reportData)
+                    {
+                        <tr>
+                            @foreach (var cell in row)
+                            {
+                                <td>@cell</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (selectedReportType == "sales")
+            {
+                <p><strong>Общая сумма продаж за период:</strong> @totalSalesAmount.ToString("C")</p>
+            }
+        }
+        else
+        {
+            <p>Нет данных для отображения.</p>
+        }
+    </div>
+</div>
+
+@code {
+    private string selectedReportType = "sales"; // Тип отчета
+    private DateTime? startDate; // Дата начала
+    private DateTime? endDate; // Дата окончания
+
+    private bool isLoading = false; // Флаг загрузки
+    private List<string> reportHeaders = new(); // Заголовки таблицы
+    private List<List<string>> reportData = new(); // Данные отчета
+    private decimal totalSalesAmount = 0; // Общая сумма продаж
+
+    protected override void OnInitialized()
+    {
+        // Устанавливаем даты по умолчанию
+        startDate = DateTime.Now.AddMonths(-1); // Месяц назад
+        endDate = DateTime.Now;
+    }
+
+    private async Task GenerateReport()
+    {
+        isLoading = true;
+        reportHeaders.Clear();
+        reportData.Clear();
+        totalSalesAmount = 0; // Сброс общей суммы
+
+        using var context = DbFactory.CreateDbContext();
+
+        try
+        {
+            switch (selectedReportType)
+            {
+                case "sales":
+                    await GenerateSalesReport(context);
+                    break;
+
+                case "orders":
+                    await GenerateOrdersReport(context);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при формировании отчета: {ex.Message}");
+        }
+
+        isLoading = false;
+    }
+
+    private async Task GenerateSalesReport(ApplicationDbContext context)
+    {
+        reportHeaders = new List<string>
+        {
+            "Дата", "Книга", "Количество", "Общая сумма"
+        };
+
+        var salesData = await context.OrderDetails
+            .Include(od => od.Book)
+            .Include(od => od.Order)
+            .Where(od => od.Order.OrderDate >= startDate && od.Order.OrderDate <= endDate)
+            .ToListAsync();
+
+        totalSalesAmount = 0; // Сбрасываем общую сумму перед новым расчетом
+
+        foreach (var item in salesData)
+        {
+            var totalItemAmount = item.Quantity * item.Price;
+            reportData.Add(new List<string>
+            {
+                item.Order.OrderDate.ToString("dd.MM.yyyy"),
+                item.Book.Title,
+                item.Quantity.ToString(),
+                totalItemAmount.ToString("C")
+            });
+
+            totalSalesAmount += totalItemAmount; // Добавляем к общей сумме
+        }
+    }
+
+    private async Task GenerateOrdersReport(ApplicationDbContext context)
+    {
+        reportHeaders = new List<string>
+        {
+            "ID заказа", "Дата", "Статус", "Общая сумма"
+        };
+
+        var ordersData = await context.Orders
+            .Include(o => o.OrderStatus) // Загружаем OrderStatus
+            .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+            .ToListAsync();
+
+        foreach (var order in ordersData)
+        {
+            reportData.Add(new List<string>
+            {
+                order.OrderId.ToString(),
+                order.OrderDate.ToString("dd.MM.yyyy"),
+                order.OrderStatus?.Status ?? "Неизвестно", // Обработка null
+                order.TotalAmount.ToString("C")
+            });
+        }
+    }
+}
