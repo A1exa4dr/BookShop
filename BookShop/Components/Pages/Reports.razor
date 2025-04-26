@@ -1,6 +1,7 @@
 ﻿@page "/reports"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
+@using System.Globalization
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
@@ -14,25 +15,27 @@
     <h2>Формирование отчетов</h2>
 
     <div class="filters-row">
-        <div class="filter-item">
-            <label>Тип отчета:</label>
-            <select @bind="selectedReportType" class="form-select">
-                <option value="sales">Продажи</option>
-                <option value="orders">Заказы</option>
-            </select>
-        </div>
+        <div class="filters-row align-items-end">
+            <div class="filter-item">
+                <label>Тип отчета:</label>
+                <select @bind="selectedReportType" class="form-select">
+                    <option value="sales">Продажи</option>
+                    <option value="orders">Заказы</option>
+                </select>
+            </div>
 
-        <div class="filter-item">
-            <label>Дата начала:</label>
-            <input type="date" @bind="startDate" class="form-control" />
-        </div>
+            <div class="filter-item">
+                <label>Дата начала:</label>
+                <input type="date" @bind="startDate" class="form-control" />
+            </div>
 
-        <div class="filter-item">
-            <label>Дата окончания:</label>
-            <input type="date" @bind="endDate" class="form-control" />
-        </div>
+            <div class="filter-item">
+                <label>Дата окончания:</label>
+                <input type="date" @bind="endDate" class="form-control" />
+            </div>
 
-        <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
+            <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
+        </div>
     </div>
 
     <div class="report-results">
@@ -50,15 +53,25 @@
                         {
                             <th>@header</th>
                         }
+                        <th></th> <!-- Для маркера стиля -->
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var row in reportData)
                     {
-                        <tr>
-                            @foreach (var cell in row)
+                        <tr class="@row.LastOrDefault()"> <!-- Применяем класс из последнего элемента -->
+                            @for (int i = 0; i < row.Count - 1; i++) @* Исключаем последний элемент (маркер) *@
                             {
-                                <td>@cell</td>
+                                <td class="@(row.LastOrDefault() == "subtotal-row" ? "subtotal-cell" : "")">
+                                    @if (row[i].StartsWith("<strong>") && row[i].EndsWith("</strong>"))
+                                    {
+                                        @((MarkupString)row[i]) // Отображаем HTML-разметку
+                                    }
+                                    else
+                                    {
+                                        @row[i]
+                                    }
+                                </td>
                             }
                         </tr>
                     }
@@ -86,6 +99,7 @@
     private List<string> reportHeaders = new(); // Заголовки таблицы
     private List<List<string>> reportData = new(); // Данные отчета
     private decimal totalSalesAmount = 0; // Общая сумма продаж
+    private Dictionary<string, decimal> monthlyTotals = new(); // Подитоги по месяцам
 
     protected override void OnInitialized()
     {
@@ -100,6 +114,7 @@
         reportHeaders.Clear();
         reportData.Clear();
         totalSalesAmount = 0; // Сброс общей суммы
+        monthlyTotals.Clear(); // Очистка подитогов
 
         using var context = DbFactory.CreateDbContext();
 
@@ -138,23 +153,84 @@
             .Include(od => od.Book)
             .Include(od => od.Order)
             .Where(od => od.Order.OrderDate >= startDate && od.Order.OrderDate <= endDate)
+            .OrderBy(od => od.Order.OrderDate) // Сортировка по дате
             .ToListAsync();
 
         totalSalesAmount = 0; // Сбрасываем общую сумму перед новым расчетом
+        monthlyTotals.Clear(); // Очищаем подитоги
+
+        string currentMonth = null; // Текущий месяц
 
         foreach (var item in salesData)
         {
+            var orderDate = item.Order.OrderDate;
+            var monthKey = orderDate.ToString("yyyy-MM"); // Ключ для месяца (например, "2023-10")
+
+            // Если месяц изменился, добавляем подитог для предыдущего месяца
+            if (currentMonth != null && currentMonth != monthKey)
+            {
+                AddMonthlySubtotal(currentMonth);
+            }
+
+            currentMonth = monthKey;
+
+            // Добавляем данные в таблицу
             var totalItemAmount = item.Quantity * item.Price;
             reportData.Add(new List<string>
             {
-                item.Order.OrderDate.ToString("dd.MM.yyyy"),
+                orderDate.ToString("dd.MM.yyyy"),
                 item.Book.Title,
                 item.Quantity.ToString(),
-                totalItemAmount.ToString("C")
+                totalItemAmount.ToString("C"),
+                string.Empty // Маркер для обычной строки
             });
+
+            // Обновляем подитог для текущего месяца
+            if (monthlyTotals.ContainsKey(monthKey))
+            {
+                monthlyTotals[monthKey] += totalItemAmount;
+            }
+            else
+            {
+                monthlyTotals[monthKey] = totalItemAmount;
+            }
 
             totalSalesAmount += totalItemAmount; // Добавляем к общей сумме
         }
+
+        // Добавляем подитог для последнего месяца
+        if (currentMonth != null)
+        {
+            AddMonthlySubtotal(currentMonth);
+        }
+    }
+
+    private void AddMonthlySubtotal(string monthKey)
+    {
+        if (monthlyTotals.TryGetValue(monthKey, out var subtotal))
+        {
+            // Преобразуем ключ месяца в формат "YYYY.MM"
+            var year = int.Parse(monthKey.Substring(0, 4));
+            var month = int.Parse(monthKey.Substring(5, 2));
+
+            // Получаем название месяца
+            var monthName = GetMonthName(month);
+
+            // Используем HTML-разметку для выделения текста
+            reportData.Add(new List<string>
+            {
+                $"<strong>Подитог за {year} {monthName}</strong>", // Жирный текст
+                string.Empty,
+                string.Empty,
+                $"<strong>{subtotal.ToString("C")}</strong>",
+                "subtotal-row" // Маркер для стиля
+            });
+        }
+    }
+
+    private string GetMonthName(int monthNumber)
+    {
+        return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);
     }
 
     private async Task GenerateOrdersReport(ApplicationDbContext context)
@@ -176,7 +252,8 @@
                 order.OrderId.ToString(),
                 order.OrderDate.ToString("dd.MM.yyyy"),
                 order.OrderStatus?.Status ?? "Неизвестно", // Обработка null
-                order.TotalAmount.ToString("C")
+                order.TotalAmount.ToString("C"),
+                string.Empty // Маркер для обычной строки
             });
         }
     }

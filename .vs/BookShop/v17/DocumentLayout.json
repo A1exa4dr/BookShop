@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|solutionrelative:bookshop\\components\\pages\\reports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|c:\\users\\1\\source\\repos\\bookshop\\bookshop\\components\\pages\\bookpages\\delete.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|solutionrelative:bookshop\\components\\pages\\bookpages\\delete.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|c:\\users\\1\\source\\repos\\bookshop\\bookshop\\components\\pages\\bookpages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|solutionrelative:bookshop\\components\\pages\\bookpages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -37,10 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|c:\\users\\1\\source\\repos\\bookshop\\bookshop\\components\\pages\\wishlistpages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|solutionrelative:bookshop\\components\\pages\\wishlistpages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|c:\\users\\1\\source\\repos\\bookshop\\bookshop\\components\\pages\\bookpages\\delete.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|solutionrelative:bookshop\\components\\pages\\bookpages\\delete.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{522AD3C5-2225-4EB6-9C87-EDEDDBD89824}|BookShop\\BookShop.csproj|c:\\users\\1\\source\\repos\\bookshop\\bookshop\\components\\pages\\cartitempages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -76,14 +76,14 @@
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\Reports.razor",
               "ToolTip": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\Reports.razor",
               "RelativeToolTip": "BookShop\\Components\\Pages\\Reports.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAALYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAAAPAAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-22T10:29:00.358Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "SeedData.cs",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Data\\SeedData.cs",
               "RelativeDocumentMoniker": "BookShop\\Data\\SeedData.cs",
@@ -91,12 +91,11 @@
               "RelativeToolTip": "BookShop\\Data\\SeedData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T10:30:05.885Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-24T10:30:05.885Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\SupplierPages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\SupplierPages\\Index.razor",
@@ -108,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\ReviewPages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\ReviewPages\\Index.razor",
@@ -120,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\PublisherPages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\PublisherPages\\Index.razor",
@@ -132,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\PaymentTypePages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\PaymentTypePages\\Index.razor",
@@ -144,7 +143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\GenrePages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\GenrePages\\Index.razor",
@@ -156,25 +155,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\WishlistPages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\WishlistPages\\Index.razor",
               "ToolTip": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\WishlistPages\\Index.razor",
               "RelativeToolTip": "BookShop\\Components\\Pages\\WishlistPages\\Index.razor",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAADIAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAIBJwDIAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-22T07:40:20.301Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 1,
               "Title": "Delete.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\BookPages\\Delete.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\BookPages\\Delete.razor",
               "ToolTip": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\BookPages\\Delete.razor",
               "RelativeToolTip": "BookShop\\Components\\Pages\\BookPages\\Delete.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABmAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-17T10:00:14.703Z"
             },
@@ -192,16 +191,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Index.razor",
               "DocumentMoniker": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\BookPages\\Index.razor",
               "RelativeDocumentMoniker": "BookShop\\Components\\Pages\\BookPages\\Index.razor",
               "ToolTip": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\Components\\Pages\\BookPages\\Index.razor",
               "RelativeToolTip": "BookShop\\Components\\Pages\\BookPages\\Index.razor",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAGkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAAAKgAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-01-13T13:37:52.498Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-13T13:37:52.498Z"
             }
           ]
         },

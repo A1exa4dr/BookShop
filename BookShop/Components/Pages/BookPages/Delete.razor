@@ -17,7 +17,8 @@
     {
         <p><em>Loading...</em></p>
     }
-    else {
+    else
+    {
         <dl class="row">
             <dt class="col-sm-2">Изображение:</dt>
             <dd class="col-sm-10">
@@ -37,31 +38,35 @@
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Автор:</dt>
-            <dd class="col-sm-10">@book.AuthorId</dd>
+            <dd class="col-sm-10">@book.Author?.AuthorName</dd> <!-- Отображаем имя автора -->
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Издательство:</dt>
-            <dd class="col-sm-10">@book.PublisherId</dd>
+            <dd class="col-sm-10">@book.Publisher?.PublisherName</dd> <!-- Отображаем название издательства -->
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Жанр:</dt>
-            <dd class="col-sm-10">@book.GenreId</dd>
+            <dd class="col-sm-10">@book.Genre?.Name</dd> <!-- Отображаем название жанра -->
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Рейтинг:</dt>
+            <dd class="col-sm-10">@book.AverageRating</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Цена:</dt>
-            <dd class="col-sm-10">@book.Price</dd>
+            <dd class="col-sm-10">@book.Price.ToString("C")</dd> <!-- Отображаем цену с форматированием -->
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Описание</dt>
             <dd class="col-sm-10">@book.Description</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">Колтчество на складе</dt>
+            <dt class="col-sm-2">Количество на складе</dt>
             <dd class="col-sm-10">@book.StockQuantity</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Поставщик</dt>
-            <dd class="col-sm-10">@book.SupplierId</dd>
+            <dd class="col-sm-10">@(book.Supplier?.Name ?? "Нет поставщика")</dd> <!-- Отображаем название поставщика -->
         </dl>
         <EditForm method="post" Model="book" OnValidSubmit="DeleteBook" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(book is null)">Удалить</button> |
@@ -79,7 +84,12 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        book = await context.Books.FirstOrDefaultAsync(m => m.BookId == BookId);
+        book = await context.Books
+            .Include(b => b.Author) // Загружаем автора
+            .Include(b => b.Publisher) // Загружаем издательство
+            .Include(b => b.Genre) // Загружаем жанр
+            .Include(b => b.Supplier) // Загружаем поставщика
+            .FirstOrDefaultAsync(m => m.BookId == BookId);
 
         if (book is null)
         {

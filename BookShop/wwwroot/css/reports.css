@@ -8,7 +8,7 @@
 
 .filters-row {
     display: flex;
-    align-items: center;
+    align-items: flex-end; /* Выравнивание по нижней границе */
     gap: 15px;
     margin-bottom: 20px;
 }
@@ -60,15 +60,14 @@
     text-align: left;
 }
 
-.top-books {
-    margin-top: 20px;
+/* Стиль для строки подитога */
+.subtotal-row {
+    font-weight: bold; /* Жирный текст */
+    background-color: #f8f9fa; /* Светлый фон */
 }
 
-    .top-books h4 {
-        margin-bottom: 10px;
-    }
+/* Стиль для ячеек подитога */
+.subtotal-cell {
+    text-align: center; /* Центрирование текста */
+}
 
-    .top-books .form-select {
-        width: 150px;
-        margin-right: 10px;
-    }

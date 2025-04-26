@@ -163,14 +163,16 @@
     }
 
     private IQueryable<Book> FilteredBooks =>
-        context.Books
-            .Include(b => b.Author)
-            .Include(b => b.Publisher)
-            .Include(b => b.Genre)
-            .Include(b => b.Supplier)
-            .Where(b => (string.IsNullOrEmpty(titleFilter) || b.Title.Contains(titleFilter)) &&
-                        (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre) &&
-                        (!maxPrice.HasValue || b.Price <= maxPrice)); // Фильтрация по цене
+    context.Books
+        .Include(b => b.Author)
+        .Include(b => b.Publisher)
+        .Include(b => b.Genre)
+        .Include(b => b.Supplier)
+        .Where(b => (string.IsNullOrEmpty(titleFilter) ||
+                     b.Title.Contains(titleFilter) ||
+                     b.Author.AuthorName.Contains(titleFilter)) && // Добавляем поиск по автору
+                    (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre) &&
+                    (!maxPrice.HasValue || b.Price <= maxPrice)); // Фильтрация по цене
 
     private void GoToOrders()
     {
