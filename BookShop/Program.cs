@@ -27,6 +27,13 @@ builder.Services.AddAuthentication(options =>
 })
     .AddIdentityCookies();
 ////
+/*builder.Services.AddDbContext<ApplicationDbContext>
+(options => options.UseSqlite("Data Source=SQLLiteDatabase.db"));
+
+builder.Services.AddQuickGridEntityFrameworkAdapter(); ;
+
+builder.Services.AddDbContextFactory<ApplicationDbContext>(
+    opt => opt.UseSqlite("Data Source=SQLLiteDatabase.db"), ServiceLifetime.Scoped);*/
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));

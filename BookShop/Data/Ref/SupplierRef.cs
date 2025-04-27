@@ -1,4 +1,4 @@
-﻿namespace BookShop.Data
+﻿namespace BookShop.Data.Ref
 {
     public class SupplierRef
     {

@@ -1,12 +1,10 @@
 ﻿@page "/exportexcel"
 @attribute [Authorize(Roles = "Admin")]
-
 @rendermode InteractiveServer
 @using ClosedXML.Excel
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @implements IAsyncDisposable
-
 @inject IJSRuntime js
 
 <button type="button" class="btn btn-success mb-2" @onclick="@ExportXLS">Экспорт всех таблиц в Excel</button>
@@ -36,230 +34,271 @@
     {
         using var workbook = new XLWorkbook();
 
-        // Лист для таблицы Author
-        var worksheet1 = workbook.Worksheets.Add("Author");
-        worksheet1.Cell(1, 1).Value = "Идентификатор автора";
-        worksheet1.Cell(1, 2).Value = "Полное имя автора";
-
-        worksheet1.Row(1).Style.Font.Bold = true;
-
+        // 1. Gender (Нет зависимостей)
+        var worksheetGender = workbook.Worksheets.Add("Gender");
+        worksheetGender.Cell(1, 1).Value = "Идентификатор пола";
+        worksheetGender.Cell(1, 2).Value = "Название пола";
+        worksheetGender.Row(1).Style.Font.Bold = true;
         int i = 2;
-
-        foreach (var author in context.Authors)
+        foreach (var gender in context.Genders)
         {
-            worksheet1.Cell(i, 1).Value = author.AuthorId;
-            worksheet1.Cell(i, 2).Value = author.AuthorName;
+            worksheetGender.Cell(i, 1).Value = gender.Id;
+            worksheetGender.Cell(i, 2).Value = gender.GenderName;
             i++;
         }
 
-        // Лист для таблицы Genre
-        var worksheet2 = workbook.Worksheets.Add("Genre");
-        worksheet2.Cell(1, 1).Value = "Идентификатор жанра";
-        worksheet2.Cell(1, 2).Value = "Название жанра";
-
-        worksheet2.Row(1).Style.Font.Bold = true;
-
+        // 2. ApplicationUser (Зависит от Gender)
+        var worksheetUser = workbook.Worksheets.Add("User");
+        worksheetUser.Cell(1, 1).Value = "Идентификатор пользователя";
+        worksheetUser.Cell(1, 2).Value = "Фамилия";
+        worksheetUser.Cell(1, 3).Value = "Имя";
+        worksheetUser.Cell(1, 4).Value = "Отчество";
+        worksheetUser.Cell(1, 5).Value = "Идентификатор пола";
+        worksheetUser.Cell(1, 6).Value = "Дата рождения";
+        worksheetUser.Cell(1, 7).Value = "Дата регистрации";
+        worksheetUser.Cell(1, 8).Value = "Телефон";
+        worksheetUser.Cell(1, 9).Value = "Адрес";
+        worksheetUser.Row(1).Style.Font.Bold = true;
         i = 2;
-
-        foreach (var genre in context.Genres)
-        {
-            worksheet2.Cell(i, 1).Value = genre.GenreId;
-            worksheet2.Cell(i, 2).Value = genre.Name;
-            i++;
-        }
-
-        // Лист для таблицы Publisher
-        var worksheet3 = workbook.Worksheets.Add("Publisher");
-        worksheet3.Cell(1, 1).Value = "Идентификатор издательства";
-        worksheet3.Cell(1, 2).Value = "Название издательства";
-        worksheet3.Cell(1, 3).Value = "Почта для связи";
-
-        worksheet3.Row(1).Style.Font.Bold = true;
-
-        i = 2;
-
-        foreach (var publisher in context.Publishers)
-        {
-            worksheet3.Cell(i, 1).Value = publisher.PublisherId;
-            worksheet3.Cell(i, 2).Value = publisher.PublisherName;
-            worksheet3.Cell(i, 3).Value = publisher.ContactEmail;
-            i++;
-        }
-
-        // Лист для таблицы Supplier
-        var worksheet4 = workbook.Worksheets.Add("Supplier");
-        worksheet4.Cell(1, 1).Value = "Идентификатор поставщика";
-        worksheet4.Cell(1, 2).Value = "Название";
-        worksheet4.Cell(1, 3).Value = "Адрес";
-        worksheet4.Cell(1, 4).Value = "Телефон";
-        worksheet4.Cell(1, 5).Value = "Электронная почта";
-
-        worksheet4.Row(1).Style.Font.Bold = true;
-
-        i = 2;
-
-        foreach (var supplier in context.Suppliers)
-        {
-            worksheet4.Cell(i, 1).Value = supplier.SupplierId;
-            worksheet4.Cell(i, 2).Value = supplier.Name;
-            worksheet4.Cell(i, 3).Value = supplier.Address;
-            worksheet4.Cell(i, 4).Value = supplier.PhoneNumber;
-            worksheet4.Cell(i, 5).Value = supplier.Email;
-            i++;
-        }
-
-        // Лист для таблицы Book
-        var worksheet5 = workbook.Worksheets.Add("Book");
-        worksheet5.Cell(1, 1).Value = "Идентификатр книги";
-        worksheet5.Cell(1, 2).Value = "Фото книги";
-        worksheet5.Cell(1, 3).Value = "Название";
-        worksheet5.Cell(1, 4).Value = "Идентификатор автора";
-        worksheet5.Cell(1, 5).Value = "Идентификатор издательства";
-        worksheet5.Cell(1, 6).Value = "Идентификатор жанра";
-        worksheet5.Cell(1, 7).Value = "Цена";
-        worksheet5.Cell(1, 8).Value = "Описание";
-        worksheet5.Cell(1, 9).Value = "Количество";
-        worksheet5.Cell(1, 10).Value = "Идентификатор поставщика";
-
-        worksheet5.Row(1).Style.Font.Bold = true;
-
-        i = 2;
-
-        foreach (var book in context.Books.Include(b => b.Author).Include(b => b.Publisher).Include(b => b.Genre).Include(b => b.Supplier))
-        {
-            worksheet5.Cell(i, 1).Value = book.BookId;
-            worksheet5.Cell(i, 2).Value = book.ImageUrl;
-            worksheet5.Cell(i, 3).Value = book.Title;
-            worksheet5.Cell(i, 4).Value = book.AuthorId;
-            worksheet5.Cell(i, 5).Value = book.PublisherId;
-            worksheet5.Cell(i, 6).Value = book.GenreId;
-            worksheet5.Cell(i, 7).Value = book.Price;
-            worksheet5.Cell(i, 8).Value = book.Description;
-            worksheet5.Cell(i, 9).Value = book.StockQuantity;
-            worksheet5.Cell(i, 10).Value = book.SupplierId;
-            i++;
-        }
-
-        // Лист для таблицы User
-        var worksheet6 = workbook.Worksheets.Add("User");
-        worksheet6.Cell(1, 1).Value = "Идентификатор пользователя";
-        worksheet6.Cell(1, 2).Value = "Почта";
-        worksheet6.Cell(1, 3).Value = "Имя пользователя";
-        worksheet6.Cell(1, 4).Value = "Дата рождения";
-        worksheet6.Cell(1, 5).Value = "Дата регистрации";
-        worksheet6.Cell(1, 6).Value = "Телефон";
-        worksheet6.Cell(1, 7).Value = "Адресс";
-   
-
-        worksheet6.Row(1).Style.Font.Bold = true;
-
-        i = 2;
-
         foreach (var user in context.Users)
         {
-            worksheet6.Cell(i, 1).Value = user.Id;
-            worksheet6.Cell(i, 2).Value = user.Email;
-            worksheet6.Cell(i, 3).Value = user.UserName;
-            worksheet6.Cell(i, 4).Value = user.DateBirth;
-            worksheet6.Cell(i, 5).Value = user.DateOfRegist;
-            worksheet6.Cell(i, 6).Value = user.Phone;
-            worksheet6.Cell(i, 7).Value = user.Address;
+            worksheetUser.Cell(i, 1).Value = user.Id;
+            worksheetUser.Cell(i, 2).Value = user.LastName;
+            worksheetUser.Cell(i, 3).Value = user.FirstName;
+            worksheetUser.Cell(i, 4).Value = user.MiddleName;
+            worksheetUser.Cell(i, 5).Value = user.GenderId;
+            worksheetUser.Cell(i, 6).Value = user.DateBirth;
+            worksheetUser.Cell(i, 7).Value = user.DateOfRegist;
+            worksheetUser.Cell(i, 8).Value = user.Phone;
+            worksheetUser.Cell(i, 9).Value = user.Address;
             i++;
         }
 
-        // Лист для таблицы Order
-        var worksheet7 = workbook.Worksheets.Add("Order");
-        worksheet7.Cell(1, 1).Value = "Идентификатор заказа";
-        worksheet7.Cell(1, 2).Value = "Идентификатор пользователя";
-        worksheet7.Cell(1, 3).Value = "Дата заказа";
-        worksheet7.Cell(1, 4).Value = "Общая цена";
-        worksheet7.Cell(1, 5).Value = "Адоес доставки";
-        worksheet7.Cell(1, 6).Value = "Иддентификатор статуса заказа";
-        worksheet7.Cell(1, 7).Value = "Иддентификатор типа оплаты";
-
-        worksheet7.Row(1).Style.Font.Bold = true;
-
+        // 3. Author (Нет зависимостей)
+        var worksheetAuthor = workbook.Worksheets.Add("Author");
+        worksheetAuthor.Cell(1, 1).Value = "Идентификатор автора";
+        worksheetAuthor.Cell(1, 2).Value = "Полное имя автора";
+        worksheetAuthor.Row(1).Style.Font.Bold = true;
         i = 2;
-
-        foreach (var order in context.Orders.Include(o => o.User))
+        foreach (var author in context.Authors)
         {
-            worksheet7.Cell(i, 1).Value = order.OrderId;
-            worksheet7.Cell(i, 2).Value = order.UserId;
-            worksheet7.Cell(i, 3).Value = order.OrderDate;
-            worksheet7.Cell(i, 4).Value = order.TotalAmount;
-            worksheet7.Cell(i, 5).Value = order.DeliveryAddress;
-            worksheet7.Cell(i, 6).Value = order.OrderStatusId;
-            worksheet7.Cell(i, 7).Value = order.PaymentTypeId;
+            worksheetAuthor.Cell(i, 1).Value = author.AuthorId;
+            worksheetAuthor.Cell(i, 2).Value = author.AuthorName;
             i++;
         }
 
-        // Лист для таблицы Review
-        var worksheet8 = workbook.Worksheets.Add("Review");
-        worksheet8.Cell(1, 1).Value = "Идентификатор отзыва";
-        worksheet8.Cell(1, 2).Value = "Идентификатор книги";
-        worksheet8.Cell(1, 3).Value = "Идентификатор пользователя";
-        worksheet8.Cell(1, 4).Value = "Рейтинг";
-        worksheet8.Cell(1, 5).Value = "Текст отзыва";
-        worksheet8.Cell(1, 6).Value = "Дата отзыва";
-
-        worksheet8.Row(1).Style.Font.Bold = true;
-
+        // 4. Publisher (Нет зависимостей)
+        var worksheetPublisher = workbook.Worksheets.Add("Publisher");
+        worksheetPublisher.Cell(1, 1).Value = "Идентификатор издательства";
+        worksheetPublisher.Cell(1, 2).Value = "Название издательства";
+        worksheetPublisher.Cell(1, 3).Value = "Почта для связи";
+        worksheetPublisher.Row(1).Style.Font.Bold = true;
         i = 2;
-
-        foreach (var review in context.Reviews.Include(r => r.Book).Include(r => r.User))
+        foreach (var publisher in context.Publishers)
         {
-            worksheet8.Cell(i, 1).Value = review.ReviewId;
-            worksheet8.Cell(i, 2).Value = review.BookId;
-            worksheet8.Cell(i, 3).Value = review.UserId;
-            worksheet8.Cell(i, 4).Value = review.Rating;
-            worksheet8.Cell(i, 5).Value = review.ReviewText;
-            worksheet8.Cell(i, 6).Value = review.DatePosted;
+            worksheetPublisher.Cell(i, 1).Value = publisher.PublisherId;
+            worksheetPublisher.Cell(i, 2).Value = publisher.PublisherName;
+            worksheetPublisher.Cell(i, 3).Value = publisher.ContactEmail;
             i++;
         }
 
-        // Лист для таблицы OrderDetails
-        var worksheet9 = workbook.Worksheets.Add("OrderDetails");
-        worksheet9.Cell(1, 1).Value = "Идентификатор заказа";
-        worksheet9.Cell(1, 2).Value = "Идентификатор книги";
-        worksheet9.Cell(1, 3).Value = "количество";
-        worksheet9.Cell(1, 4).Value = "Цена";
-
-        worksheet9.Row(1).Style.Font.Bold = true;
-
+        // 5. Genre (Нет зависимостей)
+        var worksheetGenre = workbook.Worksheets.Add("Genre");
+        worksheetGenre.Cell(1, 1).Value = "Идентификатор жанра";
+        worksheetGenre.Cell(1, 2).Value = "Название жанра";
+        worksheetGenre.Row(1).Style.Font.Bold = true;
         i = 2;
-
-        foreach (var orderDetail in context.OrderDetails.Include(od => od.Order).Include(od => od.Book))
+        foreach (var genre in context.Genres)
         {
-            //worksheet9.Cell(i, 1).Value = orderDetail.OrderDetailsId;
-            worksheet9.Cell(i, 1).Value = orderDetail.OrderId;
-            worksheet9.Cell(i, 2).Value = orderDetail.BookId;
-            worksheet9.Cell(i, 3).Value = orderDetail.Quantity;
-            worksheet9.Cell(i, 4).Value = orderDetail.Price;
+            worksheetGenre.Cell(i, 1).Value = genre.GenreId;
+            worksheetGenre.Cell(i, 2).Value = genre.Name;
             i++;
         }
 
-        // Лист для таблицы WishList
-        var worksheet10 = workbook.Worksheets.Add("WishList");
-        worksheet10.Cell(1, 1).Value = "Идентификатор избранного";//
-        worksheet10.Cell(1, 2).Value = "Идентификатор пользователя";
-        worksheet10.Cell(1, 3).Value = "Идентификатор книги";
-
-        worksheet10.Row(1).Style.Font.Bold = true;
-
+        // 6. Supplier (Нет зависимостей)
+        var worksheetSupplier = workbook.Worksheets.Add("Supplier");
+        worksheetSupplier.Cell(1, 1).Value = "Идентификатор поставщика";
+        worksheetSupplier.Cell(1, 2).Value = "Название";
+        worksheetSupplier.Cell(1, 3).Value = "Адрес";
+        worksheetSupplier.Cell(1, 4).Value = "Телефон";
+        worksheetSupplier.Cell(1, 5).Value = "Электронная почта";
+        worksheetSupplier.Row(1).Style.Font.Bold = true;
         i = 2;
-
-        foreach (var wishList in context.Wishlists.Include(w => w.User).Include(w => w.Book))
+        foreach (var supplier in context.Suppliers)
         {
-            worksheet10.Cell(i, 1).Value = wishList.WishlistId;//
-            worksheet10.Cell(i, 2).Value = wishList.UserId;
-            worksheet10.Cell(i, 3).Value = wishList.BookId;
+            worksheetSupplier.Cell(i, 1).Value = supplier.SupplierId;
+            worksheetSupplier.Cell(i, 2).Value = supplier.Name;
+            worksheetSupplier.Cell(i, 3).Value = supplier.Address;
+            worksheetSupplier.Cell(i, 4).Value = supplier.PhoneNumber;
+            worksheetSupplier.Cell(i, 5).Value = supplier.Email;
             i++;
         }
 
+        // 7. Book (Зависит от Author, Publisher, Genre, Supplier)
+        var worksheetBook = workbook.Worksheets.Add("Book");
+        worksheetBook.Cell(1, 1).Value = "Идентификатор книги";
+        worksheetBook.Cell(1, 2).Value = "Фото книги";
+        worksheetBook.Cell(1, 3).Value = "Название";
+        worksheetBook.Cell(1, 4).Value = "Идентификатор автора";
+        worksheetBook.Cell(1, 5).Value = "Идентификатор издательства";
+        worksheetBook.Cell(1, 6).Value = "Идентификатор жанра";
+        worksheetBook.Cell(1, 7).Value = "Цена";
+        worksheetBook.Cell(1, 8).Value = "Описание";
+        worksheetBook.Cell(1, 9).Value = "Количество";
+        worksheetBook.Cell(1, 10).Value = "Идентификатор поставщика";
+        worksheetBook.Cell(1, 11).Value = "Средний рейтинг";
+        worksheetBook.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var book in context.Books.Include(b => b.Author).Include(b => b.Publisher).Include(b => b.Genre).Include(b => b.Supplier))
+        {
+            worksheetBook.Cell(i, 1).Value = book.BookId;
+            worksheetBook.Cell(i, 2).Value = book.ImageUrl;
+            worksheetBook.Cell(i, 3).Value = book.Title;
+            worksheetBook.Cell(i, 4).Value = book.AuthorId;
+            worksheetBook.Cell(i, 5).Value = book.PublisherId;
+            worksheetBook.Cell(i, 6).Value = book.GenreId;
+            worksheetBook.Cell(i, 7).Value = book.Price;
+            worksheetBook.Cell(i, 8).Value = book.Description;
+            worksheetBook.Cell(i, 9).Value = book.StockQuantity;
+            worksheetBook.Cell(i, 10).Value = book.SupplierId;
+            worksheetBook.Cell(i, 11).Value = book.AverageRating;
+            i++;
+        }
+
+        // 8. Cart (Зависит от ApplicationUser)
+        var worksheetCart = workbook.Worksheets.Add("Cart");
+        worksheetCart.Cell(1, 1).Value = "Идентификатор корзины";
+        worksheetCart.Cell(1, 2).Value = "Идентификатор пользователя";
+        worksheetCart.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var cart in context.Carts)
+        {
+            worksheetCart.Cell(i, 1).Value = cart.CartId;
+            worksheetCart.Cell(i, 2).Value = cart.UserId;
+            i++;
+        }
+
+        // 9. CartItem (Зависит от Cart и Book)
+        var worksheetCartItem = workbook.Worksheets.Add("CartItem");
+        worksheetCartItem.Cell(1, 1).Value = "Идентификатор элемента корзины";
+        worksheetCartItem.Cell(1, 2).Value = "Идентификатор корзины";
+        worksheetCartItem.Cell(1, 3).Value = "Идентификатор книги";
+        worksheetCartItem.Cell(1, 4).Value = "Количество";
+        worksheetCartItem.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var cartItem in context.CartItems)
+        {
+            worksheetCartItem.Cell(i, 1).Value = cartItem.CartItemId;
+            worksheetCartItem.Cell(i, 2).Value = cartItem.CartId;
+            worksheetCartItem.Cell(i, 3).Value = cartItem.BookId;
+            worksheetCartItem.Cell(i, 4).Value = cartItem.Quantity;
+            i++;
+        }
+
+        // 10. OrderStatus (Нет зависимостей)
+        var worksheetOrderStatus = workbook.Worksheets.Add("OrderStatus");
+        worksheetOrderStatus.Cell(1, 1).Value = "Идентификатор статуса заказа";
+        worksheetOrderStatus.Cell(1, 2).Value = "Статус";
+        worksheetOrderStatus.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var orderStatus in context.OrderStatuses)
+        {
+            worksheetOrderStatus.Cell(i, 1).Value = orderStatus.OrderStatusId;
+            worksheetOrderStatus.Cell(i, 2).Value = orderStatus.Status;
+            i++;
+        }
+
+        // 11. PaymentType (Нет зависимостей)
+        var worksheetPaymentType = workbook.Worksheets.Add("PaymentType");
+        worksheetPaymentType.Cell(1, 1).Value = "Идентификатор типа оплаты";
+        worksheetPaymentType.Cell(1, 2).Value = "Название типа оплаты";
+        worksheetPaymentType.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var paymentType in context.PaymentTypes)
+        {
+            worksheetPaymentType.Cell(i, 1).Value = paymentType.PaymentTypeId;
+            worksheetPaymentType.Cell(i, 2).Value = paymentType.Name;
+            i++;
+        }
+
+        // 12. Order (Зависит от ApplicationUser, OrderStatus, PaymentType)
+        var worksheetOrder = workbook.Worksheets.Add("Order");
+        worksheetOrder.Cell(1, 1).Value = "Идентификатор заказа";
+        worksheetOrder.Cell(1, 2).Value = "Идентификатор пользователя";
+        worksheetOrder.Cell(1, 3).Value = "Дата заказа";
+        worksheetOrder.Cell(1, 4).Value = "Общая цена";
+        worksheetOrder.Cell(1, 5).Value = "Адрес доставки";
+        worksheetOrder.Cell(1, 6).Value = "Идентификатор статуса заказа";
+        worksheetOrder.Cell(1, 7).Value = "Идентификатор типа оплаты";
+        worksheetOrder.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var order in context.Orders)
+        {
+            worksheetOrder.Cell(i, 1).Value = order.OrderId;
+            worksheetOrder.Cell(i, 2).Value = order.UserId;
+            worksheetOrder.Cell(i, 3).Value = order.OrderDate;
+            worksheetOrder.Cell(i, 4).Value = order.TotalAmount;
+            worksheetOrder.Cell(i, 5).Value = order.DeliveryAddress;
+            worksheetOrder.Cell(i, 6).Value = order.OrderStatusId;
+            worksheetOrder.Cell(i, 7).Value = order.PaymentTypeId;
+            i++;
+        }
+
+        // 13. OrderDetail (Зависит от Order и Book)
+        var worksheetOrderDetail = workbook.Worksheets.Add("OrderDetail");
+        worksheetOrderDetail.Cell(1, 1).Value = "Идентификатор заказа";
+        worksheetOrderDetail.Cell(1, 2).Value = "Идентификатор книги";
+        worksheetOrderDetail.Cell(1, 3).Value = "Количество";
+        worksheetOrderDetail.Cell(1, 4).Value = "Цена";
+        worksheetOrderDetail.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var orderDetail in context.OrderDetails)
+        {
+            worksheetOrderDetail.Cell(i, 1).Value = orderDetail.OrderId;
+            worksheetOrderDetail.Cell(i, 2).Value = orderDetail.BookId;
+            worksheetOrderDetail.Cell(i, 3).Value = orderDetail.Quantity;
+            worksheetOrderDetail.Cell(i, 4).Value = orderDetail.Price;
+            i++;
+        }
+
+        // 14. Review (Зависит от ApplicationUser и Book)
+        var worksheetReview = workbook.Worksheets.Add("Review");
+        worksheetReview.Cell(1, 1).Value = "Идентификатор отзыва";
+        worksheetReview.Cell(1, 2).Value = "Идентификатор пользователя";
+        worksheetReview.Cell(1, 3).Value = "Идентификатор книги";
+        worksheetReview.Cell(1, 4).Value = "Рейтинг";
+        worksheetReview.Cell(1, 5).Value = "Текст отзыва";
+        worksheetReview.Cell(1, 6).Value = "Дата отзыва";
+        worksheetReview.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var review in context.Reviews)
+        {
+            worksheetReview.Cell(i, 1).Value = review.ReviewId;
+            worksheetReview.Cell(i, 2).Value = review.UserId;
+            worksheetReview.Cell(i, 3).Value = review.BookId;
+            worksheetReview.Cell(i, 4).Value = review.Rating;
+            worksheetReview.Cell(i, 5).Value = review.ReviewText;
+            worksheetReview.Cell(i, 6).Value = review.DatePosted;
+            i++;
+        }
+
+        // 15. Wishlist (Зависит от ApplicationUser и Book)
+        var worksheetWishlist = workbook.Worksheets.Add("Wishlist");
+        worksheetWishlist.Cell(1, 1).Value = "Идентификатор избранного";
+        worksheetWishlist.Cell(1, 2).Value = "Идентификатор пользователя";
+        worksheetWishlist.Cell(1, 3).Value = "Идентификатор книги";
+        worksheetWishlist.Row(1).Style.Font.Bold = true;
+        i = 2;
+        foreach (var wishlist in context.Wishlists)
+        {
+            worksheetWishlist.Cell(i, 1).Value = wishlist.WishlistId;
+            worksheetWishlist.Cell(i, 2).Value = wishlist.UserId;
+            worksheetWishlist.Cell(i, 3).Value = wishlist.BookId;
+            i++;
+        }
 
         MemoryStream XLSStream = new();
         workbook.SaveAs(XLSStream);
-
         return XLSStream.ToArray();
     }
 

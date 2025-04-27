@@ -1,7 +1,10 @@
-﻿namespace BookShop.Data
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookShop.Data
 {
     public class CartItem
     {
+        [Key]
         public int CartItemId { get; set; }
         public int CartId {  get; set; }
         public int BookId { get; set; }

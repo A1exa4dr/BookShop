@@ -2,12 +2,12 @@
 @rendermode InteractiveServer
 @using ClosedXML.Excel
 @using Microsoft.EntityFrameworkCore
-@using BookShop.Data 
+@using BookShop.Data
+@using BookShop.Data.Ref
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @using Microsoft.AspNetCore.Components.Forms;
 @attribute [Authorize(Roles = "Admin")]
 <PageTitle>Импорт данных из Excel</PageTitle>
-
 <p>
     <label>
         Укажите файл Excel для импорта:
@@ -21,41 +21,44 @@
 else
 {
     <ul>
-        <div>Количество импортированных авторов: @authorRefs.Count()</div>
-        <div>Количество импортированных жанров: @genreRefs.Count()</div>
-        <div>Количество импортированных издателей: @publisherRefs.Count()</div>
-        <div>Количество импортированных поставщиков: @supplierRefs.Count()</div>
-        <div>Количество импортированных книг: @bookRefs.Count()</div>
         <div>Количество импортированных полов: @genderRefs.Count()</div>
         <div>Количество импортированных пользователей: @userRefs.Count()</div>
+        <div>Количество импортированных авторов: @authorRefs.Count()</div>
+        <div>Количество импортированных издателей: @publisherRefs.Count()</div>
+        <div>Количество импортированных жанров: @genreRefs.Count()</div>
+        <div>Количество импортированных поставщиков: @supplierRefs.Count()</div>
+        <div>Количество импортированных книг: @bookRefs.Count()</div>
+        <div>Количество импортированных корзин: @cartRefs.Count()</div>
+        <div>Количество импортированных элементов корзины: @cartItemRefs.Count()</div>
         <div>Количество импортированных статусов заказов: @orderStatusRefs.Count()</div>
+        <div>Количество импортированных типов оплаты: @paymentTypeRefs.Count()</div>
         <div>Количество импортированных заказов: @orderRefs.Count()</div>
         <div>Количество импортированных деталей заказов: @orderDetailRefs.Count()</div>
         <div>Количество импортированных отзывов: @reviewRefs.Count()</div>
         <div>Количество импортированных пожеланий: @wishlistRefs.Count()</div>
     </ul>
 }
-
 @if (!string.IsNullOrEmpty(ErrorMessage))
 {
     <div>Error: @ErrorMessage</div>
 }
-
 @code {
     ApplicationDbContext context = default!;
-    List<AuthorRef> authorRefs = new List<AuthorRef>();
-    List<GenreRef> genreRefs = new List<GenreRef>();
-    List<PublisherRef> publisherRefs = new List<PublisherRef>();
-    List<SupplierRef> supplierRefs = new List<SupplierRef>();
-    List<BookRef> bookRefs = new List<BookRef>();
     List<GenderRef> genderRefs = new List<GenderRef>();
     List<ApplicationUserRef> userRefs = new List<ApplicationUserRef>();
+    List<AuthorRef> authorRefs = new List<AuthorRef>();
+    List<PublisherRef> publisherRefs = new List<PublisherRef>();
+    List<GenreRef> genreRefs = new List<GenreRef>();
+    List<SupplierRef> supplierRefs = new List<SupplierRef>();
+    List<BookRef> bookRefs = new List<BookRef>();
+    List<CartRef> cartRefs = new List<CartRef>();
+    List<CartItemRef> cartItemRefs = new List<CartItemRef>();
     List<OrderStatusRef> orderStatusRefs = new List<OrderStatusRef>();
+    List<PaymentTypeRef> paymentTypeRefs = new List<PaymentTypeRef>();
     List<OrderRef> orderRefs = new List<OrderRef>();
     List<OrderDetailRef> orderDetailRefs = new List<OrderDetailRef>();
     List<ReviewRef> reviewRefs = new List<ReviewRef>();
     List<WishlistRef> wishlistRefs = new List<WishlistRef>();
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,23 +75,18 @@ else
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         isLoading = true;
-
         var browserFile = e.File;
         if (browserFile != null)
         {
             try
             {
                 var fileStream = browserFile.OpenReadStream(MAX_FILESIZE);
-
                 var randomFile = Path.GetTempFileName();
                 var extension = Path.GetExtension(browserFile.Name);
                 var targetFilePath = Path.ChangeExtension(randomFile, extension);
-
                 var destinationStream = new FileStream(targetFilePath, FileMode.Create);
                 await fileStream.CopyToAsync(destinationStream);
-
                 await GetDataTableFromExcelAsync(destinationStream);
-
                 destinationStream.Close();
             }
             catch (Exception exception)
@@ -96,7 +94,6 @@ else
                 ErrorMessage = exception.Message;
             }
         }
-
         isLoading = false;
     }
 
@@ -105,14 +102,56 @@ else
         using (XLWorkbook workbook = new XLWorkbook(file))
         {
             errindexrow = 1;
-
             try
             {
                 foreach (IXLWorksheet worksheet in workbook.Worksheets)
                 {
                     errworksheet = worksheet.Name;
 
-                    if (worksheet.Name == "Author")
+                    if (worksheet.Name == "Gender")
+                    {
+                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
+                        {
+                            errindexrow++;
+                            Gender gender = new Gender
+                                {
+                                    GenderName = row.Cell(2).Value.ToString()
+                                };
+                            await context.Genders.AddAsync(gender);
+                            await context.SaveChangesAsync();
+                            genderRefs.Add(new GenderRef
+                                {
+                                    GenderRefDB = gender.Id,
+                                    GenderRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                });
+                        }
+                    }
+                    else if (worksheet.Name == "User")
+                    {
+                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
+                        {
+                            errindexrow++;
+                            ApplicationUser user = new ApplicationUser
+                                {
+                                    LastName = row.Cell(2).Value.ToString(),
+                                    FirstName = row.Cell(3).Value.ToString(),
+                                    MiddleName = row.Cell(4).Value.ToString(),
+                                    GenderId = int.Parse(row.Cell(5).Value.ToString()),
+                                    DateBirth = DateTime.Parse(row.Cell(6).Value.ToString()),
+                                    DateOfRegist = DateTime.Parse(row.Cell(7).Value.ToString()),
+                                    Phone = row.Cell(8).Value.ToString(),
+                                    Address = row.Cell(9).Value.ToString()
+                                };
+                            await context.Users.AddAsync(user);
+                            await context.SaveChangesAsync();
+                            userRefs.Add(new ApplicationUserRef
+                                {
+                                    UserRefDB = user.Id,
+                                    UserRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                });
+                        }
+                    }
+                    else if (worksheet.Name == "Author")
                     {
                         foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
                         {
@@ -127,24 +166,6 @@ else
                                 {
                                     AuthorRefDB = author.AuthorId,
                                     AuthorRefExcel = int.Parse(row.Cell(1).Value.ToString())
-                                });
-                        }
-                    }
-                    else if (worksheet.Name == "Genre")
-                    {
-                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
-                        {
-                            errindexrow++;
-                            Genre genre = new Genre
-                                {
-                                    Name = row.Cell(2).Value.ToString()
-                                };
-                            await context.Genres.AddAsync(genre);
-                            await context.SaveChangesAsync();
-                            genreRefs.Add(new GenreRef
-                                {
-                                    GenreRefDB = genre.GenreId,
-                                    GenreRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
                     }
@@ -164,6 +185,24 @@ else
                                 {
                                     PublisherRefDB = publisher.PublisherId,
                                     PublisherRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                });
+                        }
+                    }
+                    else if (worksheet.Name == "Genre")
+                    {
+                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
+                        {
+                            errindexrow++;
+                            Genre genre = new Genre
+                                {
+                                    Name = row.Cell(2).Value.ToString()
+                                };
+                            await context.Genres.AddAsync(genre);
+                            await context.SaveChangesAsync();
+                            genreRefs.Add(new GenreRef
+                                {
+                                    GenreRefDB = genre.GenreId,
+                                    GenreRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
                     }
@@ -195,8 +234,8 @@ else
                             errindexrow++;
                             Book book = new Book
                                 {
-                                    Title = row.Cell(2).Value.ToString(),
-                                    ImageUrl = row.Cell(3).Value.ToString(),
+                                    Title = row.Cell(3).Value.ToString(),
+                                    ImageUrl = row.Cell(2).Value.ToString(),
                                     AuthorId = int.Parse(row.Cell(4).Value.ToString()),
                                     PublisherId = int.Parse(row.Cell(5).Value.ToString()),
                                     GenreId = int.Parse(row.Cell(6).Value.ToString()),
@@ -214,46 +253,41 @@ else
                                 });
                         }
                     }
-                    else if (worksheet.Name == "Gender")
+                    else if (worksheet.Name == "Cart")
                     {
                         foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
                         {
                             errindexrow++;
-                            Gender gender = new Gender
+                            Cart cart = new Cart
                                 {
-                                    GenderName = row.Cell(2).Value.ToString()
+                                    UserId = row.Cell(2).Value.ToString()
                                 };
-                            await context.Genders.AddAsync(gender);
+                            await context.Carts.AddAsync(cart);
                             await context.SaveChangesAsync();
-                            genderRefs.Add(new GenderRef
+                            cartRefs.Add(new CartRef
                                 {
-                                    GenderRefDB = gender.Id,
-                                    GenderRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                    CartRefDB = cart.CartId,
+                                    CartRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
                     }
-                    else if (worksheet.Name == "ApplicationUser")
+                    else if (worksheet.Name == "CartItem")
                     {
                         foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
                         {
                             errindexrow++;
-                            ApplicationUser user = new ApplicationUser
+                            CartItem cartItem = new CartItem
                                 {
-                                    LastName = row.Cell(2).Value.ToString(),
-                                    FirstName = row.Cell(3).Value.ToString(),
-                                    MiddleName = row.Cell(4).Value.ToString(),
-                                    GenderId = int.Parse(row.Cell(5).Value.ToString()),
-                                    DateBirth = DateTime.Parse(row.Cell(6).Value.ToString()),
-                                    DateOfRegist = DateTime.Parse(row.Cell(7).Value.ToString()),
-                                    Phone = row.Cell(8).Value.ToString(),
-                                    Address = row.Cell(9).Value.ToString()
+                                    CartId = int.Parse(row.Cell(2).Value.ToString()),
+                                    BookId = int.Parse(row.Cell(3).Value.ToString()),
+                                    Quantity = int.Parse(row.Cell(4).Value.ToString())
                                 };
-                            await context.Users.AddAsync(user);
+                            await context.CartItems.AddAsync(cartItem);
                             await context.SaveChangesAsync();
-                            userRefs.Add(new ApplicationUserRef
+                            cartItemRefs.Add(new CartItemRef
                                 {
-                                    UserRefDB = user.Id,
-                                    UserRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                    CartItemRefDB = cartItem.CartItemId,
+                                    CartItemRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
                     }
@@ -272,6 +306,24 @@ else
                                 {
                                     OrderStatusRefDB = orderStatus.OrderStatusId,
                                     OrderStatusRefExcel = int.Parse(row.Cell(1).Value.ToString())
+                                });
+                        }
+                    }
+                    else if (worksheet.Name == "PaymentType")
+                    {
+                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
+                        {
+                            errindexrow++;
+                            PaymentType paymentType = new PaymentType
+                                {
+                                    Name = row.Cell(2).Value.ToString()
+                                };
+                            await context.PaymentTypes.AddAsync(paymentType);
+                            await context.SaveChangesAsync();
+                            paymentTypeRefs.Add(new PaymentTypeRef
+                                {
+                                    PaymentTypeRefDB = paymentType.PaymentTypeId,
+                                    PaymentTypeRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
                     }
@@ -305,10 +357,10 @@ else
                             errindexrow++;
                             OrderDetail orderDetail = new OrderDetail
                                 {
-                                    OrderId = int.Parse(row.Cell(2).Value.ToString()),
-                                    BookId = int.Parse(row.Cell(3).Value.ToString()),
-                                    Quantity = int.Parse(row.Cell(4).Value.ToString()),
-                                    Price = decimal.Parse(row.Cell(5).Value.ToString())
+                                    OrderId = int.Parse(row.Cell(1).Value.ToString()),
+                                    BookId = int.Parse(row.Cell(2).Value.ToString()),
+                                    Quantity = int.Parse(row.Cell(3).Value.ToString()),
+                                    Price = decimal.Parse(row.Cell(4).Value.ToString())
                                 };
                             await context.OrderDetails.AddAsync(orderDetail);
                             await context.SaveChangesAsync();
@@ -355,7 +407,7 @@ else
                             await context.SaveChangesAsync();
                             wishlistRefs.Add(new WishlistRef
                                 {
-                                    WishlistRefDB = wishlist.WishlistId,//
+                                    WishlistRefDB = wishlist.WishlistId,
                                     WishlistRefExcel = int.Parse(row.Cell(1).Value.ToString())
                                 });
                         }
@@ -372,6 +424,22 @@ else
 
     private void ClearDataOnError()
     {
+        foreach (var genderRef in genderRefs)
+        {
+            var gender = context.Genders.FirstOrDefault(g => g.Id == genderRef.GenderRefDB);
+            if (gender != null) context.Genders.Remove(gender);
+            context.SaveChanges();
+        }
+        genderRefs.Clear();
+
+        foreach (var userRef in userRefs)
+        {
+            var user = context.Users.FirstOrDefault(u => u.Id == userRef.UserRefDB);
+            if (user != null) context.Users.Remove(user);
+            context.SaveChanges();
+        }
+        userRefs.Clear();
+
         foreach (var authorRef in authorRefs)
         {
             var author = context.Authors.FirstOrDefault(a => a.AuthorId == authorRef.AuthorRefDB);
@@ -380,14 +448,6 @@ else
         }
         authorRefs.Clear();
 
-        foreach (var genreRef in genreRefs)
-        {
-            var genre = context.Genres.FirstOrDefault(g => g.GenreId == genreRef.GenreRefDB);
-            if (genre != null) context.Genres.Remove(genre);
-            context.SaveChanges();
-        }
-        genreRefs.Clear();
-
         foreach (var publisherRef in publisherRefs)
         {
             var publisher = context.Publishers.FirstOrDefault(p => p.PublisherId == publisherRef.PublisherRefDB);
@@ -395,6 +455,14 @@ else
             context.SaveChanges();
         }
         publisherRefs.Clear();
+
+        foreach (var genreRef in genreRefs)
+        {
+            var genre = context.Genres.FirstOrDefault(g => g.GenreId == genreRef.GenreRefDB);
+            if (genre != null) context.Genres.Remove(genre);
+            context.SaveChanges();
+        }
+        genreRefs.Clear();
 
         foreach (var supplierRef in supplierRefs)
         {
@@ -412,21 +480,21 @@ else
         }
         bookRefs.Clear();
 
-        foreach (var genderRef in genderRefs)
+        foreach (var cartRef in cartRefs)
         {
-            var gender = context.Genders.FirstOrDefault(g => g.Id == genderRef.GenderRefDB);
-            if (gender != null) context.Genders.Remove(gender);
+            var cart = context.Carts.FirstOrDefault(c => c.CartId == cartRef.CartRefDB);
+            if (cart != null) context.Carts.Remove(cart);
             context.SaveChanges();
         }
-        genderRefs.Clear();
+        cartRefs.Clear();
 
-        foreach (var userRef in userRefs)
+        foreach (var cartItemRef in cartItemRefs)
         {
-            var user = context.Users.FirstOrDefault(u => u.Id == userRef.UserRefDB);
-            if (user != null) context.Users.Remove(user);
+            var cartItem = context.CartItems.FirstOrDefault(ci => ci.CartItemId == cartItemRef.CartItemRefDB);
+            if (cartItem != null) context.CartItems.Remove(cartItem);
             context.SaveChanges();
         }
-        userRefs.Clear();
+        cartItemRefs.Clear();
 
         foreach (var orderStatusRef in orderStatusRefs)
         {
@@ -435,6 +503,14 @@ else
             context.SaveChanges();
         }
         orderStatusRefs.Clear();
+
+        foreach (var paymentTypeRef in paymentTypeRefs)
+        {
+            var paymentType = context.PaymentTypes.FirstOrDefault(pt => pt.PaymentTypeId == paymentTypeRef.PaymentTypeRefDB);
+            if (paymentType != null) context.PaymentTypes.Remove(paymentType);
+            context.SaveChanges();
+        }
+        paymentTypeRefs.Clear();
 
         foreach (var orderRef in orderRefs)
         {
@@ -464,12 +540,13 @@ else
 
         foreach (var wishlistRef in wishlistRefs)
         {
-            var wishlist = context.Wishlists.FirstOrDefault(w => w.BookId == wishlistRef.WishlistRefDB);
+            var wishlist = context.Wishlists.FirstOrDefault(w => w.WishlistId == wishlistRef.WishlistRefDB);
             if (wishlist != null) context.Wishlists.Remove(wishlist);
             context.SaveChanges();
         }
         wishlistRefs.Clear();
     }
+
     // Метод для безопасного преобразования строки в DateTime
     private DateTime? TryParseDate(string? dateString)
     {
