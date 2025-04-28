@@ -22,7 +22,7 @@
     <PropertyColumn Property="orderdetail => orderdetail.OrderId" Title="ID заказа"/>
     <PropertyColumn Property="orderdetail => orderdetail.Book.Title" Title="Книга"/>
     <PropertyColumn Property="orderdetail => orderdetail.Quantity" Title="Количество"/>
-    <PropertyColumn Property="orderdetail => orderdetail.Book.AverageRating" Title="Рейтинг" />
+    @* <PropertyColumn Property="orderdetail => orderdetail.Book.AverageRating" Title="Рейтинг" /> *@
     <PropertyColumn Property="orderdetail => orderdetail.Price" Title="Цена"/>
     <TemplateColumn Title="Общая цена" Context="cartitem">
         @((cartitem.Quantity * cartitem.Price).ToString("C"))

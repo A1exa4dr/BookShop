@@ -50,3 +50,7 @@ h1 {
 .btn {
     margin-right: 5px;
 }
+.star {
+    color: gold; /* Жёлтый цвет */
+    font-size: 18px;
+}

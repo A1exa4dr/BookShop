@@ -1,4 +1,5 @@
-﻿.report-container {
+﻿/* Общий контейнер отчетов */
+.report-container {
     margin: 20px;
     padding: 20px;
     background-color: #fff;
@@ -6,6 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Стиль для строки фильтров */
 .filters-row {
     display: flex;
     align-items: flex-end; /* Выравнивание по нижней границе */
@@ -13,6 +15,7 @@
     margin-bottom: 20px;
 }
 
+/* Стиль для каждого элемента фильтра */
 .filter-item {
     display: flex;
     flex-direction: column;
@@ -24,15 +27,18 @@
         font-size: 14px;
     }
 
-    .filter-item select,
-    .filter-item input {
-        width: 150px;
-        padding: 8px;
-        border-radius: 5px;
-        border: 1px solid #ced4da;
-        height: 40px;
-    }
+/* Глобальные стили для элементов управления */
+input.form-control,
+select.form-select,
+button.btn {
+    width: 150px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    height: 40px;
+}
 
+/* Стиль для кнопки "Сформировать отчет" */
 .filters-row button {
     padding: 10px 15px;
     font-size: 16px;
@@ -48,26 +54,30 @@
         background-color: #0056b3;
     }
 
+/* Таблица результатов */
 .report-results table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-.report-results th, .report-results td {
+.report-results th,
+.report-results td {
     border: 1px solid #dee2e6;
     padding: 10px;
     text-align: left;
 }
 
 /* Стиль для строки подитога */
-.subtotal-row {
+.subtotal-row td {
     font-weight: bold; /* Жирный текст */
+    text-align: center; /* Центрирование текста */
     background-color: #f8f9fa; /* Светлый фон */
 }
 
-/* Стиль для ячеек подитога */
-.subtotal-cell {
-    text-align: center; /* Центрирование текста */
+/* Сообщение об ошибке */
+.text-danger {
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
-

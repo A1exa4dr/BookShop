@@ -63,7 +63,9 @@
                     <td>@book.Title</td>
                     <td>@book.Author.AuthorName</td>
                     <td>@book.Genre.Name</td>
-                    <td>@book.AverageRating</td>
+                    <td>@(book.AverageRating == 0 ? "Нет рейтинга" : (book.AverageRating?.ToString("F1") ?? "N/A"))
+                        <span class="star">★</span>
+                    </td>
                     <td>@book.Price.ToString("C")</td>
                     <td>@book.StockQuantity</td>
                     <td>@book.Publisher.PublisherName</td>
@@ -89,8 +91,6 @@
         <button @onclick="GoToCart" class="btn btn-primary">Моя корзина</button>
     </div>
 
-    <br />
-
     <div class="filter-container">
         <input type="search" @bind="titleFilter" @bind:event="oninput" placeholder="Поиск по названию..." class="form-control filter-input" />
         <select @bind="selectedGenre" class="form-select filter-input">
@@ -102,6 +102,7 @@
         </select>
         <input type="number" @bind="maxPrice" placeholder="Максимальная цена" class="form-control filter-input" />
         <button @onclick="ResetFilter" class="btn btn-dark filter-button">Сбросить фильтр</button>
+
     </div>
 
     <div class="book-grid">
@@ -109,7 +110,7 @@
         {
             @foreach (var book in FilteredBooks)
             {
-                <div class="book-card">
+                <div class="book-card" @onclick="() => NavigateToDetails(book.BookId)">
                     <div class="book-image">
                         @if (!string.IsNullOrEmpty(book.ImageUrl))
                         {
@@ -123,13 +124,22 @@
                     <div class="book-details">
                         <h3>@book.Title</h3>
                         <p><strong>Автор:</strong> @book.Author.AuthorName</p>
-                        <p><strong>Жанр:</strong> @book.Genre.Name</p>
-                        <p><strong>Рейтинг:</strong> @book.AverageRating</p>
-                        <p><strong>Цена:</strong> @book.Price.ToString("C")</p>
+                        @* <p><strong>Жанр:</strong> @book.Genre.Name</p> *@
+                        <p><strong>Рейтинг:</strong> @(book.AverageRating == 0 ? "Нет рейтинга" : (book.AverageRating?.ToString("F1") ?? "N/A"))
+                            <span class="star">★</span>
+                        </p>
+                        <p><strong>Цена:</strong> @book.Price.ToString("C0")</p>
                     </div>
                     <div class="book-actions">
-                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
-                        <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
+                        @* <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a> *@
+                        @if (book.StockQuantity > 0)
+                        {
+                            <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary action-button" disabled>Нет в наличии</button>
+                        }
                         <button @onclick="() => AddToWishlist(book)" class="btn btn-success action-button">В избранное</button>
                     </div>
                 </div>
@@ -194,6 +204,11 @@
     private void GoToCart()
     {
         NavigationManager.NavigateTo("/usercart");
+    }
+
+    private void NavigateToDetails(int bookId)
+    {
+        NavigationManager.NavigateTo($"/books/details?bookid={bookId}");
     }
 
     private async Task AddToCart(Book book)

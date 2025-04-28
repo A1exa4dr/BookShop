@@ -6,6 +6,7 @@
 @using BookShop.Data.Ref
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @using Microsoft.AspNetCore.Components.Forms;
+@using System.Globalization
 @attribute [Authorize(Roles = "Admin")]
 <PageTitle>Импорт данных из Excel</PageTitle>
 <p>
@@ -137,10 +138,16 @@ else
                                     FirstName = row.Cell(3).Value.ToString(),
                                     MiddleName = row.Cell(4).Value.ToString(),
                                     GenderId = int.Parse(row.Cell(5).Value.ToString()),
-                                    DateBirth = DateTime.Parse(row.Cell(6).Value.ToString()),
-                                    DateOfRegist = DateTime.Parse(row.Cell(7).Value.ToString()),
+                                    DateBirth = DateTime.ParseExact(row.Cell(6).Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture),
+                                    DateOfRegist = DateTime.ParseExact(row.Cell(7).Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture),
                                     Phone = row.Cell(8).Value.ToString(),
-                                    Address = row.Cell(9).Value.ToString()
+                                    Address = row.Cell(9).Value.ToString(),
+                                    UserName = row.Cell(10).Value.ToString(),
+                                    NormalizedUserName = row.Cell(11).Value.ToString().ToUpper(),
+                                    Email = row.Cell(12).Value.ToString(),
+                                    NormalizedEmail = row.Cell(13).Value.ToString().ToUpper(),
+                                    EmailConfirmed = bool.Parse(row.Cell(14).Value.ToString()),
+                                    PasswordHash = row.Cell(15).Value.ToString()
                                 };
                             await context.Users.AddAsync(user);
                             await context.SaveChangesAsync();

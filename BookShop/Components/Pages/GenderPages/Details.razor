@@ -1,0 +1,46 @@
+﻿@page "/genders/details"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Gender</h2>
+    <hr />
+    @if (gender is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">GenderName</dt>
+            <dd class="col-sm-10">@gender.GenderName</dd>
+        </dl>
+        <div>
+            <a href="@($"/genders/edit?id={gender.Id}")">Edit</a> |
+            <a href="@($"/genders")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Gender? gender;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        gender = await context.Genders.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (gender is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

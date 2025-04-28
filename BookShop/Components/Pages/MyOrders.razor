@@ -105,8 +105,10 @@ else
 
     private bool CanCancelOrder(Order order)
     {
-        // Заказ можно отменить, если его статус не "Доставлен" и не "В пути"
-        return order.OrderStatus.Status != "Доставлен" && order.OrderStatus.Status != "В пути";
+        // Заказ можно отменить, если его статус не "Доставлен" и не "В пути" или "Отменен"
+        return order.OrderStatus.Status != "Доставлен" &&
+               order.OrderStatus.Status != "В пути" &&
+               order.OrderStatus.Status != "Отменен";
     }
 
     private async Task CancelOrder(int orderId)

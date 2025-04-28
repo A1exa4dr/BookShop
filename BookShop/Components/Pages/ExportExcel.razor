@@ -58,6 +58,13 @@
         worksheetUser.Cell(1, 7).Value = "Дата регистрации";
         worksheetUser.Cell(1, 8).Value = "Телефон";
         worksheetUser.Cell(1, 9).Value = "Адрес";
+        worksheetUser.Cell(1, 10).Value = "Имя пользователя";
+        worksheetUser.Cell(1, 11).Value = "Имя пользователя (normalized)";
+        worksheetUser.Cell(1, 12).Value = "Emai";
+        worksheetUser.Cell(1, 13).Value = "Email (normalized)";
+        worksheetUser.Cell(1, 14).Value = "Подтвержден email";
+        worksheetUser.Cell(1, 15).Value = "Hash пароля";
+
         worksheetUser.Row(1).Style.Font.Bold = true;
         i = 2;
         foreach (var user in context.Users)
@@ -67,10 +74,16 @@
             worksheetUser.Cell(i, 3).Value = user.FirstName;
             worksheetUser.Cell(i, 4).Value = user.MiddleName;
             worksheetUser.Cell(i, 5).Value = user.GenderId;
-            worksheetUser.Cell(i, 6).Value = user.DateBirth;
-            worksheetUser.Cell(i, 7).Value = user.DateOfRegist;
+            worksheetUser.Cell(i, 6).Value = user.DateBirth?.ToString("dd.MM.yyyy");
+            worksheetUser.Cell(i, 7).Value = user.DateOfRegist.ToString("dd.MM.yyyy");
             worksheetUser.Cell(i, 8).Value = user.Phone;
             worksheetUser.Cell(i, 9).Value = user.Address;
+            worksheetUser.Cell(i, 10).Value = user.UserName;
+            worksheetUser.Cell(i, 11).Value = user.NormalizedUserName; // Добавлено
+            worksheetUser.Cell(i, 12).Value = user.Email;
+            worksheetUser.Cell(i, 13).Value = user.NormalizedEmail;    // Добавлено
+            worksheetUser.Cell(i, 14).Value = user.EmailConfirmed;   // Добавлено
+            worksheetUser.Cell(i, 15).Value = user.PasswordHash;
             i++;
         }
 

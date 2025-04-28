@@ -26,7 +26,7 @@ namespace BookShop.Data
         public int StockQuantity { get; set; }
         [Required(ErrorMessage = "Выберите поставщика")]
         public int? SupplierId { get; set; } // Внешний ключ к поставщику // Связь с поставщиком (каждая книга поставляется только одним поставщиком)
-        public decimal AverageRating { get; set; } = 0;
+        public decimal? AverageRating { get; set; } = 0;
 
         // Навигационные свойства
         public Supplier Supplier { get; set; } // Поставщик книги

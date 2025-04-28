@@ -14,31 +14,35 @@
 <div class="report-container">
     <h2>Формирование отчетов</h2>
 
-    <div class="filters-row">
-        <div class="filters-row align-items-end">
-            <div class="filter-item">
-                <label>Тип отчета:</label>
-                <select @bind="selectedReportType" class="form-select">
-                    <option value="sales">Продажи</option>
-                    <option value="orders">Заказы</option>
-                </select>
-            </div>
-
-            <div class="filter-item">
-                <label>Дата начала:</label>
-                <input type="date" @bind="startDate" class="form-control" />
-            </div>
-
-            <div class="filter-item">
-                <label>Дата окончания:</label>
-                <input type="date" @bind="endDate" class="form-control" />
-            </div>
-
-            <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
+    <div class="filters-row align-items-end">
+        <div class="filter-item">
+            <label>Тип отчета:</label>
+            <select @bind="selectedReportType" class="form-select">
+                <option value="sales">Продажи</option>
+                <option value="orders">Заказы</option>
+                <option value="users">Пользователи</option>
+            </select>
         </div>
+
+        <div class="filter-item">
+            <label>Дата начала:</label>
+            <input type="date" @bind="startDate" class="form-control" />
+        </div>
+
+        <div class="filter-item">
+            <label>Дата окончания:</label>
+            <input type="date" @bind="endDate" class="form-control" />
+        </div>
+
+        <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
     </div>
 
     <div class="report-results">
+        @if (errorMessage != null)
+        {
+            <p class="text-danger">@errorMessage</p>
+        }
+
         @if (isLoading)
         {
             <p><em>Загрузка данных...</em></p>
@@ -53,19 +57,18 @@
                         {
                             <th>@header</th>
                         }
-                        <th></th> <!-- Для маркера стиля -->
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var row in reportData)
                     {
-                        <tr class="@row.LastOrDefault()"> <!-- Применяем класс из последнего элемента -->
+                        <tr class="@row.LastOrDefault()" @onclick="() => ShowUserOrders(row[0])">
                             @for (int i = 0; i < row.Count - 1; i++) @* Исключаем последний элемент (маркер) *@
                             {
-                                <td class="@(row.LastOrDefault() == "subtotal-row" ? "subtotal-cell" : "")">
+                                <td>
                                     @if (row[i].StartsWith("<strong>") && row[i].EndsWith("</strong>"))
                                     {
-                                        @((MarkupString)row[i]) // Отображаем HTML-разметку
+                                        @((MarkupString)row[i]) <!-- Отображаем HTML-разметку -->
                                     }
                                     else
                                     {
@@ -87,6 +90,33 @@
         {
             <p>Нет данных для отображения.</p>
         }
+
+        <!-- Подтаблица с заказами выбранного пользователя -->
+        @if (selectedReportType == "users" && selectedUserOrders != null && selectedUserOrders.Any())
+        {
+            <h4>Заказы пользователя: @selectedUserName</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID заказа</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th>Общая сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in selectedUserOrders)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.OrderDate.ToString("dd.MM.yyyy")</td>
+                            <td>@order.OrderStatus.Status</td>
+                            <td>@order.TotalAmount.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     </div>
 </div>
 
@@ -96,10 +126,14 @@
     private DateTime? endDate; // Дата окончания
 
     private bool isLoading = false; // Флаг загрузки
+    private string errorMessage = null; // Сообщение об ошибке
     private List<string> reportHeaders = new(); // Заголовки таблицы
     private List<List<string>> reportData = new(); // Данные отчета
     private decimal totalSalesAmount = 0; // Общая сумма продаж
     private Dictionary<string, decimal> monthlyTotals = new(); // Подитоги по месяцам
+
+    private string selectedUserName = null; // Выбранный пользователь
+    private List<Order> selectedUserOrders = new(); // Заказы выбранного пользователя
 
     protected override void OnInitialized()
     {
@@ -110,11 +144,18 @@
 
     private async Task GenerateReport()
     {
+        if (!startDate.HasValue || !endDate.HasValue)
+        {
+            errorMessage = "Пожалуйста, выберите дату начала и окончания.";
+            return;
+        }
+
         isLoading = true;
         reportHeaders.Clear();
         reportData.Clear();
         totalSalesAmount = 0; // Сброс общей суммы
         monthlyTotals.Clear(); // Очистка подитогов
+        errorMessage = null;
 
         using var context = DbFactory.CreateDbContext();
 
@@ -130,16 +171,80 @@
                     await GenerateOrdersReport(context);
                     break;
 
+                case "users": // Логика для нового отчета
+                    await GenerateUsersReport(context);
+                    break;
+
                 default:
+                    errorMessage = "Неизвестный тип отчета.";
                     break;
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Ошибка при формировании отчета: {ex.Message}");
+            errorMessage = $"Ошибка при формировании отчета: {ex.Message}";
         }
 
         isLoading = false;
+    }
+
+    private async Task GenerateUsersReport(ApplicationDbContext context)
+    {
+        reportHeaders = new List<string>
+        {
+            "Имя пользователя", "Количество заказов", "Общая сумма заказов", "Средний чек"
+        };
+
+        var usersData = await context.Users
+            .Select(u => new
+            {
+                UserName = u.UserName,
+                Orders = u.Orders.Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate),
+                TotalAmount = u.Orders.Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate).Sum(o => (double?)o.TotalAmount), // Преобразуем в double
+                OrderCount = u.Orders.Count(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+            })
+            .Where(u => u.OrderCount > 0) // Включаем только пользователей с заказами
+            .ToListAsync();
+
+        foreach (var user in usersData)
+        {
+            var averageCheck = user.OrderCount > 0 ? (decimal)(user.TotalAmount ?? 0) / user.OrderCount : 0;
+
+            reportData.Add(new List<string>
+            {
+                user.UserName,
+                user.OrderCount.ToString(),
+                ((decimal)(user.TotalAmount ?? 0)).ToString("C"), // Преобразуем обратно в decimal
+                averageCheck.ToString("C"),
+                string.Empty // Маркер для обычной строки
+            });
+        }
+    }
+
+    private async Task ShowUserOrders(string userName)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        var user = await context.Users
+            .Include(u => u.Orders)
+            .ThenInclude(o => o.OrderStatus)
+            .FirstOrDefaultAsync(u => u.UserName == userName);
+
+        if (user != null)
+        {
+            selectedUserName = userName;
+            selectedUserOrders = user.Orders
+                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+        }
+        else
+        {
+            selectedUserName = null;
+            selectedUserOrders = new List<Order>();
+        }
+
+        StateHasChanged();
     }
 
     private async Task GenerateSalesReport(ApplicationDbContext context)
@@ -150,82 +255,69 @@
         };
 
         var salesData = await context.OrderDetails
-            .Include(od => od.Book)
-            .Include(od => od.Order)
             .Where(od => od.Order.OrderDate >= startDate && od.Order.OrderDate <= endDate)
-            .OrderBy(od => od.Order.OrderDate) // Сортировка по дате
+            .Select(od => new
+            {
+                OrderDate = od.Order.OrderDate,
+                BookTitle = od.Book.Title,
+                Quantity = od.Quantity,
+                Price = od.Price
+            })
+            .OrderBy(od => od.OrderDate)
             .ToListAsync();
 
         totalSalesAmount = 0; // Сбрасываем общую сумму перед новым расчетом
         monthlyTotals.Clear(); // Очищаем подитоги
 
-        string currentMonth = null; // Текущий месяц
-
         foreach (var item in salesData)
         {
-            var orderDate = item.Order.OrderDate;
-            var monthKey = orderDate.ToString("yyyy-MM"); // Ключ для месяца (например, "2023-10")
+            var monthKey = item.OrderDate.ToString("yyyy-MM"); // Ключ для месяца (например, "2023-10")
 
             // Если месяц изменился, добавляем подитог для предыдущего месяца
-            if (currentMonth != null && currentMonth != monthKey)
+            if (monthlyTotals.ContainsKey(monthKey))
             {
-                AddMonthlySubtotal(currentMonth);
+                monthlyTotals[monthKey] += item.Quantity * item.Price;
             }
-
-            currentMonth = monthKey;
+            else
+            {
+                monthlyTotals[monthKey] = item.Quantity * item.Price;
+            }
 
             // Добавляем данные в таблицу
             var totalItemAmount = item.Quantity * item.Price;
             reportData.Add(new List<string>
             {
-                orderDate.ToString("dd.MM.yyyy"),
-                item.Book.Title,
+                item.OrderDate.ToString("dd.MM.yyyy"),
+                item.BookTitle,
                 item.Quantity.ToString(),
                 totalItemAmount.ToString("C"),
                 string.Empty // Маркер для обычной строки
             });
 
-            // Обновляем подитог для текущего месяца
-            if (monthlyTotals.ContainsKey(monthKey))
-            {
-                monthlyTotals[monthKey] += totalItemAmount;
-            }
-            else
-            {
-                monthlyTotals[monthKey] = totalItemAmount;
-            }
-
             totalSalesAmount += totalItemAmount; // Добавляем к общей сумме
         }
 
-        // Добавляем подитог для последнего месяца
-        if (currentMonth != null)
+        // Добавляем подитоги для всех месяцев
+        foreach (var month in monthlyTotals)
         {
-            AddMonthlySubtotal(currentMonth);
+            AddMonthlySubtotal(month.Key, month.Value);
         }
     }
 
-    private void AddMonthlySubtotal(string monthKey)
+    private void AddMonthlySubtotal(string monthKey, decimal subtotal)
     {
-        if (monthlyTotals.TryGetValue(monthKey, out var subtotal))
+        var year = int.Parse(monthKey.Substring(0, 4));
+        var month = int.Parse(monthKey.Substring(5, 2));
+        var monthName = GetMonthName(month);
+
+        reportData.Add(new List<string>
         {
-            // Преобразуем ключ месяца в формат "YYYY.MM"
-            var year = int.Parse(monthKey.Substring(0, 4));
-            var month = int.Parse(monthKey.Substring(5, 2));
-
-            // Получаем название месяца
-            var monthName = GetMonthName(month);
-
-            // Используем HTML-разметку для выделения текста
-            reportData.Add(new List<string>
-            {
-                $"<strong>Подитог за {year} {monthName}</strong>", // Жирный текст
-                string.Empty,
-                string.Empty,
-                $"<strong>{subtotal.ToString("C")}</strong>",
-                "subtotal-row" // Маркер для стиля
-            });
-        }
+            $"<strong>Подитог за {year} {monthName}</strong>", // Жирный текст
+            string.Empty,
+            string.Empty,
+            $"<strong>{subtotal.ToString("C")}</strong>",
+            "subtotal-row" // Маркер для стиля
+        });
     }
 
     private string GetMonthName(int monthNumber)
@@ -241,8 +333,14 @@
         };
 
         var ordersData = await context.Orders
-            .Include(o => o.OrderStatus) // Загружаем OrderStatus
             .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+            .Select(o => new
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                Status = o.OrderStatus == null ? "Неизвестно" : o.OrderStatus.Status,
+                TotalAmount = o.TotalAmount
+            })
             .ToListAsync();
 
         foreach (var order in ordersData)
@@ -251,7 +349,7 @@
             {
                 order.OrderId.ToString(),
                 order.OrderDate.ToString("dd.MM.yyyy"),
-                order.OrderStatus?.Status ?? "Неизвестно", // Обработка null
+                order.Status,
                 order.TotalAmount.ToString("C"),
                 string.Empty // Маркер для обычной строки
             });

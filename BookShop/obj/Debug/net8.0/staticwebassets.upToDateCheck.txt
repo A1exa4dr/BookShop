@@ -9,16 +9,12 @@ wwwroot\css\usercart.css
 wwwroot\css\userscatalog.css
 wwwroot\css\wishlist.css
 wwwroot\favicon.png
-wwwroot\images\17292328428936k6toqxt.jpg
 wwwroot\images\332928eb-dfc8-4f22-b899-c8efdeee69b6.jpg
-wwwroot\images\542259.png
-wwwroot\images\b77e37f6-5bd5-4e92-a614-f0e66bac1016.jpg
-wwwroot\images\Book Review - iconSvg.co.jpg
-wwwroot\images\cd263ad5-c518-482c-acda-dc4fa428ff3e.jpg
-wwwroot\images\cover1__w410.jpg
-wwwroot\images\e163870c-3fee-4b7b-9519-d4f331701c27.jpg
-wwwroot\images\EaDvpL0GkR8.jpg
+wwwroot\images\Вий.jpg
+wwwroot\images\ГП Дары смерти.jpg
+wwwroot\images\ГП Орден Феникса.jpg
 wwwroot\images\Оно.jpg
 wwwroot\images\Р и Дж.jpg
+wwwroot\images\Холмс.jpg
 wwwroot\js\chart.js
 wwwroot\js\openfile.js

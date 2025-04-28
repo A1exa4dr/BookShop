@@ -1,0 +1,55 @@
+﻿@page "/orderstatuses/delete"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Удалить статус</PageTitle>
+
+<h1>Удалить статус</h1>
+
+<p>Вы точнло хотите удалить этот статус?</p>
+<div>
+    <h2>Статус заказа</h2>
+    <hr />
+    @if (orderstatus is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Статус</dt>
+            <dd class="col-sm-10">@orderstatus.Status</dd>
+        </dl>
+        <EditForm method="post" Model="orderstatus" OnValidSubmit="DeleteOrderStatus" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(orderstatus is null)">Удалить</button> |
+            <a href="/orderstatuses">Назад к списку</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private OrderStatus? orderstatus;
+
+    [SupplyParameterFromQuery]
+    private int OrderStatusId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        orderstatus = await context.OrderStatuses.FirstOrDefaultAsync(m => m.OrderStatusId == OrderStatusId);
+
+        if (orderstatus is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteOrderStatus()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.OrderStatuses.Remove(orderstatus!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/orderstatuses");
+    }
+}

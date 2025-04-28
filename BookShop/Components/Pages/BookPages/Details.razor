@@ -9,7 +9,7 @@
 <PageTitle>Описание книги</PageTitle>
 <link rel="stylesheet" href="css/bookdetail.css">
 
-<h1>Описание книги</h1>
+@* <h1>Описание книги</h1> *@
 
 <AuthorizeView Roles="Admin">
     <div class="admin-view">
@@ -48,7 +48,9 @@
                 </tr>
                 <tr>
                     <td>Рейтинг</td>
-                    <td>@book?.AverageRating</td>
+                    <td>@(book?.AverageRating.HasValue == true ? book.AverageRating.Value.ToString("F1") : "Нет данных")
+                        <span class="star">★</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>Описание</td>
@@ -97,11 +99,13 @@
                 <p><strong>Автор:</strong> @book?.Author.AuthorName</p>
                 <p><strong>Жанр:</strong> @book?.Genre.Name</p>
                 <p><strong>Описание:</strong> @book?.Description</p>
-                <p><strong>Рейтинг:</strong> @book?.AverageRating</p>
+                <p><strong>Рейтинг:</strong> @(book?.AverageRating.HasValue == true ? book.AverageRating.Value.ToString("F1") : "Нет данных")
+                    <span class="star">★</span>
+                </p>
                 <div class="price-and-cart">
-                    <p><strong>Цена:</strong> @book?.Price.ToString("C")</p>
-                    <button class="btn btn-primary" @onclick="AddToCart">Добавить в корзину</button>
+                    <p><strong>Цена:</strong> @book?.Price.ToString("C0")</p><br/>
                 </div>
+                <button class="btn btn-primary" @onclick="AddToCart">Добавить в корзину</button>
             </div>
         </div>
 
@@ -117,7 +121,7 @@
                     @foreach (var review in reviews)
                     {
                         <li class="list-group-item">
-                            <strong>@review.User.UserName</strong> (Рейтинг: @review.Rating)
+                            <strong>@review.User.UserName</strong> (Рейтинг: @review.Rating.ToString("F1"))
                             <p>@review.ReviewText</p>
                             <small>Дата публикации: @review.DatePosted.ToShortDateString()</small>
                         </li>

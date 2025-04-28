@@ -1,0 +1,44 @@
+﻿@page "/orderstatuses/create"
+@using Microsoft.EntityFrameworkCore
+@using BookShop.Data
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Добавить статус</PageTitle>
+
+<h1>Добавить статус</h1>
+
+<h2>Статус заказа</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="OrderStatus" OnValidSubmit="AddOrderStatus" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="status" class="form-label">Статус:</label> 
+                <InputText id="status" @bind-Value="OrderStatus.Status" class="form-control" /> 
+                <ValidationMessage For="() => OrderStatus.Status" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/orderstatuses">Назад к списку</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private OrderStatus OrderStatus { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddOrderStatus()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.OrderStatuses.Add(OrderStatus);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/orderstatuses");
+    }
+}

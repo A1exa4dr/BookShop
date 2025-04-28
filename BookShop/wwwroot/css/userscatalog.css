@@ -58,16 +58,19 @@ h1 {
 }
 
 .book-card {
-    background-color: white;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease;
+    cursor: pointer; /* Указатель мыши меняется на "руку" */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    transition: box-shadow 0.3s ease;
 }
 
     .book-card:hover {
-        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Эффект при наведении */
+    }
+
+    .book-card .book-actions button {
+        margin-top: 10px; /* Отступ для кнопок */
     }
 
 .book-image {
@@ -120,4 +123,8 @@ h1 {
     text-align: center;
     color: #6c757d;
     font-size: 16px;
+}
+.star {
+    color: gold; /* Жёлтый цвет */
+    font-size: 18px;
 }

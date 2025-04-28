@@ -1,0 +1,35 @@
+﻿@page "/genders"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BookShop.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="genders/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Genders">
+    <PropertyColumn Property="gender => gender.GenderName" />
+
+    <TemplateColumn Context="gender">
+        <a href="@($"genders/edit?id={gender.Id}")">Edit</a> |
+        <a href="@($"genders/details?id={gender.Id}")">Details</a> |
+        <a href="@($"genders/delete?id={gender.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

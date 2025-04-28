@@ -30,7 +30,7 @@
         }
     </TemplateColumn>
     <TemplateColumn Title="Название книги" Context="cartitem">@cartitem.Book.Title</TemplateColumn>
-    <TemplateColumn Title="Рейтинг книги" Context="cartitem">@cartitem.Book.AverageRating</TemplateColumn>
+   @*  <TemplateColumn Title="Рейтинг книги" Context="cartitem">@cartitem.Book.AverageRating</TemplateColumn> *@
     <PropertyColumn Title="Количество" Property="cartitem => cartitem.Quantity"/>
     <TemplateColumn Title="Цена книги" Context="cartitem">@cartitem.Book.Price</TemplateColumn>
     <TemplateColumn Title="Общая цена" Context="cartitem">

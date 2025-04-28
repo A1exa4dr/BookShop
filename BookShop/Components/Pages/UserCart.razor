@@ -9,6 +9,14 @@
 
 <h1>Корзина</h1>
 
+<!-- Уведомление о недостаточном количестве -->
+@if (!string.IsNullOrEmpty(stockErrorMessage))
+{
+    <div class="alert alert-danger">
+        @stockErrorMessage
+    </div>
+}
+
 @if (cartItems.Count == 0)
 {
     <p>Корзина пуста.</p>
@@ -94,11 +102,13 @@ else
     </div>
 }
 
+
 @code {
     private List<CartItem> cartItems = new List<CartItem>();
     private bool showOrderForm = false;
     private int selectedPaymentTypeId = 1; // По умолчанию первый тип оплаты
     private string deliveryAddress = string.Empty;
+    private string stockErrorMessage = string.Empty;
 
     private List<PaymentType> paymentTypes = new List<PaymentType>();
 
@@ -172,7 +182,7 @@ else
         showOrderForm = false;
         deliveryAddress = string.Empty;
     }
-    // Метод для удаления элемента из корзины.
+
     private async Task RemoveFromCart(CartItem item)
     {
         using var context = DbFactory.CreateDbContext();
@@ -186,11 +196,9 @@ else
             await context.SaveChangesAsync();
         }
 
-        // Обновляем список корзины
         await LoadCartItems();
     }
 
-    // Метод для обновления количества книги в корзине.
     private async Task UpdateQuantity(CartItem item, int newQuantity)
     {
         using var context = DbFactory.CreateDbContext();
@@ -205,21 +213,22 @@ else
         }
         else if (cartItem != null && newQuantity == 0)
         {
-            // Если количество 0, удаляем элемент
             context.CartItems.Remove(cartItem);
             await context.SaveChangesAsync();
         }
 
-        // Обновляем список корзины
         await LoadCartItems();
     }
+
     private async Task SubmitOrder()
     {
         if (string.IsNullOrWhiteSpace(deliveryAddress))
         {
-            // Показать сообщение об ошибке, если адрес не указан
+            stockErrorMessage = "Пожалуйста, укажите адрес доставки.";
             return;
         }
+
+        stockErrorMessage = string.Empty;
 
         using var context = DbFactory.CreateDbContext();
 
@@ -229,6 +238,17 @@ else
 
         if (userId != null && cartItems.Any())
         {
+            // Проверка наличия книг на складе
+            foreach (var item in cartItems)
+            {
+                var book = await context.Books.FirstOrDefaultAsync(b => b.BookId == item.BookId);
+                if (book == null || book.StockQuantity < item.Quantity)
+                {
+                    stockErrorMessage = $"Книги '{@item.Book.Title}' нет в достаточном количестве на складе.";
+                    return;
+                }
+            }
+
             // Создаем заказ
             var order = new Order
                 {
