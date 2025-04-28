@@ -5,21 +5,21 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Тип оплаты</PageTitle>
 
-<h1>Index</h1>
+<h1>Тип оплаты</h1>
 
 <p>
-    <a href="paymenttypes/create">Create New</a>
+    <a href="paymenttypes/create">Добавить новый тип оплаты</a>
 </p>
 
 <QuickGrid Class="table" Items="context.PaymentTypes">
-    <PropertyColumn Property="paymenttype => paymenttype.Name" />
+    <PropertyColumn Property="paymenttype => paymenttype.Name" Title="Тип оплаты"/>
 
     <TemplateColumn Context="paymenttype">
-        <a href="@($"paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Edit</a> |
-        <a href="@($"paymenttypes/details?paymenttypeid={paymenttype.PaymentTypeId}")">Details</a> |
-        <a href="@($"paymenttypes/delete?paymenttypeid={paymenttype.PaymentTypeId}")">Delete</a>
+        <a href="@($"paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Редактировать</a> |
+        <a href="@($"paymenttypes/details?paymenttypeid={paymenttype.PaymentTypeId}")">Подробнее</a> |
+        <a href="@($"paymenttypes/delete?paymenttypeid={paymenttype.PaymentTypeId}")">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

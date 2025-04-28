@@ -18,3 +18,4 @@ wwwroot\images\Р и Дж.jpg
 wwwroot\images\Холмс.jpg
 wwwroot\js\chart.js
 wwwroot\js\openfile.js
+wwwroot\js\site.js

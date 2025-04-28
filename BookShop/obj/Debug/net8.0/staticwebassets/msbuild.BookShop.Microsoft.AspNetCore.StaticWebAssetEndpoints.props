@@ -252,5 +252,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-K57Em0h4NmV9\u002BurN9tSMoqB66m/ovef2Q26m9e85dV8="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1050"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022K57Em0h4NmV9\u002BurN9tSMoqB66m/ovef2Q26m9e85dV8=\u0022"},{"Name":"Last-Modified","Value":"Tue, 08 Oct 2024 10:54:06 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BookShop/js/site.aqd9nwn5s4.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"aqd9nwn5s4"},{"Name":"integrity","Value":"sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="},{"Name":"label","Value":"_content/BookShop/js/site.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"293"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\u0022"},{"Name":"Last-Modified","Value":"Mon, 28 Apr 2025 13:54:42 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BookShop/js/site.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"293"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\u0022"},{"Name":"Last-Modified","Value":"Mon, 28 Apr 2025 13:54:42 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

@@ -1916,6 +1916,88 @@
           "Value": "sha256-K57Em0h4NmV9+urN9tSMoqB66m/ovef2Q26m9e85dV8="
         }
       ]
+    },
+    {
+      "Route": "js/site.aqd9nwn5s4.js",
+      "AssetFile": "js/site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 28 Apr 2025 13:54:42 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "aqd9nwn5s4"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "js/site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 28 Apr 2025 13:54:42 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="
+        }
+      ]
     }
   ]
 }

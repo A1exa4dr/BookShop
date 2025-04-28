@@ -4,12 +4,12 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Details</PageTitle>
+<PageTitle>Подробнее</PageTitle>
 
-<h1>Details</h1>
+<h1>Подробнее</h1>
 
 <div>
-    <h2>PaymentType</h2>
+    <h2>Тип оплаты</h2>
     <hr />
     @if (paymenttype is null)
     {
@@ -17,12 +17,12 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Name</dt>
+            <dt class="col-sm-2">Имя типа</dt>
             <dd class="col-sm-10">@paymenttype.Name</dd>
         </dl>
         <div>
-            <a href="@($"/paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Edit</a> |
-            <a href="@($"/paymenttypes")">Back to List</a>
+            <a href="@($"/paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Редактировать</a> |
+            <a href="@($"/paymenttypes")">Назад к списку</a>
         </div>
     }
 </div>

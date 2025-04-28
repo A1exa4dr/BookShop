@@ -4,11 +4,11 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Edit</PageTitle>
+<PageTitle>Редактировать тип оплаты</PageTitle>
 
-<h1>Edit</h1>
+<h1>Редактировать тип оплаты</h1>
 
-<h2>PaymentType</h2>
+<h2>Тип оплаты</h2>
 <hr />
 @if (PaymentType is null)
 {
@@ -23,18 +23,18 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="PaymentType.PaymentTypeId" value="@PaymentType.PaymentTypeId" />
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
+                    <label for="name" class="form-label">Имя типа:</label>
                     <InputText id="name" @bind-Value="PaymentType.Name" class="form-control" />
                     <ValidationMessage For="() => PaymentType.Name" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/paymenttypes">Back to List</a>
+    <a href="/paymenttypes">Назад к списку</a>
 </div>
 
 @code {

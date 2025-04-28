@@ -4,11 +4,11 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Create</PageTitle>
+<PageTitle>Добавить новый тип оплаты</PageTitle>
 
-<h1>Create</h1>
+<h1>Добавить новый тип оплаты</h1>
 
-<h2>PaymentType</h2>
+<h2>Тип оплаты</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,17 +16,17 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label> 
+                <label for="name" class="form-label">Имя типа:</label> 
                 <InputText id="name" @bind-Value="PaymentType.Name" class="form-control" /> 
                 <ValidationMessage For="() => PaymentType.Name" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </EditForm>
     </div>
 </div>
 
 <div>
-    <a href="/paymenttypes">Back to List</a>
+    <a href="/paymenttypes">Назад к списку</a>
 </div>
 
 @code {

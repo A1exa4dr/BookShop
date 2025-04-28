@@ -2,6 +2,8 @@
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
 @using System.Globalization
+@using ClosedXML.Excel
+@inject IJSRuntime JSRuntime
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
@@ -35,6 +37,7 @@
         </div>
 
         <button class="btn btn-primary" @onclick="GenerateReport">Сформировать отчет</button>
+        <button class="btn btn-success" @onclick="DownloadExcel">Скачать Excel</button>
     </div>
 
     <div class="report-results">
@@ -188,6 +191,52 @@
         isLoading = false;
     }
 
+    private async Task DownloadExcel()
+    {
+        if (!reportData.Any())
+        {
+            errorMessage = "Нет данных для экспорта.";
+            return;
+        }
+
+        try
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Отчет");
+
+            // Записываем заголовки
+            for (int i = 0; i < reportHeaders.Count; i++)
+            {
+                worksheet.Cell(1, i + 1).Value = reportHeaders[i];
+            }
+
+            // Записываем данные
+            for (int row = 0; row < reportData.Count; row++)
+            {
+                for (int col = 0; col < reportData[row].Count - 1; col++) // Исключаем последний элемент (маркер)
+                {
+                    worksheet.Cell(row + 2, col + 1).Value = reportData[row][col];
+                }
+            }
+
+            // Автоматическая ширина столбцов
+            worksheet.Columns().AdjustToContents();
+
+            // Сохраняем файл
+            var fileName = $"{selectedReportType}_report_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            stream.Position = 0;
+
+            // Скачивание файла
+            await JSRuntime.InvokeVoidAsync("saveAsFile", fileName, Convert.ToBase64String(stream.ToArray()));
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Ошибка при экспорте в Excel: {ex.Message}";
+        }
+    }
+
     private async Task GenerateUsersReport(ApplicationDbContext context)
     {
         reportHeaders = new List<string>
@@ -223,6 +272,12 @@
 
     private async Task ShowUserOrders(string userName)
     {
+        // Проверяем, что текущий тип отчета — "Пользователи"
+        if (selectedReportType != "users")
+        {
+            return;
+        }
+
         using var context = DbFactory.CreateDbContext();
 
         var user = await context.Users

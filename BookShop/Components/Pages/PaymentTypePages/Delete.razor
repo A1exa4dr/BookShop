@@ -4,13 +4,13 @@
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Delete</PageTitle>
+<PageTitle>Удалить</PageTitle>
 
-<h1>Delete</h1>
+<h1>Удалить</h1>
 
-<p>Are you sure you want to delete this?</p>
+<p>Вы точно хотите удалить этот тип оплаты?</p>
 <div>
-    <h2>PaymentType</h2>
+    <h2>Тип оплаты</h2>
     <hr />
     @if (paymenttype is null)
     {
@@ -18,12 +18,12 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Name</dt>
+            <dt class="col-sm-2">Имя типа</dt>
             <dd class="col-sm-10">@paymenttype.Name</dd>
         </dl>
         <EditForm method="post" Model="paymenttype" OnValidSubmit="DeletePaymentType" FormName="delete" Enhance>
-            <button type="submit" class="btn btn-danger" disabled="@(paymenttype is null)">Delete</button> |
-            <a href="/paymenttypes">Back to List</a>
+            <button type="submit" class="btn btn-danger" disabled="@(paymenttype is null)">Удалить</button> |
+            <a href="/paymenttypes">Назад к списку</a>
         </EditForm>
     }
 </div>

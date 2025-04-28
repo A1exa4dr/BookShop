@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fiwySH4818bS+lK6/O9RWndFjA09YJkQlPdg6lM/9ik=",
+  "Hash": "JbA78eGDi/KSF9vsszIAZoUAw1LRjUlskZJryQIqCdk=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -582,6 +582,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\openfile.js"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\site.js",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "js/site#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "aqd9nwn5s4",
+      "Integrity": "PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\site.js"
     }
   ],
   "Endpoints": [
@@ -2579,6 +2600,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-K57Em0h4NmV9+urN9tSMoqB66m/ovef2Q26m9e85dV8="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.aqd9nwn5s4.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 28 Apr 2025 13:54:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "aqd9nwn5s4"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 28 Apr 2025 13:54:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="
         }
       ]
     }
