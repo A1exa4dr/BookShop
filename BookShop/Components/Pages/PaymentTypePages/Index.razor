@@ -10,16 +10,16 @@
 <h1>Тип оплаты</h1>
 
 <p>
-    <a href="paymenttypes/create">Добавить новый тип оплаты</a>
+    <a href="paymenttypes/create" class="btn btn-primary">Добавить новый тип оплаты</a>
 </p>
 
 <QuickGrid Class="table" Items="context.PaymentTypes">
     <PropertyColumn Property="paymenttype => paymenttype.Name" Title="Тип оплаты"/>
 
     <TemplateColumn Context="paymenttype">
-        <a href="@($"paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")">Редактировать</a> |
-        <a href="@($"paymenttypes/details?paymenttypeid={paymenttype.PaymentTypeId}")">Подробнее</a> |
-        <a href="@($"paymenttypes/delete?paymenttypeid={paymenttype.PaymentTypeId}")">Удалить</a>
+        <a href="@($"paymenttypes/details?paymenttypeid={paymenttype.PaymentTypeId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"paymenttypes/edit?paymenttypeid={paymenttype.PaymentTypeId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"paymenttypes/delete?paymenttypeid={paymenttype.PaymentTypeId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

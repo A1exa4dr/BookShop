@@ -11,16 +11,16 @@
 <h1>Авторы</h1>
 
 <p>
-    <a href="authors/create">Добавить нового автора</a>
+    <a href="authors/create" class="btn btn-primary">Добавить нового автора</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Authors">
     <PropertyColumn Property="author => author.AuthorName" Title="Имя автора"/>
 
     <TemplateColumn Context="author">
-        <a href="@($"authors/edit?authorid={author.AuthorId}")">Редактировать</a> |
-        <a href="@($"authors/details?authorid={author.AuthorId}")">Описание</a> |
-        <a href="@($"authors/delete?authorid={author.AuthorId}")">Удалить</a>
+        <a href="@($"authors/details?authorid={author.AuthorId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"authors/edit?authorid={author.AuthorId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"authors/delete?authorid={author.AuthorId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

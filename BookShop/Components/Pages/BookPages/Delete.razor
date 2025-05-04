@@ -70,7 +70,7 @@
         </dl>
         <EditForm method="post" Model="book" OnValidSubmit="DeleteBook" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(book is null)">Удалить</button> |
-            <a href="/books">Обратно в каталог</a>
+            <a href="/books" class="btn btn-secondary">Обратно в каталог</a>
         </EditForm>
     }
 </div>

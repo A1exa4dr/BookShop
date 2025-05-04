@@ -25,11 +25,11 @@ namespace BookShop.Data
         [Range(0, int.MaxValue, ErrorMessage = "Количество на складе не может быть отрицательным")]
         public int StockQuantity { get; set; }
         [Required(ErrorMessage = "Выберите поставщика")]
-        public int? SupplierId { get; set; } // Внешний ключ к поставщику // Связь с поставщиком (каждая книга поставляется только одним поставщиком)
+        public int? SupplierId { get; set; } // Внешний ключ к поставщику 
         public decimal? AverageRating { get; set; } = 0;
 
         // Навигационные свойства
-        public Supplier Supplier { get; set; } // Поставщик книги
+        public Supplier Supplier { get; set; }
         public Genre Genre { get; set; }
         public Author Author { get; set; }
         public Publisher Publisher { get; set; }

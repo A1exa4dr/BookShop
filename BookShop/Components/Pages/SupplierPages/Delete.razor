@@ -36,7 +36,7 @@
         </dl>
         <EditForm method="post" Model="supplier" OnValidSubmit="DeleteSupplier" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(supplier is null)">Удалить</button> |
-            <a href="/suppliers">Обратно к списку поставщиков</a>
+            <a href="/suppliers" class="btn btn-secondary">Обратно к списку поставщиков</a>
         </EditForm>
     }
 </div>

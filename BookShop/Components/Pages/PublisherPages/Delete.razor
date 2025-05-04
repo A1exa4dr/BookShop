@@ -28,7 +28,7 @@
         </dl>
         <EditForm method="post" Model="publisher" OnValidSubmit="DeletePublisher" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(publisher is null)">Удалить</button> |
-            <a href="/publishers">Обратно к списку издательств</a>
+            <a href="/publishers" class="btn btn-secondary">Обратно к списку издательств</a>
         </EditForm>
     }
 </div>

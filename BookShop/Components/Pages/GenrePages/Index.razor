@@ -11,16 +11,16 @@
 <h1>Жанры</h1>
 
 <p>
-    <a href="genres/create">Добавить новы жанр</a>
+    <a href="genres/create" class="btn btn-primary">Добавить новы жанр</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Genres">
     <PropertyColumn Property="genre => genre.Name" Title="Название жанра"/>
 
     <TemplateColumn Context="genre">
-        <a href="@($"genres/edit?genreid={genre.GenreId}")">Редактировать</a> |
-        <a href="@($"genres/details?genreid={genre.GenreId}")">Описание</a> |
-        <a href="@($"genres/delete?genreid={genre.GenreId}")">Удалить</a>
+        <a href="@($"genres/details?genreid={genre.GenreId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"genres/edit?genreid={genre.GenreId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"genres/delete?genreid={genre.GenreId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

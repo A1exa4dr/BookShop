@@ -24,9 +24,9 @@
     <PropertyColumn Property="order => order.PaymentType.Name" Title="Тип оплаты" />
 
     <TemplateColumn Context="order">
-        <a href="@($"orderdetails?orderid={order.OrderId}")">Детали заказа</a> |
-        <a href="@($"orders/edit?orderid={order.OrderId}")">Редактировать</a> |
-        <a href="@($"orders/details?orderid={order.OrderId}")">Описание</a> |
+        <a href="@($"orderdetails?orderid={order.OrderId}")" class="btn btn-info">Детали заказа</a> |
+        <a href="@($"orders/edit?orderid={order.OrderId}")" class="btn btn-warning">Редактировать</a> 
+        @* <a href="@($"orders/details?orderid={order.OrderId}")">Описание</a> | *@
         @* <a href="@($"orders/delete?orderid={order.OrderId}")">Удалить</a> *@
     </TemplateColumn>
 </QuickGrid>

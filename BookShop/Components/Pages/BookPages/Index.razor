@@ -110,7 +110,7 @@
         {
             @foreach (var book in FilteredBooks)
             {
-                <div class="book-card" @onclick="() => NavigateToDetails(book.BookId)">
+                <div class="book-card">
                     <div class="book-image">
                         @if (!string.IsNullOrEmpty(book.ImageUrl))
                         {
@@ -131,7 +131,7 @@
                         <p><strong>Цена:</strong> @book.Price.ToString("C0")</p>
                     </div>
                     <div class="book-actions">
-                        @* <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a> *@
+                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
                         @if (book.StockQuantity > 0)
                         {
                             <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
@@ -179,8 +179,8 @@
         .Include(b => b.Genre)
         .Include(b => b.Supplier)
         .Where(b => (string.IsNullOrEmpty(titleFilter) ||
-                     b.Title.Contains(titleFilter) ||
-                     b.Author.AuthorName.Contains(titleFilter)) && // Добавляем поиск по автору
+                     b.Title.Contains(titleFilter.ToLower()) ||
+                     b.Author.AuthorName.Contains(titleFilter.ToLower())) && // Добавляем поиск по автору
                     (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre) &&
                     (!maxPrice.HasValue || b.Price <= maxPrice)); // Фильтрация по цене
 
@@ -206,10 +206,10 @@
         NavigationManager.NavigateTo("/usercart");
     }
 
-    private void NavigateToDetails(int bookId)
-    {
-        NavigationManager.NavigateTo($"/books/details?bookid={bookId}");
-    }
+    // private void NavigateToDetails(int bookId)
+    // {
+    //     NavigationManager.NavigateTo($"/books/details?bookid={bookId}");
+    // }
 
     private async Task AddToCart(Book book)
     {

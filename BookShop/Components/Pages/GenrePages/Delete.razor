@@ -24,7 +24,7 @@
         </dl>
         <EditForm method="post" Model="genre" OnValidSubmit="DeleteGenre" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(genre is null)">Удалить</button> |
-            <a href="/genres">Обратно к списку жанров</a>
+            <a href="/genres" class="btn btn-secondary">Обратно к списку жанров</a>
         </EditForm>
     }
 </div>

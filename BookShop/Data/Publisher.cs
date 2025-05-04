@@ -6,7 +6,9 @@ namespace BookShop.Data
     {
         [Key]
         public int PublisherId { get; set; }
+        [Required]
         public string PublisherName { get; set; }
+        [Required]
         public string ContactEmail { get; set; }
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }

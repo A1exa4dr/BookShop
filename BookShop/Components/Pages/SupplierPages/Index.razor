@@ -11,7 +11,7 @@
 <h1>Поставщики</h1>
 
 <p>
-    <a href="suppliers/create">Добавить нового поставщика</a>
+    <a href="suppliers/create" class="btn btn-primary">Добавить нового поставщика</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Suppliers">
@@ -21,9 +21,9 @@
     <PropertyColumn Property="supplier => supplier.Email" Title="Почта"/>
 
     <TemplateColumn Context="supplier">
-        <a href="@($"suppliers/edit?supplierid={supplier.SupplierId}")">Редактировать</a> |
-        <a href="@($"suppliers/details?supplierid={supplier.SupplierId}")">Описание</a> |
-        <a href="@($"suppliers/delete?supplierid={supplier.SupplierId}")">Удалить</a>
+        <a href="@($"suppliers/details?supplierid={supplier.SupplierId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"suppliers/edit?supplierid={supplier.SupplierId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"suppliers/delete?supplierid={supplier.SupplierId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

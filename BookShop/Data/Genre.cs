@@ -8,6 +8,7 @@ namespace BookShop.Data
     {
         [Key]
         public int GenreId { get; set; }
+        [Required(ErrorMessage = "Напишите жанр книги")]
         public string Name { get; set; }
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }

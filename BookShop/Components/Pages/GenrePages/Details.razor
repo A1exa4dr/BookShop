@@ -22,8 +22,8 @@
             <dd class="col-sm-10">@genre.Name</dd>
         </dl>
         <div>
-            <a href="@($"/genres/edit?genreid={genre.GenreId}")">Редактировать</a> |
-            <a href="@($"/genres")">Обратно к списку жанров</a>
+            <a href="@($"/genres/edit?genreid={genre.GenreId}")" class="btn btn-danger">Редактировать</a> |
+            <a href="@($"/genres")" class="btn btn-secondary">Обратно к списку жанров</a>
         </div>
     }
 </div>

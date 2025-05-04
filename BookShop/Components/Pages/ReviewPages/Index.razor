@@ -1,40 +1,70 @@
 ﻿@page "/reviews"
+@using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using BookShop.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<BookShop.Data.ApplicationDbContext> DbFactory
+@inject UserManager<ApplicationUser> UserManager
 @attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Отзывы</PageTitle>
 
 <h1>Отзывы</h1>
 
-@* <p>
-    <a href="reviews/create">Create New</a>
-</p> *@
+<!-- Фильтр по пользователям -->
+<div class="filter-container">
+    <select @bind="selectedEmail" class="form-select filter-input">
+        <option value="">Все пользователи</option>
+        @foreach (var user in clientUsers)
+        {
+            <option value="@user.Email">@user.Email</option>
+        }
+    </select>
+</div>
 
-<QuickGrid Class="table" Items="context.Reviews.Include(ci => ci.Book)">
-    <PropertyColumn Property="review => review.UserId" Title="Пользователь"/>
+<!-- Таблица отзывов -->
+<QuickGrid Class="table" Items="FilteredReviews">
+    <PropertyColumn Property="review => review.User.Email" Title="Пользователь" />
     <PropertyColumn Property="review => review.Book.Title" Title="Название книги" />
     <PropertyColumn Property="review => review.Rating" Title="Рейтинг" />
     <PropertyColumn Property="review => review.ReviewText" Title="Отзыв" />
     <PropertyColumn Property="review => review.DatePosted" Title="Дата отзыва" />
 
     <TemplateColumn Context="review">
-        @* <a href="@($"reviews/edit?reviewid={review.ReviewId}")">Редактировать</a> | *@
-        <a href="@($"reviews/details?reviewid={review.ReviewId}")">Описание</a> |
-        <a href="@($"reviews/delete?reviewid={review.ReviewId}")">Удалить</a>
+        <a href="@($"reviews/details?reviewid={review.ReviewId}")" class="btn btn-info">Описание</a> 
+        <a href="@($"reviews/delete?reviewid={review.ReviewId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 
 @code {
     private ApplicationDbContext context = default!;
+    private List<ApplicationUser> clientUsers = new(); // Список пользователей с ролью "Client"
+    private string selectedEmail = string.Empty; // Хранит выбранный Email
+    private IQueryable<Review> allReviews = Enumerable.Empty<Review>().AsQueryable();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         context = DbFactory.CreateDbContext();
+
+        // Загружаем всех пользователей с ролью "Client"
+        var clientRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Client");
+        if (clientRole != null)
+        {
+            var userRoles = context.UserRoles.Where(ur => ur.RoleId == clientRole.Id).Select(ur => ur.UserId);
+            clientUsers = await context.Users.Where(u => userRoles.Contains(u.Id)).ToListAsync();
+        }
+
+        // Загружаем все отзывы с необходимыми связями
+        allReviews = context.Reviews
+            .Include(r => r.User) // Подключаем связь с пользователем
+            .Include(r => r.Book); // Подключаем связь с книгой
     }
+
+    private IQueryable<Review> FilteredReviews =>
+        allReviews.Where(r =>
+            string.IsNullOrEmpty(selectedEmail) || // Если email не выбран, показываем все отзывы
+            r.User.Email == selectedEmail);       // Иначе фильтруем по email
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }

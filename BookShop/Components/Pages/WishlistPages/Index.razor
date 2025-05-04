@@ -56,6 +56,7 @@ else
                     }
                     <AuthorizeView Roles="Client">
                         <td>
+                            <button class="btn btn-success" @onclick="() => AddToCartFromWishlist(wishlist.Book)">В корзину</button>
                             <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
                         </td>
                     </AuthorizeView>
@@ -117,4 +118,68 @@ else
             Console.WriteLine($"Ошибка: {ex.Message}");
         }
     }
+    private async Task AddToCartFromWishlist(Book book)
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity is null || !user.Identity.IsAuthenticated)
+            {
+                Console.WriteLine("Пользователь не авторизован.");
+                return;
+            }
+
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                Console.WriteLine("Ошибка при получении UserId.");
+                return;
+            }
+
+            using var context = DbFactory.CreateDbContext();
+
+            // Найти или создать корзину
+            var cart = await context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart
+                    {
+                        UserId = userId,
+                        CartItems = new List<CartItem>()
+                    };
+                context.Carts.Add(cart);
+                await context.SaveChangesAsync();
+            }
+
+            // Проверить, есть ли эта книга уже в корзине
+            var existingItem = cart.CartItems.FirstOrDefault(ci => ci.BookId == book.BookId);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity++;
+            }
+            else
+            {
+                cart.CartItems.Add(new CartItem
+                    {
+                        CartId = cart.CartId,
+                        BookId = book.BookId,
+                        Quantity = 1
+                    });
+            }
+
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при добавлении книги в корзину: {ex.Message}");
+        }
+    }
+
 }

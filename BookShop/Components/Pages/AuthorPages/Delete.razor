@@ -24,7 +24,7 @@
         </dl>
         <EditForm method="post" Model="author" OnValidSubmit="DeleteAuthor" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(author is null)">Удалить</button> |
-            <a href="/authors">Обратно к списку авторов</a>
+            <a href="/authors" class="btn btn-secondary">Обратно к списку авторов</a>
         </EditForm>
     }
 </div>

@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\myorders.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\regist.css",
+      "PackagePath": "staticwebassets\\css\\regist.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
       "PackagePath": "staticwebassets\\css\\reports.css"
     },
@@ -49,8 +53,8 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\332928eb-dfc8-4f22-b899-c8efdeee69b6.jpg",
-      "PackagePath": "staticwebassets\\images\\332928eb-dfc8-4f22-b899-c8efdeee69b6.jpg"
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg",
+      "PackagePath": "staticwebassets\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вий.jpg",
@@ -65,16 +69,16 @@
       "PackagePath": "staticwebassets\\images\\ГП Орден Феникса.jpg"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Кладбище дом. живот.jpg",
+      "PackagePath": "staticwebassets\\images\\Кладбище дом. живот.jpg"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Оно.jpg",
       "PackagePath": "staticwebassets\\images\\Оно.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
       "PackagePath": "staticwebassets\\images\\Р и Дж.jpg"
-    },
-    {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Холмс.jpg",
-      "PackagePath": "staticwebassets\\images\\Холмс.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",

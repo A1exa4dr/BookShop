@@ -10,16 +10,16 @@
 <h1>Статус заказа</h1>
 
 <p>
-    <a href="orderstatuses/create">Добавить новый статус</a>
+    <a href="orderstatuses/create" class="btn btn-primary">Добавить новый статус</a>
 </p>
 
 <QuickGrid Class="table" Items="context.OrderStatuses">
     <PropertyColumn Property="orderstatus => orderstatus.Status" Title="Статус"/>
 
     <TemplateColumn Context="orderstatus">
-        <a href="@($"orderstatuses/edit?orderstatusid={orderstatus.OrderStatusId}")">Редактировать</a> |
-        <a href="@($"orderstatuses/details?orderstatusid={orderstatus.OrderStatusId}")">Подробнее</a> |
-        <a href="@($"orderstatuses/delete?orderstatusid={orderstatus.OrderStatusId}")">Удалить</a>
+        <a href="@($"orderstatuses/details?orderstatusid={orderstatus.OrderStatusId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"orderstatuses/edit?orderstatusid={orderstatus.OrderStatusId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"orderstatuses/delete?orderstatusid={orderstatus.OrderStatusId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 

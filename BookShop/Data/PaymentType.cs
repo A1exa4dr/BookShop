@@ -6,6 +6,7 @@ namespace BookShop.Data
     {
         [Key]
         public int PaymentTypeId { get; set; }
+        [Required]
         public string Name { get; set; } // Например: "Наличные", "Карта", "Онлайн"
 
         // Навигационное свойство

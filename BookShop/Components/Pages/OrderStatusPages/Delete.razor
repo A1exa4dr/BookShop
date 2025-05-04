@@ -23,7 +23,7 @@
         </dl>
         <EditForm method="post" Model="orderstatus" OnValidSubmit="DeleteOrderStatus" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(orderstatus is null)">Удалить</button> |
-            <a href="/orderstatuses">Назад к списку</a>
+            <a href="/orderstatuses" class="btn btn-secondary">Назад к списку</a>
         </EditForm>
     }
 </div>

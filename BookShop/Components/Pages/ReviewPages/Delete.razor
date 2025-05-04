@@ -24,7 +24,7 @@
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Книга</dt>
-            <dd class="col-sm-10">@review.BookId</dd>
+            <dd class="col-sm-10">@review.Book.Title</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">Рейтинг</dt>
@@ -40,7 +40,7 @@
         </dl>
         <EditForm method="post" Model="review" OnValidSubmit="DeleteReview" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(review is null)">Удалить</button> |
-            <a href="/reviews">Обратно к списку отзывов</a>
+            <a href="/reviews" class="btn btn-secondary">Обратно к списку отзывов</a>
         </EditForm>
     }
 </div>
@@ -54,7 +54,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        review = await context.Reviews.FirstOrDefaultAsync(m => m.ReviewId == ReviewId);
+        review = await context.Reviews.Include(od => od.Book).FirstOrDefaultAsync(m => m.ReviewId == ReviewId);
 
         if (review is null)
         {

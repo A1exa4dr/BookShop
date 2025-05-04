@@ -93,15 +93,16 @@ else
                     </select>
                     <ValidationMessage For="() => Book.SupplierId" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>|
+                <a href="/books" class="btn btn-secondary">Обратно в каталог</a>
             </EditForm>
         </div>
     </div>
 }
-
+@* 
 <div>
-    <a href="/books">Обратно в каталог</a>
-</div>
+    
+</div> *@
 
 @code {
     [SupplyParameterFromQuery]

@@ -11,7 +11,7 @@
 <h1>Издательства</h1>
 
 <p>
-    <a href="publishers/create">Добавить издательство</a>
+    <a href="publishers/create" class="btn btn-primary">Добавить издательство</a>
 </p>
 
 <QuickGrid Class="table" Items="context.Publishers">
@@ -19,9 +19,9 @@
     <PropertyColumn Property="publisher => publisher.ContactEmail" Title="Поста для связи"/>
 
     <TemplateColumn Context="publisher">
-        <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")">Редактировать</a> |
-        <a href="@($"publishers/details?publisherid={publisher.PublisherId}")">Описание</a> |
-        <a href="@($"publishers/delete?publisherid={publisher.PublisherId}")">Удалить</a>
+        <a href="@($"publishers/details?publisherid={publisher.PublisherId}")" class="btn btn-info">Описание</a> |
+        <a href="@($"publishers/edit?publisherid={publisher.PublisherId}")" class="btn btn-warning">Редактировать</a> |
+        <a href="@($"publishers/delete?publisherid={publisher.PublisherId}")" class="btn btn-danger">Удалить</a>
     </TemplateColumn>
 </QuickGrid>
 
