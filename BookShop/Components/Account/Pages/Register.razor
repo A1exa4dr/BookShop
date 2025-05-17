@@ -1,12 +1,10 @@
 ﻿@page "/Account/Register"
-
 @using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using BookShop.Data
-
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
 @inject SignInManager<ApplicationUser> SignInManager
@@ -18,100 +16,104 @@
 
 <PageTitle>Регистрация</PageTitle>
 
-<h1>Регистрация</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1>Регистрация</h1>
+            <StatusMessage Message="@Message" />
+            <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                <DataAnnotationsValidator />
+                <hr />
+                <ValidationSummary class="text-danger" role="alert" />
 
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator />
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Электронная почта</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Пароль</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Повторите пароль</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="lastname" class="form-label">Фамилия:</label>
-                <InputText id="lastname" @bind-Value="Input.LastName" class="form-control" />
-                <ValidationMessage For="() => Input.LastName" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="firstname" class="form-label">Имя:</label>
-                <InputText id="firstname" @bind-Value="Input.FirstName" class="form-control" />
-                <ValidationMessage For="() => Input.FirstName" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="middlename" class="form-label">Отчество:</label>
-                <InputText id="middlename" @bind-Value="Input.MiddleName" class="form-control" />
-                <ValidationMessage For="() => Input.MiddleName" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="gender" class="form-label">Пол:</label>
-                <InputSelect id="gender" @bind-Value="Input.GenderId" class="form-control">
-                    @foreach (Gender gender in genders)
-                    {
-                        <option value="@gender.Id">@gender.GenderName</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="() => Input.GenderId" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="datebirth" class="form-label">Дата рождения:</label>
-                <InputDate id="datebirth" @bind-Value="Input.DateBirth" class="form-control" />
-                <ValidationMessage For="() => Input.DateBirth" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="dateregist" class="form-label">Дата регистрации:</label>
-                <InputDate id="dateregist" @bind-Value="Input.DateOfRegist" class="form-control" />
-                <ValidationMessage For="() => Input.DateOfRegist" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">Телефон:</label>
-                <InputText id="phone" @bind-Value="Input.Phone" class="form-control" />
-                <ValidationMessage For="() => Input.Phone" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Адрес:</label>
-                <InputText id="address" @bind-Value="Input.Address" class="form-control" />
-                <ValidationMessage For="() => Input.Address" class="text-danger" />
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Зарегистрироваться</button>
-        </EditForm>
+                <!-- Первая колонка -->
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="email">Электронная почта</label>
+                        <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <ValidationMessage For="() => Input.Email" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="password">Пароль</label>
+                        <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <ValidationMessage For="() => Input.Password" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="confirm-password">Повторите пароль</label>
+                        <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                    </div>
+                </div>
+
+                <!-- Вторая колонка -->
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="lastname">Фамилия:</label>
+                        <InputText id="lastname" @bind-Value="Input.LastName" class="form-control" />
+                        <ValidationMessage For="() => Input.LastName" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="firstname">Имя:</label>
+                        <InputText id="firstname" @bind-Value="Input.FirstName" class="form-control" />
+                        <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="middlename">Отчество:</label>
+                        <InputText id="middlename" @bind-Value="Input.MiddleName" class="form-control" />
+                        <ValidationMessage For="() => Input.MiddleName" class="text-danger" />
+                    </div>
+           
+                    <div class="col-md-12 mb-3">
+                        <label for="datebirth">Дата рождения:</label>
+                        <InputDate id="datebirth" @bind-Value="Input.DateBirth" class="form-control" />
+                        <ValidationMessage For="() => Input.DateBirth" class="text-danger" />
+                    </div>
+                    @* <div class="col-md-12 mb-3">
+                        <label for="dateregist">Дата регистрации:</label>
+                        <InputDate id="dateregist" @bind-Value="Input.DateOfRegist" class="form-control" />
+                        <ValidationMessage For="() => Input.DateOfRegist" class="text-danger" />
+                    </div> *@
+                    <div class="col-md-12 mb-3">
+                        <label for="phone">Телефон:</label>
+                        <InputText id="phone" @bind-Value="Input.Phone" class="form-control" />
+                        <ValidationMessage For="() => Input.Phone" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="address">Адрес:</label>
+                        <InputText id="address" @bind-Value="Input.Address" class="form-control" />
+                        <ValidationMessage For="() => Input.Address" class="text-danger" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="gender">Пол:</label>
+                        <InputSelect id="gender" @bind-Value="Input.GenderId" class="form-control">
+                            @foreach (Gender gender in genders)
+                            {
+                                <option value="@gender.Id">@gender.GenderName</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="() => Input.GenderId" class="text-danger" />
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="w-100 btn btn-lg btn-primary">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
     </div>
 </div>
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
-
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
-
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
-
     public List<Gender> genders;
-
     private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
-
     protected override void OnInitialized()
     {
-
         genders = dbContext.Genders.ToList();
-
     }
-
     public async Task RegisterUser(EditContext editContext)
     {
         var user = new ApplicationUser()
@@ -125,51 +127,39 @@
                 Address = Input.Address,
                 GenderId = Input.GenderId
             };
-
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
         var result = await UserManager.CreateAsync(user, Input.Password);
-
         if (!result.Succeeded)
         {
             identityErrors = result.Errors;
             return;
         }
-
         var roleid = dbContext.Roles.FirstOrDefault(d => d.Name == "Client")!.Id;
-
-
         dbContext.Add(new IdentityUserRole<string>()
             {
                 UserId = user.Id,
                 RoleId = roleid
             });
-
         await dbContext.SaveChangesAsync();
-
         Logger.LogInformation("Пользователь создал новую учетную запись с паролем.");
-
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(
             NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
-
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
                 "Account/RegisterConfirmation",
                 new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
-
         await SignInManager.SignInAsync(user, isPersistent: false);
         RedirectManager.RedirectTo(ReturnUrl);
     }
-
     private ApplicationUser CreateUser()
     {
         try
@@ -182,7 +172,6 @@
                 $"Убедитесь, что '{nameof(ApplicationUser)}' не является абстрактным классом и имеет конструктор без параметров.");
         }
     }
-
     private IUserEmailStore<ApplicationUser> GetEmailStore()
     {
         if (!UserManager.SupportsUserEmail)
@@ -191,60 +180,45 @@
         }
         return (IUserEmailStore<ApplicationUser>)UserStore;
     }
-
     private sealed class InputModel
     {
         [Required]
         [EmailAddress]
         [Display(Name = "Почта")]
         public string Email { get; set; } = "";
-
         [Required]
         [StringLength(100, ErrorMessage = "{0} должно быть не меньше {2} и не больше {1} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; } = "";
-
         [DataType(DataType.Password)]
         [Display(Name = "Повторить пароль")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
         public string ConfirmPassword { get; set; } = "";
-
         [Required]
         [Display(Name = "Фамилия")]
         [StringLength(100, ErrorMessage = "{0} должно быть не меньше {2} и не больше {1} символов.", MinimumLength = 3)]
         public string? LastName { get; set; }
-
         [Required]
         [Display(Name = "Имя")]
         [StringLength(100, ErrorMessage = "{0} должно быть не меньше {2} и не больше {1} символов.", MinimumLength = 3)]
         public string? FirstName { get; set; }
-
         [Display(Name = "Отчество")]
         public string? MiddleName { get; set; }
-
         [Required]
         [Display(Name = "Пол")]
         public int? GenderId { get; set; }
-
         [Required]
         [Display(Name = "Дата рождения")]
-
         public DateTime? DateBirth { get; set; }
-
         [Required]
         [Display(Name = "Дата регистрации")]
-
         public DateTime DateOfRegist { get; set; } = DateTime.Now;
-
         [Required]
         [Display(Name = "Телефон")]
-
         public string? Phone { get; set; }
-
         [Required]
         [Display(Name = "Адрес")]
-
         public string? Address { get; set; }
     }
 }

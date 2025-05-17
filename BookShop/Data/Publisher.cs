@@ -6,9 +6,11 @@ namespace BookShop.Data
     {
         [Key]
         public int PublisherId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Напишите издательство книги")]
         public string PublisherName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Напишите почту для контакта с издательством")]
         public string ContactEmail { get; set; }
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }

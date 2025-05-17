@@ -6,7 +6,8 @@ namespace BookShop.Data
     {
         [Key]
         public int OrderStatusId { get; set; }
-        [Required(ErrorMessage = "Заполните статус заказа")]
+
+        [Required(ErrorMessage = "Заполните название статуса заказа")]
         public string? Status { get; set; }
     }
 }

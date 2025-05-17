@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VcemiBATq4qSrAWAHRQKsP6kD48b1lRtATlneUGARRQ=",
+  "Hash": "eqlXYWtouix57WChMCSoLzua25WepCY13JnPE9Blx8Y=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -16,6 +16,237 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\Chart.min.js",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "Chart.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rd7kpyao0h",
+      "Integrity": "oXym0/eakpOX3RGc8Ae/UEnjfwmgiQy4xLmEVxlcEJE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\Chart.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJSBlazor.css",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ChartJSBlazor.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rxs4m3fo3f",
+      "Integrity": "geIB4uCc7OihJC6PIN/cOPcS5Q8u3PImNhzIpbGXPyM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJSBlazor.css"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ChartJsBlazorInterop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bv7wdkbct1",
+      "Integrity": "KWMl/JBAgOK4lY6IntljZ43oojdzxpzJ8cDPK9PDDWA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js.map",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ChartJsBlazorInterop.js.map",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zyqspy8l5n",
+      "Integrity": "i7hDJAOeEdo49x1b0WP+jT5ntjW6kqDk6pQpFiOXoa0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js.map"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\moment-with-locales.min.js",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "moment-with-locales.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lzs9hmhw5n",
+      "Integrity": "AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\moment-with-locales.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsBlazorInterop.ts",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ts/ChartJsBlazorInterop.ts",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7x216tqnxp",
+      "Integrity": "9YAc/7zqenCGPhUJWk0x0WpSSTRg68AJbixm1HiQn/w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsBlazorInterop.ts"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsInterop.ts",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ts/ChartJsInterop.ts",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k5onokynzw",
+      "Integrity": "CKKno5zikvogS+VOyrtlqJDAV7otVJ4H5iJ2XHqA6FQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsInterop.ts"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\MomentJsInterop.ts",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ts/MomentJsInterop.ts",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "m78t6um9a2",
+      "Integrity": "0my7KUv2Z5NXtY7VknCp/kxTftbjSiXdG1cwcuAsh98=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\MomentJsInterop.ts"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\Chart.min.d.ts",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ts/types/Chart.min.d.ts",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2rnb4e15pm",
+      "Integrity": "AuekiVBNUw2RH02rCPRlUfISK5n0k05W7x6UFjZrfHY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\Chart.min.d.ts"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\moment.d.ts",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "ts/types/moment.d.ts",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "epq59vhuoa",
+      "Integrity": "jtQvfIEjFGqu1MuI8zJVQg8ljAIA24UzQ/88Pwyar8A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\moment.d.ts"
+    },
+    {
+      "Identity": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\tsconfig.json",
+      "SourceId": "ChartJs.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\",
+      "BasePath": "_content/ChartJs.Blazor",
+      "RelativePath": "tsconfig.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ft71q750bt",
+      "Integrity": "LfxvCMuo1G3bD4diavAX3E48eGTYdkXcwNeMGjziNPk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\tsconfig.json"
+    },
     {
       "Identity": "C:\\Users\\1\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.11\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
       "SourceId": "Microsoft.AspNetCore.Components.QuickGrid",
@@ -269,6 +500,27 @@
       "OriginalItemSpec": "wwwroot\\css\\bookdetail.css"
     },
     {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\login.css",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "css/login#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "va9t9u6t67",
+      "Integrity": "V1X0MJwzQ+9ZbkSSPd4/U/Mxpq3EwO3nj2CDNjwmUmo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login.css"
+    },
+    {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
@@ -290,12 +542,12 @@
       "OriginalItemSpec": "wwwroot\\css\\myorders.css"
     },
     {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\regist.css",
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\registration.css",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
       "BasePath": "_content/BookShop",
-      "RelativePath": "css/regist#[.{fingerprint}]?.css",
+      "RelativePath": "css/registration#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -304,11 +556,11 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "xvunbb43tq",
-      "Integrity": "HfObCoEBPCJxma+Uux7ORD08lFZWGLoF+DheO8RPeC0=",
+      "Fingerprint": "ahyv7c2dl0",
+      "Integrity": "TjcW3xCKmcZX4iDH0OUv8eSQCGIyxRNF+WLSdnIYl1c=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\regist.css"
+      "OriginalItemSpec": "wwwroot\\css\\registration.css"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
@@ -416,6 +668,69 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/133f0122-a896-4e18-bfd3-66ce50c8a53a#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pggaknuevz",
+      "Integrity": "J94cShhpBire3YeJRfHul+uLj5z5vQWTA7cUgY7YMMk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/257b0611-4a5b-4cbe-bd45-9afcfa451660#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bhulqlu940",
+      "Integrity": "cYSu6ooE3b/oCZHqWga/QXDsHQ/XXvhi41PDULit7ak=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/39e05eb1-88ee-48b5-b5cd-92cd39d4f90a#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3mphf1xln1",
+      "Integrity": "6/4ujx52HGczA6KG8wvRADmH/71fnoM/X3h4pXz+p8E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg"
+    },
+    {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
@@ -437,12 +752,12 @@
       "OriginalItemSpec": "wwwroot\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg"
     },
     {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вий.jpg",
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
       "BasePath": "_content/BookShop",
-      "RelativePath": "images/Вий#[.{fingerprint}]?.jpg",
+      "RelativePath": "images/7d7d910f-f26f-4976-a218-4ceb9806c89a#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -451,11 +766,53 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "iv5ww53o4j",
-      "Integrity": "QpacAtYsMgz2nhXyacz+j/HyHXRsjrfx2D5eGKhpsic=",
+      "Fingerprint": "2kg79inxon",
+      "Integrity": "bs8PoODp00Hc7HM7z+l9U/hXBUF7eT6mTpi4PWgl2dQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Вий.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/aa5997e4-66ee-4357-b3fe-7679544ec2c3#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0e4iwogv1n",
+      "Integrity": "SNn3tjywd0zQWhngVqGQIXac3PNELED21p4gtPw3D7A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/f1257915-48be-40bf-8f90-aa585bdc1e2e#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j574mvkzsx",
+      "Integrity": "N6/wu7OuLVJ8SAKOiOxl19/JP31A81E5lAT3BdauMYI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Дары смерти.jpg",
@@ -479,27 +836,6 @@
       "OriginalItemSpec": "wwwroot\\images\\ГП Дары смерти.jpg"
     },
     {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Орден Феникса.jpg",
-      "SourceId": "BookShop",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
-      "BasePath": "_content/BookShop",
-      "RelativePath": "images/ГП Орден Феникса#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "u93mxlhylh",
-      "Integrity": "En+KHc4gOzxyYOFsLOL+wZBVgfAmo2jjE+f+bt12W9M=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ГП Орден Феникса.jpg"
-    },
-    {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Кладбище дом. живот.jpg",
       "SourceId": "BookShop",
       "SourceType": "Discovered",
@@ -519,48 +855,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Кладбище дом. живот.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Оно.jpg",
-      "SourceId": "BookShop",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
-      "BasePath": "_content/BookShop",
-      "RelativePath": "images/Оно#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "v25wa2mi8c",
-      "Integrity": "t1MQ6Q8UH8MCgYnW84tNJcOwDmBPEK2U7JV16H2O7Y8=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Оно.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
-      "SourceId": "BookShop",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
-      "BasePath": "_content/BookShop",
-      "RelativePath": "images/Р и Дж#[.{fingerprint}]?.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "yvjvu231uf",
-      "Integrity": "kvMthRo48OGbJJhnAUFl2gigMnnWio4d0OgW7yvOExU=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Р и Дж.jpg"
     },
     {
       "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
@@ -624,9 +918,437 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\visualizeSales.js",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "js/visualizeSales#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j7ev0979xd",
+      "Integrity": "r800w6OCXlMdb089WxbHvETHHh62Ix7XzZxjGaJsQis=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\visualizeSales.js"
     }
   ],
   "Endpoints": [
+    {
+      "Route": "_content/ChartJs.Blazor/Chart.min.js",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\Chart.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "156728"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oXym0/eakpOX3RGc8Ae/UEnjfwmgiQy4xLmEVxlcEJE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-oXym0/eakpOX3RGc8Ae/UEnjfwmgiQy4xLmEVxlcEJE="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ChartJSBlazor.css",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJSBlazor.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "311"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"geIB4uCc7OihJC6PIN/cOPcS5Q8u3PImNhzIpbGXPyM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-geIB4uCc7OihJC6PIN/cOPcS5Q8u3PImNhzIpbGXPyM="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ChartJsBlazorInterop.js",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14050"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KWMl/JBAgOK4lY6IntljZ43oojdzxpzJ8cDPK9PDDWA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KWMl/JBAgOK4lY6IntljZ43oojdzxpzJ8cDPK9PDDWA="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ChartJsBlazorInterop.js.map",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ChartJsBlazorInterop.js.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10494"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"i7hDJAOeEdo49x1b0WP+jT5ntjW6kqDk6pQpFiOXoa0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-i7hDJAOeEdo49x1b0WP+jT5ntjW6kqDk6pQpFiOXoa0="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/moment-with-locales.min.js",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\moment-with-locales.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "336451"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ts/ChartJsBlazorInterop.ts",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsBlazorInterop.ts",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "356"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/vnd.dlna.mpeg-tts"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9YAc/7zqenCGPhUJWk0x0WpSSTRg68AJbixm1HiQn/w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9YAc/7zqenCGPhUJWk0x0WpSSTRg68AJbixm1HiQn/w="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ts/ChartJsInterop.ts",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\ChartJsInterop.ts",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12708"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/vnd.dlna.mpeg-tts"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CKKno5zikvogS+VOyrtlqJDAV7otVJ4H5iJ2XHqA6FQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CKKno5zikvogS+VOyrtlqJDAV7otVJ4H5iJ2XHqA6FQ="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ts/MomentJsInterop.ts",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\MomentJsInterop.ts",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "955"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/vnd.dlna.mpeg-tts"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0my7KUv2Z5NXtY7VknCp/kxTftbjSiXdG1cwcuAsh98=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0my7KUv2Z5NXtY7VknCp/kxTftbjSiXdG1cwcuAsh98="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ts/types/Chart.min.d.ts",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\Chart.min.d.ts",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28123"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/vnd.dlna.mpeg-tts"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AuekiVBNUw2RH02rCPRlUfISK5n0k05W7x6UFjZrfHY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AuekiVBNUw2RH02rCPRlUfISK5n0k05W7x6UFjZrfHY="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/ts/types/moment.d.ts",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\ts\\types\\moment.d.ts",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21967"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "video/vnd.dlna.mpeg-tts"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jtQvfIEjFGqu1MuI8zJVQg8ljAIA24UzQ/88Pwyar8A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jtQvfIEjFGqu1MuI8zJVQg8ljAIA24UzQ/88Pwyar8A="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ChartJs.Blazor/tsconfig.json",
+      "AssetFile": "C:\\Users\\1\\.nuget\\packages\\chartjs.blazor\\1.1.0\\staticwebassets\\tsconfig.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "346"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LfxvCMuo1G3bD4diavAX3E48eGTYdkXcwNeMGjziNPk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 28 Mar 2020 12:53:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LfxvCMuo1G3bD4diavAX3E48eGTYdkXcwNeMGjziNPk="
+        }
+      ]
+    },
     {
       "Route": "_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
       "AssetFile": "C:\\Users\\1\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.11\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
@@ -917,7 +1639,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 10:53:35 GMT"
+          "Value": "Thu, 08 May 2025 08:45:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -966,7 +1688,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 10:53:35 GMT"
+          "Value": "Thu, 08 May 2025 08:45:16 GMT"
         },
         {
           "Name": "Link",
@@ -1011,7 +1733,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 10:53:35 GMT"
+          "Value": "Thu, 08 May 2025 08:45:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1052,7 +1774,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 10:53:35 GMT"
+          "Value": "Thu, 08 May 2025 08:45:16 GMT"
         },
         {
           "Name": "Link",
@@ -1395,6 +2117,88 @@
       ]
     },
     {
+      "Route": "css/login.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\login.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2091"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V1X0MJwzQ+9ZbkSSPd4/U/Mxpq3EwO3nj2CDNjwmUmo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 13 May 2025 11:18:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-V1X0MJwzQ+9ZbkSSPd4/U/Mxpq3EwO3nj2CDNjwmUmo="
+        }
+      ]
+    },
+    {
+      "Route": "css/login.va9t9u6t67.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\login.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2091"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V1X0MJwzQ+9ZbkSSPd4/U/Mxpq3EwO3nj2CDNjwmUmo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 13 May 2025 11:18:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "va9t9u6t67"
+        },
+        {
+          "Name": "label",
+          "Value": "css/login.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-V1X0MJwzQ+9ZbkSSPd4/U/Mxpq3EwO3nj2CDNjwmUmo="
+        }
+      ]
+    },
+    {
       "Route": "css/myorders.css",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
       "Selectors": [],
@@ -1477,8 +2281,8 @@
       ]
     },
     {
-      "Route": "css/regist.css",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\regist.css",
+      "Route": "css/registration.ahyv7c2dl0.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\registration.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1487,7 +2291,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "189"
+          "Value": "2151"
         },
         {
           "Name": "Content-Type",
@@ -1495,48 +2299,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HfObCoEBPCJxma+Uux7ORD08lFZWGLoF+DheO8RPeC0=\""
+          "Value": "\"TjcW3xCKmcZX4iDH0OUv8eSQCGIyxRNF+WLSdnIYl1c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 03 May 2025 14:16:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-HfObCoEBPCJxma+Uux7ORD08lFZWGLoF+DheO8RPeC0="
-        }
-      ]
-    },
-    {
-      "Route": "css/regist.xvunbb43tq.css",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\regist.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "189"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"HfObCoEBPCJxma+Uux7ORD08lFZWGLoF+DheO8RPeC0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 03 May 2025 14:16:55 GMT"
+          "Value": "Tue, 13 May 2025 12:47:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1546,15 +2313,52 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "xvunbb43tq"
+          "Value": "ahyv7c2dl0"
         },
         {
           "Name": "label",
-          "Value": "css/regist.css"
+          "Value": "css/registration.css"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-HfObCoEBPCJxma+Uux7ORD08lFZWGLoF+DheO8RPeC0="
+          "Value": "sha256-TjcW3xCKmcZX4iDH0OUv8eSQCGIyxRNF+WLSdnIYl1c="
+        }
+      ]
+    },
+    {
+      "Route": "css/registration.css",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\registration.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2151"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TjcW3xCKmcZX4iDH0OUv8eSQCGIyxRNF+WLSdnIYl1c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 13 May 2025 12:47:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TjcW3xCKmcZX4iDH0OUv8eSQCGIyxRNF+WLSdnIYl1c="
         }
       ]
     },
@@ -1663,7 +2467,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 14 Apr 2025 08:27:40 GMT"
+          "Value": "Mon, 05 May 2025 09:30:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1700,7 +2504,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 14 Apr 2025 08:27:40 GMT"
+          "Value": "Mon, 05 May 2025 09:30:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1969,6 +2773,252 @@
       ]
     },
     {
+      "Route": "images/133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23364"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J94cShhpBire3YeJRfHul+uLj5z5vQWTA7cUgY7YMMk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 04 May 2025 17:24:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-J94cShhpBire3YeJRfHul+uLj5z5vQWTA7cUgY7YMMk="
+        }
+      ]
+    },
+    {
+      "Route": "images/133f0122-a896-4e18-bfd3-66ce50c8a53a.pggaknuevz.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23364"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J94cShhpBire3YeJRfHul+uLj5z5vQWTA7cUgY7YMMk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 04 May 2025 17:24:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pggaknuevz"
+        },
+        {
+          "Name": "label",
+          "Value": "images/133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-J94cShhpBire3YeJRfHul+uLj5z5vQWTA7cUgY7YMMk="
+        }
+      ]
+    },
+    {
+      "Route": "images/257b0611-4a5b-4cbe-bd45-9afcfa451660.bhulqlu940.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8039"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"cYSu6ooE3b/oCZHqWga/QXDsHQ/XXvhi41PDULit7ak=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bhulqlu940"
+        },
+        {
+          "Name": "label",
+          "Value": "images/257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-cYSu6ooE3b/oCZHqWga/QXDsHQ/XXvhi41PDULit7ak="
+        }
+      ]
+    },
+    {
+      "Route": "images/257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8039"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"cYSu6ooE3b/oCZHqWga/QXDsHQ/XXvhi41PDULit7ak=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-cYSu6ooE3b/oCZHqWga/QXDsHQ/XXvhi41PDULit7ak="
+        }
+      ]
+    },
+    {
+      "Route": "images/39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.3mphf1xln1.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6/4ujx52HGczA6KG8wvRADmH/71fnoM/X3h4pXz+p8E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3mphf1xln1"
+        },
+        {
+          "Name": "label",
+          "Value": "images/39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-6/4ujx52HGczA6KG8wvRADmH/71fnoM/X3h4pXz+p8E="
+        }
+      ]
+    },
+    {
+      "Route": "images/39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6/4ujx52HGczA6KG8wvRADmH/71fnoM/X3h4pXz+p8E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-6/4ujx52HGczA6KG8wvRADmH/71fnoM/X3h4pXz+p8E="
+        }
+      ]
+    },
+    {
       "Route": "images/79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg",
       "Selectors": [],
@@ -2051,8 +3101,8 @@
       ]
     },
     {
-      "Route": "images/Вий.iv5ww53o4j.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вий.jpg",
+      "Route": "images/7d7d910f-f26f-4976-a218-4ceb9806c89a.2kg79inxon.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2061,7 +3111,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10158"
+          "Value": "10580"
         },
         {
           "Name": "Content-Type",
@@ -2069,11 +3119,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QpacAtYsMgz2nhXyacz+j/HyHXRsjrfx2D5eGKhpsic=\""
+          "Value": "\"bs8PoODp00Hc7HM7z+l9U/hXBUF7eT6mTpi4PWgl2dQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:36:58 GMT"
+          "Value": "Mon, 05 May 2025 09:26:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2083,21 +3133,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "iv5ww53o4j"
+          "Value": "2kg79inxon"
         },
         {
           "Name": "label",
-          "Value": "images/Вий.jpg"
+          "Value": "images/7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-QpacAtYsMgz2nhXyacz+j/HyHXRsjrfx2D5eGKhpsic="
+          "Value": "sha256-bs8PoODp00Hc7HM7z+l9U/hXBUF7eT6mTpi4PWgl2dQ="
         }
       ]
     },
     {
-      "Route": "images/Вий.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вий.jpg",
+      "Route": "images/7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2106,7 +3156,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10158"
+          "Value": "10580"
         },
         {
           "Name": "Content-Type",
@@ -2114,11 +3164,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QpacAtYsMgz2nhXyacz+j/HyHXRsjrfx2D5eGKhpsic=\""
+          "Value": "\"bs8PoODp00Hc7HM7z+l9U/hXBUF7eT6mTpi4PWgl2dQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:36:58 GMT"
+          "Value": "Mon, 05 May 2025 09:26:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2128,7 +3178,171 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-QpacAtYsMgz2nhXyacz+j/HyHXRsjrfx2D5eGKhpsic="
+          "Value": "sha256-bs8PoODp00Hc7HM7z+l9U/hXBUF7eT6mTpi4PWgl2dQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/aa5997e4-66ee-4357-b3fe-7679544ec2c3.0e4iwogv1n.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11825"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SNn3tjywd0zQWhngVqGQIXac3PNELED21p4gtPw3D7A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0e4iwogv1n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SNn3tjywd0zQWhngVqGQIXac3PNELED21p4gtPw3D7A="
+        }
+      ]
+    },
+    {
+      "Route": "images/aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11825"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SNn3tjywd0zQWhngVqGQIXac3PNELED21p4gtPw3D7A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 05 May 2025 09:26:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SNn3tjywd0zQWhngVqGQIXac3PNELED21p4gtPw3D7A="
+        }
+      ]
+    },
+    {
+      "Route": "images/f1257915-48be-40bf-8f90-aa585bdc1e2e.j574mvkzsx.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14760"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"N6/wu7OuLVJ8SAKOiOxl19/JP31A81E5lAT3BdauMYI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 04 May 2025 17:22:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j574mvkzsx"
+        },
+        {
+          "Name": "label",
+          "Value": "images/f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-N6/wu7OuLVJ8SAKOiOxl19/JP31A81E5lAT3BdauMYI="
+        }
+      ]
+    },
+    {
+      "Route": "images/f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14760"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"N6/wu7OuLVJ8SAKOiOxl19/JP31A81E5lAT3BdauMYI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 04 May 2025 17:22:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-N6/wu7OuLVJ8SAKOiOxl19/JP31A81E5lAT3BdauMYI="
         }
       ]
     },
@@ -2215,88 +3429,6 @@
       ]
     },
     {
-      "Route": "images/ГП Орден Феникса.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Орден Феникса.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10957"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"En+KHc4gOzxyYOFsLOL+wZBVgfAmo2jjE+f+bt12W9M=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:35:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-En+KHc4gOzxyYOFsLOL+wZBVgfAmo2jjE+f+bt12W9M="
-        }
-      ]
-    },
-    {
-      "Route": "images/ГП Орден Феникса.u93mxlhylh.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Орден Феникса.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10957"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"En+KHc4gOzxyYOFsLOL+wZBVgfAmo2jjE+f+bt12W9M=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:35:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "u93mxlhylh"
-        },
-        {
-          "Name": "label",
-          "Value": "images/ГП Орден Феникса.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-En+KHc4gOzxyYOFsLOL+wZBVgfAmo2jjE+f+bt12W9M="
-        }
-      ]
-    },
-    {
       "Route": "images/Кладбище дом. живот.jpg",
       "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Кладбище дом. живот.jpg",
       "Selectors": [],
@@ -2375,170 +3507,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-bm2ukj8ngPbMvpE1eBDifVQ1Qp6SsqH2VU14VGDnXaE="
-        }
-      ]
-    },
-    {
-      "Route": "images/Оно.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Оно.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "9883"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"t1MQ6Q8UH8MCgYnW84tNJcOwDmBPEK2U7JV16H2O7Y8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:29:26 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-t1MQ6Q8UH8MCgYnW84tNJcOwDmBPEK2U7JV16H2O7Y8="
-        }
-      ]
-    },
-    {
-      "Route": "images/Оно.v25wa2mi8c.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Оно.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "9883"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"t1MQ6Q8UH8MCgYnW84tNJcOwDmBPEK2U7JV16H2O7Y8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:29:26 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "v25wa2mi8c"
-        },
-        {
-          "Name": "label",
-          "Value": "images/Оно.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-t1MQ6Q8UH8MCgYnW84tNJcOwDmBPEK2U7JV16H2O7Y8="
-        }
-      ]
-    },
-    {
-      "Route": "images/Р и Дж.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "232606"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"kvMthRo48OGbJJhnAUFl2gigMnnWio4d0OgW7yvOExU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:42:15 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-kvMthRo48OGbJJhnAUFl2gigMnnWio4d0OgW7yvOExU="
-        }
-      ]
-    },
-    {
-      "Route": "images/Р и Дж.yvjvu231uf.jpg",
-      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "232606"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"kvMthRo48OGbJJhnAUFl2gigMnnWio4d0OgW7yvOExU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 06 Jan 2025 10:42:15 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "yvjvu231uf"
-        },
-        {
-          "Name": "label",
-          "Value": "images/Р и Дж.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-kvMthRo48OGbJJhnAUFl2gigMnnWio4d0OgW7yvOExU="
         }
       ]
     },
@@ -2785,6 +3753,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-PqtZvNGqlAuJbW8OJ0BUWfMpfvcYa/BpZWBlL5iERAk="
+        }
+      ]
+    },
+    {
+      "Route": "js/visualizeSales.j7ev0979xd.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\visualizeSales.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"r800w6OCXlMdb089WxbHvETHHh62Ix7XzZxjGaJsQis=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 09:35:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j7ev0979xd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/visualizeSales.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-r800w6OCXlMdb089WxbHvETHHh62Ix7XzZxjGaJsQis="
+        }
+      ]
+    },
+    {
+      "Route": "js/visualizeSales.js",
+      "AssetFile": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\visualizeSales.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"r800w6OCXlMdb089WxbHvETHHh62Ix7XzZxjGaJsQis=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 09:35:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-r800w6OCXlMdb089WxbHvETHHh62Ix7XzZxjGaJsQis="
         }
       ]
     }

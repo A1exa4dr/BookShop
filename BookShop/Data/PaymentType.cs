@@ -6,8 +6,9 @@ namespace BookShop.Data
     {
         [Key]
         public int PaymentTypeId { get; set; }
-        [Required]
-        public string Name { get; set; } // Например: "Наличные", "Карта", "Онлайн"
+
+        [Required(ErrorMessage = "Напишите название типа оплаты")]
+        public string Name { get; set; } 
 
         // Навигационное свойство
         public ICollection<Order> Orders { get; set; } = new List<Order>();

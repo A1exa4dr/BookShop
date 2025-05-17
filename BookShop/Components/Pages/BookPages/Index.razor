@@ -179,8 +179,8 @@
         .Include(b => b.Genre)
         .Include(b => b.Supplier)
         .Where(b => (string.IsNullOrEmpty(titleFilter) ||
-                     b.Title.Contains(titleFilter.ToLower()) ||
-                     b.Author.AuthorName.Contains(titleFilter.ToLower())) && // Добавляем поиск по автору
+                     b.Title.Contains(titleFilter) ||
+                     b.Author.AuthorName.Contains(titleFilter)) && // Добавляем поиск по автору
                     (string.IsNullOrEmpty(selectedGenre) || b.Genre.GenreId.ToString() == selectedGenre) &&
                     (!maxPrice.HasValue || b.Price <= maxPrice)); // Фильтрация по цене
 

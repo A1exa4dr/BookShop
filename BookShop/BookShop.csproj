@@ -8,6 +8,7 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Chart.js" Version="3.7.1" />
+		<PackageReference Include="ChartJs.Blazor" Version="1.1.0" />
 		<PackageReference Include="ClosedXML" Version="0.104.2" />
 		<PackageReference Include="EPPlus" Version="8.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.11" />

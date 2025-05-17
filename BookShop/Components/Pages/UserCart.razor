@@ -1,6 +1,7 @@
 ﻿@page "/usercart"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
+@inject IJSRuntime JsRuntime
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @attribute [Authorize(Roles = "Client")]
@@ -42,7 +43,7 @@ else
                     <td>
                         @if (!string.IsNullOrEmpty(item.Book.ImageUrl))
                         {
-                            <img src="@item.Book.ImageUrl" alt="Фото книги" style="max-width: 100px; max-height: 100px;" />
+                            <img src="@item.Book.ImageUrl" alt="Фото книги" style="max-width: 130px; max-height: 180px;" />
                         }
                         else
                         {
@@ -185,6 +186,10 @@ else
 
     private async Task RemoveFromCart(CartItem item)
     {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", $"Вы уверены, что хотите удалить книгу \"{item.Book.Title}\" из корзины?");
+        if (!confirmed)
+            return;
+
         using var context = DbFactory.CreateDbContext();
 
         var cartItem = await context.CartItems
@@ -198,6 +203,7 @@ else
 
         await LoadCartItems();
     }
+
 
     private async Task UpdateQuantity(CartItem item, int newQuantity)
     {

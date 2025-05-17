@@ -25,12 +25,16 @@
       "PackagePath": "staticwebassets\\css\\bookdetail.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\myorders.css",
       "PackagePath": "staticwebassets\\css\\myorders.css"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\regist.css",
-      "PackagePath": "staticwebassets\\css\\regist.css"
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\registration.css",
+      "PackagePath": "staticwebassets\\css\\registration.css"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\reports.css",
@@ -53,32 +57,40 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg",
+      "PackagePath": "staticwebassets\\images\\133f0122-a896-4e18-bfd3-66ce50c8a53a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg",
+      "PackagePath": "staticwebassets\\images\\257b0611-4a5b-4cbe-bd45-9afcfa451660.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg",
+      "PackagePath": "staticwebassets\\images\\39e05eb1-88ee-48b5-b5cd-92cd39d4f90a.jpg"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg",
       "PackagePath": "staticwebassets\\images\\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вий.jpg",
-      "PackagePath": "staticwebassets\\images\\Вий.jpg"
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg",
+      "PackagePath": "staticwebassets\\images\\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg",
+      "PackagePath": "staticwebassets\\images\\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg",
+      "PackagePath": "staticwebassets\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Дары смерти.jpg",
       "PackagePath": "staticwebassets\\images\\ГП Дары смерти.jpg"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Орден Феникса.jpg",
-      "PackagePath": "staticwebassets\\images\\ГП Орден Феникса.jpg"
-    },
-    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Кладбище дом. живот.jpg",
       "PackagePath": "staticwebassets\\images\\Кладбище дом. живот.jpg"
-    },
-    {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Оно.jpg",
-      "PackagePath": "staticwebassets\\images\\Оно.jpg"
-    },
-    {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Р и Дж.jpg",
-      "PackagePath": "staticwebassets\\images\\Р и Дж.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\chart.js",
@@ -91,6 +103,10 @@
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\visualizeSales.js",
+      "PackagePath": "staticwebassets\\js\\visualizeSales.js"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookShop.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

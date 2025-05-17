@@ -2,6 +2,7 @@
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
 @using System.Security.Claims
+@inject IJSRuntime JsRuntime
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -57,7 +58,8 @@ else
                     <AuthorizeView Roles="Client">
                         <td>
                             <button class="btn btn-success" @onclick="() => AddToCartFromWishlist(wishlist.Book)">В корзину</button>
-                            <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a>
+                            <button class="btn btn-danger" @onclick="() => ConfirmRemoveFromWishlist(wishlist)">Удалить</button>
+                            @* <a href="@($"wishlists/delete?userid={wishlist.UserId}")" class="btn btn-danger">Удалить</a> *@
                         </td>
                     </AuthorizeView>
                 </tr>
@@ -118,6 +120,37 @@ else
             Console.WriteLine($"Ошибка: {ex.Message}");
         }
     }
+
+    private async Task ConfirmRemoveFromWishlist(Wishlist wishlist)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", $"Вы уверены, что хотите удалить книгу \"{wishlist.Book.Title}\" из избранного?");
+        if (!confirmed)
+            return;
+
+        try
+        {
+            using var context = DbFactory.CreateDbContext();
+
+            var wishlistItem = await context.Wishlists
+                .FirstOrDefaultAsync(w => w.UserId == wishlist.UserId && w.BookId == wishlist.BookId);
+
+            if (wishlistItem != null)
+            {
+                context.Wishlists.Remove(wishlistItem);
+                await context.SaveChangesAsync();
+
+                // Обновляем локальный список без перезагрузки
+                wishlists?.Remove(wishlist);
+                StateHasChanged(); // Обновление интерфейса
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при удалении из избранного: {ex.Message}");
+        }
+    }
+
+
     private async Task AddToCartFromWishlist(Book book)
     {
         try
