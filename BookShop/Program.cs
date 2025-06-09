@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +66,18 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 
 var app = builder.Build();
+
+//////////
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        context.Response.Redirect("/books");
+        return;
+    }
+
+    await next();
+});
 
 //+++ register seeding
 await using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateAsyncScope();

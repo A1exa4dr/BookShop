@@ -1,8 +1,10 @@
-﻿@page "/myorders/{UserId}"
+﻿@page "/myorders"
 @using Microsoft.EntityFrameworkCore
 @using BookShop.Data
+@using Microsoft.AspNetCore.Components.Authorization
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
 @attribute [Authorize(Roles = "Client")]
 
 <PageTitle>Мои заказы</PageTitle>
@@ -12,7 +14,11 @@
 
 <button class="btn btn-primary" @onclick="GoToCatalog">Вернуться в каталог</button>
 
-@if (userOrders == null || !userOrders.Any())
+@if (userOrders == null)
+{
+    <p>Загрузка заказов...</p>
+}
+else if (!userOrders.Any())
 {
     <p>У вас нет заказов.</p>
 }
@@ -66,23 +72,36 @@ else
 }
 
 @code {
-    [Parameter]
-    public string UserId { get; set; } = string.Empty;
-
     private List<Order> userOrders = new();
-    private HashSet<int> expandedOrderIds = new(); // Список ID раскрытых заказов
+    private HashSet<int> expandedOrderIds = new();
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (!user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+            return;
+        }
+
+        var userId = user.FindFirst(c => c.Type == "sub" || c.Type.Contains("nameidentifier"))?.Value;
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return;
+        }
+
         using var context = DbFactory.CreateDbContext();
 
         userOrders = await context.Orders
-            .Include(o => o.OrderStatus) // Статус заказа
+            .Include(o => o.OrderStatus)
             .Include(o => o.PaymentType)
             .Include(o => o.OrderDetails)
-                .ThenInclude(od => od.Book) // Информация о книгах
-            .Where(o => o.UserId == UserId)
-            .OrderByDescending(o => o.OrderDate) // Сортировка по дате заказа
+                .ThenInclude(od => od.Book)
+            .Where(o => o.UserId == userId)
+            .OrderByDescending(o => o.OrderDate)
             .ToListAsync();
     }
 
@@ -90,11 +109,11 @@ else
     {
         if (expandedOrderIds.Contains(orderId))
         {
-            expandedOrderIds.Remove(orderId); // Скрыть детали
+            expandedOrderIds.Remove(orderId);
         }
         else
         {
-            expandedOrderIds.Add(orderId); // Показать детали
+            expandedOrderIds.Add(orderId);
         }
     }
 
@@ -105,10 +124,9 @@ else
 
     private bool CanCancelOrder(Order order)
     {
-        // Заказ можно отменить, если его статус не "Доставлен" и не "В пути" или "Отменен"
-        return order.OrderStatus.Status != "Доставлен" &&
-               order.OrderStatus.Status != "В пути" &&
-               order.OrderStatus.Status != "Отменен";
+        return order.OrderStatus.Status != "Доставлен"
+            && order.OrderStatus.Status != "В пути"
+            && order.OrderStatus.Status != "Отменен";
     }
 
     private async Task CancelOrder(int orderId)
@@ -121,18 +139,17 @@ else
 
         if (order != null && CanCancelOrder(order))
         {
-            // Находим статус "Отменен" в базе данных
             var canceledStatus = await context.OrderStatuses
                 .FirstOrDefaultAsync(os => os.Status == "Отменен");
 
             if (canceledStatus != null)
             {
-                order.OrderStatusId = canceledStatus.OrderStatusId; // Изменяем статус заказа
-                await context.SaveChangesAsync(); // Сохраняем изменения
+                order.OrderStatusId = canceledStatus.OrderStatusId;
+                await context.SaveChangesAsync();
             }
-        }
 
-        // Обновляем список заказов
-        await OnParametersSetAsync();
+            // Обновляем список заказов
+            await OnInitializedAsync();
+        }
     }
 }

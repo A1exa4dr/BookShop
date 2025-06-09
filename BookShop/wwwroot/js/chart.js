@@ -1,40 +1,29 @@
-﻿function createLineChart(canvasId, labels, data) {
-    console.log("Creating line chart for canvas:", canvasId);
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) {
-        console.error("Canvas element not found:", canvasId);
-        return;
+﻿function drawSalesChart(labels, data) {
+    const ctx = document.getElementById('salesChart').getContext('2d');
+if (window.salesChart) {
+    window.salesChart.destroy(); // Очистка предыдущей диаграммы
     }
-    const ctx = canvas.getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Продажи ($)',
-                data: data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false,
-                tension: 0.1
+window.salesChart = new Chart(ctx, {
+    type: 'line',
+data: {
+    labels: labels,
+datasets: [{
+    label: 'Продажи за день',
+                data: data.map(v => parseFloat(v)),
+fill: false,
+borderColor: 'rgb(75, 192, 192)',
+tension: 0.1
             }]
         },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Дата'
-                    }
+options: {
+    responsive: true,
+plugins: {
+    legend: {
+    position: 'top'
                 },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Сумма продаж ($)'
-                    }
+title: {
+    display: true,
+text: 'Диаграмма продаж по дням'
                 }
             }
         }

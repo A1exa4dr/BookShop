@@ -131,7 +131,7 @@
                         <p><strong>Цена:</strong> @book.Price.ToString("C0")</p>
                     </div>
                     <div class="book-actions">
-                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Описание</a>
+                        <a href="@($"books/details?bookid={book.BookId}")" class="btn btn-info action-button">Подробнее</a>
                         @if (book.StockQuantity > 0)
                         {
                             <button @onclick="() => AddToCart(book)" class="btn btn-danger action-button">Добавить в корзину</button>
@@ -186,30 +186,26 @@
 
     private void GoToOrders()
     {
-        var authState = AuthenticationStateProvider.GetAuthenticationStateAsync().Result;
-        var user = authState.User;
+        NavigationManager.NavigateTo("/myorders");
+        // var authState = AuthenticationStateProvider.GetAuthenticationStateAsync().Result;
+        // var user = authState.User;
 
-        if (user.Identity?.IsAuthenticated == true)
-        {
-            using var db = DbFactory.CreateDbContext();
-            var userId = db.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
+        // if (user.Identity?.IsAuthenticated == true)
+        // {
+        //     using var db = DbFactory.CreateDbContext();
+        //     var userId = db.Users.FirstOrDefault(u => u.UserName == user.Identity.Name)?.Id;
 
-            if (!string.IsNullOrEmpty(userId))
-            {
-                NavigationManager.NavigateTo($"/myorders/{userId}");
-            }
-        }
+        //     if (!string.IsNullOrEmpty(userId))
+        //     {
+        //         NavigationManager.NavigateTo($"/myorders/{userId}");
+        //     }
+        // }
     }
 
     private void GoToCart()
     {
         NavigationManager.NavigateTo("/usercart");
     }
-
-    // private void NavigateToDetails(int bookId)
-    // {
-    //     NavigationManager.NavigateTo($"/books/details?bookid={bookId}");
-    // }
 
     private async Task AddToCart(Book book)
     {

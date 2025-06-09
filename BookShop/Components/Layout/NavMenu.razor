@@ -15,15 +15,15 @@
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/books" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Каталог
+                <span class="bi-book-fill fs-5 me-2" aria-hidden="true"></span> Каталог
             </NavLink>
         </div>
 
         <AuthorizeView Roles="Client">
         <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/usercart">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Моя корзина
-            </NavLink>
+                    <span class="bi-cart-fill fs-5 me-2" aria-hidden="true"></span> Моя корзина
+                </NavLink>
         </div>
 
         </AuthorizeView>
@@ -31,7 +31,13 @@
         <AuthorizeView Roles="Client, Admin">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/wishlists">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Избранное
+                    <span class="bi-bookmark-fill fs-5 me-2" aria-hidden="true"></span> Избранное
+                </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/contact">
+                    <span class="bi-info-circle-fill fs-5 me-2" aria-hidden="true"></span> Контакты
             </NavLink>
         </div>
         </AuthorizeView>
@@ -40,97 +46,79 @@
 
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/users">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Пользователи
+                    <span class="bi-people-fill fs-5 me-2" aria-hidden="true"></span> Пользователи
                 </NavLink>
             </div>
 
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/carts">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Корзина
+                    <span class="bi-cart-fill fs-5 me-2" aria-hidden="true"></span> Корзины
                 </NavLink>
             </div>
 
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/reviews">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Отзывы
+                    <span class="bi-chat-text fs-5 me-2" aria-hidden="true"></span> Отзывы
                 </NavLink>
             </div>
 
-@*         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/cartitems">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Корзина книг
-            </NavLink>
-        </div> *@
-
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/authors">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Авторы книг
+                    <span class="bi-database-fill-add fs-5 me-2" aria-hidden="true"></span> Авторы книг
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/genres">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Жанры
+                    <span class="bi-database-fill-add fs-5 me-2" aria-hidden="true"></span> Жанры
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/publishers">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Издательства
+                    <span class="bi-database-fill-add fs-5 me-2" aria-hidden="true"></span> Издательства
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/paymenttypes">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Тип оплаты
+                    <span class="bi-database-fill-add fs-5 me-2" aria-hidden="true"></span> Тип оплаты
             </NavLink>
         </div>
 
-        @* <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/genders">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Пол
-            </NavLink>
-        </div> *@
-
         <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/orderstatuses">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Статус заказа
+                    <span class="bi-database-fill-add fs-5 me-2" aria-hidden="true"></span> Статус заказа
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/orders">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Заказы
+                    <span class="bi-bag fs-5 me-2" aria-hidden="true"></span> Заказы
             </NavLink>
         </div>
 
-        @* <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/orderdetails">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Детали заказаа
-            </NavLink>
-        </div> *@
-
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/suppliers">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Поставщики
+                    <span class="bi-truck fs-5 me-2" aria-hidden="true"></span> Поставщики
         </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/exportexcel">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Экспорт
+                    <span class="bi-file-spreadsheet fs-5 me-2" aria-hidden="true"></span> Экспорт
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/importexcel">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Импорт
+                    <span class="bi-cloud-upload fs-5 me-2" aria-hidden="true"></span> Импорт
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/reports">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Отчеты
+                    <span class="bi-bar-chart-line fs-5 me-2" aria-hidden="true"></span> Отчеты
             </NavLink>
         </div>
         </AuthorizeView>
@@ -139,12 +127,12 @@
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
             </NavLink>
         </div> *@
-
+        
         <AuthorizeView>
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
+                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> Личный кабинет
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">

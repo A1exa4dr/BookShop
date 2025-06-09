@@ -346,3 +346,6 @@ C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\System.Security.Crypt
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\ChartJs.Blazor.dll
+C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Blazorise.dll
+C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Blazorise.Icons.FontAwesome.dll
+C:\Users\1\source\repos\BookShop\BookShop\bin\Debug\net8.0\Blazorise.Licensing.dll
