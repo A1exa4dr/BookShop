@@ -81,3 +81,9 @@ button.btn {
     font-weight: bold;
     margin-bottom: 15px;
 }
+.chart-container {
+    margin-top: 2rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+}

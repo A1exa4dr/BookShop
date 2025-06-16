@@ -48,15 +48,16 @@ else
                     </select>
                     <ValidationMessage For="() => Order.OrderStatusId" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button> |
+                <a href="/orders" class="btn btn-secondary">Обратно к списку заказов</a>
             </EditForm>
         </div>
     </div>
 }
 
-<div>
+@* <div>
     <a href="/orders">Обратно к списку заказов</a>
-</div>
+</div> *@
 
 @code {
     [SupplyParameterFromQuery]

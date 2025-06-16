@@ -6,6 +6,7 @@ wwwroot\css\bookdetail.css
 wwwroot\css\contact.css
 wwwroot\css\login.css
 wwwroot\css\myorders.css
+wwwroot\css\orders.css
 wwwroot\css\registration.css
 wwwroot\css\reports.css
 wwwroot\css\usercart.css
@@ -19,9 +20,11 @@ wwwroot\images\79a7e711-29cd-4e33-a5aa-4585f43c9a78.jpg
 wwwroot\images\7d7d910f-f26f-4976-a218-4ceb9806c89a.jpg
 wwwroot\images\aa5997e4-66ee-4357-b3fe-7679544ec2c3.jpg
 wwwroot\images\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg
+wwwroot\images\Вокруг света 80 дн.jpg
 wwwroot\images\ГП Дары смерти.jpg
+wwwroot\images\Дюна.jpg
 wwwroot\images\Кладбище дом. живот.jpg
 wwwroot\js\chart.js
+wwwroot\js\download.js
 wwwroot\js\openfile.js
-wwwroot\js\site.js
 wwwroot\js\visualizeSales.js

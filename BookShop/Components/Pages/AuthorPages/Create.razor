@@ -21,14 +21,12 @@
                 <InputText id="authorname" @bind-Value="Author.AuthorName" class="form-control" /> 
                 <ValidationMessage For="() => Author.AuthorName" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">Добавить</button> |
+            <a href="/authors" class="btn btn-secondary">Обратно к списку авторов</a>
         </EditForm>
     </div>
 </div>
 
-<div>
-    <a href="/authors" class="btn btn-secondary">Обратно к списку авторов</a>
-</div>
 
 @code {
     [SupplyParameterFromForm]

@@ -21,14 +21,15 @@
                 <InputText id="name" @bind-Value="Genre.Name" class="form-control" /> 
                 <ValidationMessage For="() => Genre.Name" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">Добавить</button> |
+            <a href="/genres" class="btn btn-secondary">Обратно к списку жанров</a>
         </EditForm>
     </div>
 </div>
 
-<div>
+@* <div>
     <a href="/genres" class="btn btn-secondary">Обратно к списку жанров</a>
-</div>
+</div> *@
 
 @code {
     [SupplyParameterFromForm]

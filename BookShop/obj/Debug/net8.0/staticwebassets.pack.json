@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\css\\myorders.css"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\orders.css",
+      "PackagePath": "staticwebassets\\css\\orders.css"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\css\\registration.css",
       "PackagePath": "staticwebassets\\css\\registration.css"
     },
@@ -89,8 +93,16 @@
       "PackagePath": "staticwebassets\\images\\f1257915-48be-40bf-8f90-aa585bdc1e2e.jpg"
     },
     {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Вокруг света 80 дн.jpg",
+      "PackagePath": "staticwebassets\\images\\Вокруг света 80 дн.jpg"
+    },
+    {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\ГП Дары смерти.jpg",
       "PackagePath": "staticwebassets\\images\\ГП Дары смерти.jpg"
+    },
+    {
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Дюна.jpg",
+      "PackagePath": "staticwebassets\\images\\Дюна.jpg"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\images\\Кладбище дом. живот.jpg",
@@ -101,12 +113,12 @@
       "PackagePath": "staticwebassets\\js\\chart.js"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",
-      "PackagePath": "staticwebassets\\js\\openfile.js"
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\download.js",
+      "PackagePath": "staticwebassets\\js\\download.js"
     },
     {
-      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
+      "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\openfile.js",
+      "PackagePath": "staticwebassets\\js\\openfile.js"
     },
     {
       "Id": "C:\\Users\\1\\source\\repos\\BookShop\\BookShop\\wwwroot\\js\\visualizeSales.js",

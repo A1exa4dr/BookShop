@@ -15,7 +15,7 @@
     <a href="cartitems/create">Create New</a>
 </p> *@
 <p>
-    <a href="carts">Возврат к списку корзин</a>
+    <a href="carts" class="btn btn-secondary">Возврат к списку корзин</a>
 </p>
 <QuickGrid Class="table" Items="context.CartItems.Include(ci => ci.Book).Where(t=>t.CartId==CartId)">
     <PropertyColumn Property="cartitem => cartitem.CartId" />

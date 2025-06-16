@@ -20,14 +20,15 @@
                 <InputText id="status" @bind-Value="OrderStatus.Status" class="form-control" /> 
                 <ValidationMessage For="() => OrderStatus.Status" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">Добавить</button> |
+            <a href="/orderstatuses" class="btn btn-secondary">Назад к списку</a>
         </EditForm>
     </div>
 </div>
 
-<div>
+@* <div>
     <a href="/orderstatuses" class="btn btn-secondary">Назад к списку</a>
-</div>
+</div> *@
 
 @code {
     [SupplyParameterFromForm]

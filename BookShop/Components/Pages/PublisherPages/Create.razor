@@ -26,14 +26,15 @@
                 <InputText id="contactemail" @bind-Value="Publisher.ContactEmail" class="form-control" /> 
                 <ValidationMessage For="() => Publisher.ContactEmail" class="text-danger" /> 
             </div>        
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">Добавить</button> |
+            <a href="/publishers" class="btn btn-secondary">Обратно к списку издательств</a>
         </EditForm>
     </div>
 </div>
 
-<div>
+@* <div>
     <a href="/publishers" class="btn btn-secondary">Обратно к списку издательств</a>
-</div>
+</div> *@
 
 @code {
     [SupplyParameterFromForm]

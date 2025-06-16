@@ -8,35 +8,92 @@
 @attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Заказы</PageTitle>
+<link href="css/orders.css" rel="stylesheet">
 
 <h1>Заказы</h1>
 
-@* <p>
-    <a href="orders/create">Create New</a>
-</p> *@
+<div class="dashboard">
+    <div class="stat-box">
+        <i class="fas fa-shopping-cart icon"></i>
+        <div>
+            <h3>Всего заказов</h3>
+            <p>@OrderCount</p>
+        </div>
+    </div>
+    <div class="stat-box">
+        <i class="fas fa-ruble-sign icon"></i>
+        <div>
+            <h3>Общая сумма</h3>
+            <p>@TotalSum.ToString("C")</p>
+        </div>
+    </div>
+    <div class="stat-box">
+        <i class="fas fa-book icon"></i>
+        <div>
+            <h3>Количество книг</h3>
+            <p>@BookCount</p>
+        </div>
+    </div>
+    <div class="stat-box">
+        <i class="fas fa-users icon"></i>
+        <div>
+            <h3>Пользователей</h3>
+            <p>@UserCount</p>
+        </div>
+    </div>
+</div>
 
-<QuickGrid Class="table" Items="context.Orders.Include(ci => ci.OrderStatus).Include(ci => ci.PaymentType)">
-    <PropertyColumn Property="order => order.UserId" Title="Пользователь"/>
-    <PropertyColumn Property="order => order.OrderDate" Title="Дата заказа" Sortable="true"/>
-    <PropertyColumn Property="order => order.TotalAmount" Title="Сумма заказа" Sortable="true"/>
+
+<QuickGrid Class="table" Items="context.Orders" Pagination="pagination">
+    <PropertyColumn Property="order => order.User.Email" Title="Пользователь" />
+    <PropertyColumn Property="order => order.OrderDate" Title="Дата заказа" Sortable="true" />
+    <PropertyColumn Property="order => order.TotalAmount" Title="Сумма заказа" />
     <PropertyColumn Property="order => order.DeliveryAddress" Title="Адрес доставки" />
-    <PropertyColumn Property="order => order.OrderStatus.Status" Title="Статус заказа" />
+    <PropertyColumn Property="order => order.OrderStatus.Status" Title="Статус заказа" Sortable="true" />
     <PropertyColumn Property="order => order.PaymentType.Name" Title="Тип оплаты" />
 
     <TemplateColumn Context="order">
         <a href="@($"orderdetails?orderid={order.OrderId}")" class="btn btn-info">Детали заказа</a> |
-        <a href="@($"orders/edit?orderid={order.OrderId}")" class="btn btn-warning">Редактировать</a> 
-        @* <a href="@($"orders/details?orderid={order.OrderId}")">Описание</a> | *@
-        @* <a href="@($"orders/delete?orderid={order.OrderId}")">Удалить</a> *@
+        <a href="@($"orders/edit?orderid={order.OrderId}")" class="btn btn-warning">Редактировать</a>
     </TemplateColumn>
 </QuickGrid>
+<Paginator State="pagination" />
 
 @code {
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
     private ApplicationDbContext context = default!;
+    private List<Order> orders = new();
+    // Для дашборда
+    private int OrderCount;
+    private double TotalSum;
+    private int BookCount;
+    private int UserCount;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         context = DbFactory.CreateDbContext();
+        orders = await context.Orders
+            .Include(o => o.OrderStatus)
+            .Include(o => o.PaymentType)
+            .Include(o => o.User)
+            .ToListAsync();
+
+        OrderCount = await context.Orders.CountAsync();
+
+        // Приводим decimal к double для Sum, чтобы избежать ошибки SQLite
+        TotalSum = await context.Orders
+            .Select(o => (double)o.TotalAmount)
+            .SumAsync();
+
+        // Количество книг — сумма всех Quantity в деталях заказов
+        BookCount = await context.OrderDetails
+            .SumAsync(od => od.Quantity);
+
+        // Количество уникальных пользователей, сделавших заказ
+        UserCount = await context.Orders
+            .Select(o => o.UserId)
+            .Distinct()
+            .CountAsync();
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();

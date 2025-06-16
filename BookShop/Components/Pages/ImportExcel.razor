@@ -22,7 +22,6 @@
 else
 {
     <ul>
-        <div>Количество импортированных полов: @genderRefs.Count()</div>
         <div>Количество импортированных пользователей: @userRefs.Count()</div>
         <div>Количество импортированных авторов: @authorRefs.Count()</div>
         <div>Количество импортированных издателей: @publisherRefs.Count()</div>
@@ -45,7 +44,6 @@ else
 }
 @code {
     ApplicationDbContext context = default!;
-    List<GenderRef> genderRefs = new List<GenderRef>();
     List<ApplicationUserRef> userRefs = new List<ApplicationUserRef>();
     List<AuthorRef> authorRefs = new List<AuthorRef>();
     List<PublisherRef> publisherRefs = new List<PublisherRef>();
@@ -109,25 +107,7 @@ else
                 {
                     errworksheet = worksheet.Name;
 
-                    if (worksheet.Name == "Gender")
-                    {
-                        foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
-                        {
-                            errindexrow++;
-                            Gender gender = new Gender
-                                {
-                                    GenderName = row.Cell(2).Value.ToString()
-                                };
-                            await context.Genders.AddAsync(gender);
-                            await context.SaveChangesAsync();
-                            genderRefs.Add(new GenderRef
-                                {
-                                    GenderRefDB = gender.Id,
-                                    GenderRefExcel = int.Parse(row.Cell(1).Value.ToString())
-                                });
-                        }
-                    }
-                    else if (worksheet.Name == "User")
+                    if (worksheet.Name == "User")
                     {
                         foreach (IXLRow row in worksheet.RowsUsed().Skip(1))
                         {
@@ -431,14 +411,6 @@ else
 
     private void ClearDataOnError()
     {
-        foreach (var genderRef in genderRefs)
-        {
-            var gender = context.Genders.FirstOrDefault(g => g.Id == genderRef.GenderRefDB);
-            if (gender != null) context.Genders.Remove(gender);
-            context.SaveChanges();
-        }
-        genderRefs.Clear();
-
         foreach (var userRef in userRefs)
         {
             var user = context.Users.FirstOrDefault(u => u.Id == userRef.UserRefDB);
